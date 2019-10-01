@@ -33,3 +33,11 @@ Route::group([
         Route::resource('orders', 'OrderController');
     });
 });
+
+Route::get('{slug}/{id}', 'HomeController@category')->name('category');
+Route::get('san-pham/{slug}/{id}', 'HomeController@product')->name('product');
+Route::get('add-to-cart', 'HomeController@addProductToCart')->name('addToCart');
+Route::get('cart', 'HomeController@cart')->name('cart');
+Route::get('checkout', 'HomeController@checkout')->name('checkout');
+Route::post('cart/create', 'HomeController@createOrder')->name('save_order');
+Route::get('order/detail/{id}', 'HomeController@order')->name('order');

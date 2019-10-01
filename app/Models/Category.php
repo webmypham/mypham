@@ -46,4 +46,21 @@ class Category extends Model
 
         return $builder->paginate();
     }
+
+    public static function getCategory($id) {
+        $builder = DB::table('categories')
+            ->select('categories.*', 'parent.name as parent_name')
+            ->leftJoin('categories as parent', 'categories.id_parent', '=', 'parent.id')
+            ->where('categories.id', '=', $id);
+        return $builder->first();
+    }
+
+    public static function getCategoryChild($id) {
+        $query = DB::table('categories')
+            ->select('categories.*')
+            ->where('id_parent', '=', $id)
+            ->orWhere('id', '=', $id)
+            ->get();
+        return $query->toArray();
+    }
 }

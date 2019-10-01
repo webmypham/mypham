@@ -53,111 +53,51 @@
                     </div>
                 </div>
                 <section class="main-col">
-                    <div class="product-home">
-                        <div class="product-title">
-                            <h2>
-<a href="cham-soc-da-mat">
-                      Chăm sóc da mặt
-                    </a>
-</h2>
-                        </div>
-                        <div class="product-content row">
-                            <div class="col-md-3 hidden-sm hidden-xs">
-                                <div class="banner-top">
-                                    <a href="cham-soc-da-mat">
-                                        <img class="img-responsive" src="https://1.bp.blogspot.com/-Nmpc4xoCH44/WPm3DuKAULI/AAAAAAAAHPw/WJUl5AlQNzIO0MfMWKS2CWETNQyNY4pqwCLcB/s1600/banner_left1.png">
-                                    </a>
-                                </div>
-                                <div class="banner-bottom">
-                                    <img src="https://4.bp.blogspot.com/-He3WmjstKZ4/WPm3hqfGTfI/AAAAAAAAHP0/ljZGQlyPpjAvQyybNYx0FM0_WnF34IXbACLcB/s1600/banner-logo1-1.png">
-                                    <img src="https://2.bp.blogspot.com/-rdJCgP_ummU/WPm3nc_zArI/AAAAAAAAHP8/QOFOaZCxVDsMqfuIXFuqbNTbUdwMuHeyACLcB/s320/banner-logo1-2.png">
-                                    <img src="https://3.bp.blogspot.com/-P_LqHTmVyuQ/WPm342XNSII/AAAAAAAAHQA/PbpfK3CgBGAQc2SwP9w-eBgfSrYUHHnnQCLcB/s1600/banner-logo1-3.png">
-                                    <img src="https://3.bp.blogspot.com/-E4cox6E622o/WPm4Bz38MWI/AAAAAAAAHQE/3J8f19ZJw6cIeQOs96yttj-mW2hbhiiAwCLcB/s320/banner-logo1-4.png">
-                                    <img src="https://2.bp.blogspot.com/-FdgVgaJpE88/WPm4Ikl983I/AAAAAAAAHQI/DC2vnUsMvq0NBTDRGnTH9Uz-jKtkSpbRgCLcB/s320/banner-logo1-5.png">
-                                    <img src="https://1.bp.blogspot.com/-nXc4P-S7mSw/WPm4dr4r8aI/AAAAAAAAHQM/0HyIcXYN0ZAZCAsqPUz_S7PECxxkzwaNQCLcB/s1600/banner-logo1-6.png">
-                                </div>
+                    @foreach ($listProduct as $key => $products)
+                        <div class="product-home">
+                            <div class="product-title">
+                                <h2>
+                                <a href="{{ route('category', ['slug' => str_slug(trim($products['name']), '-'), 'id' => $key ]) }}">{{ $products['name'] }}</a>
+                                </h2>
                             </div>
-                            <div class="col-md-9 col-sm-12 col-xs-12">
-                                <div class="row">
-                                    <div class="col-md-3 col-sm-6 product-item">
-                                        <div class="product-box">
-                                            <div class="product-image">
-                                                <a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html"><img src="https://4.bp.blogspot.com/-T3D5a0ppj5I/WPcAvIZeK-I/AAAAAAAAHOI/WK-OTnUTqtEKX_Rr_GK9pRA0UNn1FYYLACLcB/s320/1461213292862-1373627.jpg" alt="Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite"></a>
-                                                <div class="sale-label sale-top-right">-15%</div>
-                                            </div>
-                                            <h4 class="product-name"><a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html">Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite</a></h4><span class="product-price"><span class="old_price">980,000₫</span> 900,000₫</span>
-                                        </div>
+                            <div class="product-content row">
+                                <div class="col-md-3 hidden-sm hidden-xs">
+                                    <div class="banner-top">
+                                        <a href="cham-soc-da-mat">
+                                            <img class="img-responsive" src="https://1.bp.blogspot.com/-Nmpc4xoCH44/WPm3DuKAULI/AAAAAAAAHPw/WJUl5AlQNzIO0MfMWKS2CWETNQyNY4pqwCLcB/s1600/banner_left1.png">
+                                        </a>
                                     </div>
-                                    <div class="col-md-3 col-sm-6 product-item">
-                                        <div class="product-box">
-                                            <div class="product-image">
-                                                <a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html"><img src="https://4.bp.blogspot.com/-T3D5a0ppj5I/WPcAvIZeK-I/AAAAAAAAHOI/WK-OTnUTqtEKX_Rr_GK9pRA0UNn1FYYLACLcB/s320/1461213292862-1373627.jpg" alt="Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite"></a>
-                                                <div class="sale-label sale-top-right">-15%</div>
-                                            </div>
-                                            <h4 class="product-name"><a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html">Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite</a></h4><span class="product-price"><span class="old_price">980,000₫</span> 900,000₫</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 product-item">
-                                        <div class="product-box">
-                                            <div class="product-image">
-                                                <a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html"><img src="https://4.bp.blogspot.com/-T3D5a0ppj5I/WPcAvIZeK-I/AAAAAAAAHOI/WK-OTnUTqtEKX_Rr_GK9pRA0UNn1FYYLACLcB/s320/1461213292862-1373627.jpg" alt="Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite"></a>
-                                                <div class="sale-label sale-top-right">-15%</div>
-                                            </div>
-                                            <h4 class="product-name"><a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html">Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite</a></h4><span class="product-price"><span class="old_price">980,000₫</span> 900,000₫</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 product-item">
-                                        <div class="product-box">
-                                            <div class="product-image">
-                                                <a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html"><img src="https://4.bp.blogspot.com/-T3D5a0ppj5I/WPcAvIZeK-I/AAAAAAAAHOI/WK-OTnUTqtEKX_Rr_GK9pRA0UNn1FYYLACLcB/s320/1461213292862-1373627.jpg" alt="Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite"></a>
-                                                <div class="sale-label sale-top-right">-15%</div>
-                                            </div>
-                                            <h4 class="product-name"><a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html">Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite</a></h4><span class="product-price"><span class="old_price">980,000₫</span> 900,000₫</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 product-item">
-                                        <div class="product-box">
-                                            <div class="product-image">
-                                                <a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html"><img src="https://4.bp.blogspot.com/-T3D5a0ppj5I/WPcAvIZeK-I/AAAAAAAAHOI/WK-OTnUTqtEKX_Rr_GK9pRA0UNn1FYYLACLcB/s320/1461213292862-1373627.jpg" alt="Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite"></a>
-                                                <div class="sale-label sale-top-right">-15%</div>
-                                            </div>
-                                            <h4 class="product-name"><a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html">Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite</a></h4><span class="product-price"><span class="old_price">980,000₫</span> 900,000₫</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 product-item">
-                                        <div class="product-box">
-                                            <div class="product-image">
-                                                <a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html"><img src="https://4.bp.blogspot.com/-T3D5a0ppj5I/WPcAvIZeK-I/AAAAAAAAHOI/WK-OTnUTqtEKX_Rr_GK9pRA0UNn1FYYLACLcB/s320/1461213292862-1373627.jpg" alt="Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite"></a>
-                                                <div class="sale-label sale-top-right">-15%</div>
-                                            </div>
-                                            <h4 class="product-name"><a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html">Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite</a></h4><span class="product-price"><span class="old_price">980,000₫</span> 900,000₫</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 product-item">
-                                        <div class="product-box">
-                                            <div class="product-image">
-                                                <a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html"><img src="https://4.bp.blogspot.com/-T3D5a0ppj5I/WPcAvIZeK-I/AAAAAAAAHOI/WK-OTnUTqtEKX_Rr_GK9pRA0UNn1FYYLACLcB/s320/1461213292862-1373627.jpg" alt="Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite"></a>
-                                                <div class="sale-label sale-top-right">-15%</div>
-                                            </div>
-                                            <h4 class="product-name"><a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html">Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite</a></h4><span class="product-price"><span class="old_price">980,000₫</span> 900,000₫</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 product-item">
-                                        <div class="product-box">
-                                            <div class="product-image">
-                                                <a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html"><img src="https://4.bp.blogspot.com/-T3D5a0ppj5I/WPcAvIZeK-I/AAAAAAAAHOI/WK-OTnUTqtEKX_Rr_GK9pRA0UNn1FYYLACLcB/s320/1461213292862-1373627.jpg" alt="Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite"></a>
-                                                <div class="sale-label sale-top-right">-15%</div>
-                                            </div>
-                                            <h4 class="product-name"><a href="https://myphamaumy.blogspot.com/2017/04/bo-cham-soc-da-chiet-xuat-au-xanh.html">Bộ chăm sóc da chiết xuất đậu xanh Coreana Senite</a></h4><span class="product-price"><span class="old_price">980,000₫</span> 900,000₫</span>
-                                        </div>
+                                    <div class="banner-bottom">
+                                        <img src="https://4.bp.blogspot.com/-He3WmjstKZ4/WPm3hqfGTfI/AAAAAAAAHP0/ljZGQlyPpjAvQyybNYx0FM0_WnF34IXbACLcB/s1600/banner-logo1-1.png">
+                                        <img src="https://2.bp.blogspot.com/-rdJCgP_ummU/WPm3nc_zArI/AAAAAAAAHP8/QOFOaZCxVDsMqfuIXFuqbNTbUdwMuHeyACLcB/s320/banner-logo1-2.png">
+                                        <img src="https://3.bp.blogspot.com/-P_LqHTmVyuQ/WPm342XNSII/AAAAAAAAHQA/PbpfK3CgBGAQc2SwP9w-eBgfSrYUHHnnQCLcB/s1600/banner-logo1-3.png">
+                                        <img src="https://3.bp.blogspot.com/-E4cox6E622o/WPm4Bz38MWI/AAAAAAAAHQE/3J8f19ZJw6cIeQOs96yttj-mW2hbhiiAwCLcB/s320/banner-logo1-4.png">
+                                        <img src="https://2.bp.blogspot.com/-FdgVgaJpE88/WPm4Ikl983I/AAAAAAAAHQI/DC2vnUsMvq0NBTDRGnTH9Uz-jKtkSpbRgCLcB/s320/banner-logo1-5.png">
+                                        <img src="https://1.bp.blogspot.com/-nXc4P-S7mSw/WPm4dr4r8aI/AAAAAAAAHQM/0HyIcXYN0ZAZCAsqPUz_S7PECxxkzwaNQCLcB/s1600/banner-logo1-6.png">
                                     </div>
                                 </div>
-                                <div class="view-more">
-                                    <a href="cham-soc-da-mat"> Xem thêm </a>
+                                <div class="col-md-9 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        @foreach ($products['products'] as $product)
+                                            <div class="col-md-3 col-sm-6 product-item">
+                                                <div class="product-box">
+                                                    <div class="product-image">
+                                                        <a href="{{ route('product', ['slug' => str_slug(trim($product->name), '-'), 'id' => $product->id ]) }}"><img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->name }}"></a>
+                                                        <div class="sale-label sale-top-right">-15%</div>
+                                                    </div>
+                                                    <h4 class="product-name"><a href="{{ route('product', ['slug' => str_slug(trim($product->name), '-'), 'id' => $product->id ]) }}">{{ $product->name }}</a></h4><span class="product-price"><span class="old_price">{{ number_format($product->price, 0) }}₫</span> {{ number_format($product->price, 0) }}₫</span>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="view-more">
+                                        <a href="{{ route('category', ['slug' => str_slug(trim($products['name']), '-'), 'id' => $key ]) }}"> Xem thêm </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
+                    
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12 col-xs-12 hidden-xs">

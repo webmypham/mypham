@@ -59,8 +59,8 @@
                             </div>
                         <div class="form-group">
                             <label for="input_image">Hình ảnh cũ</label><br />
-                            @if ($product->image)
-                            <img src="{{ url('/').'/upload/'.$product->image }}" style="width: 100%;max-width: 250px;">
+                            @if (Storage::disk()->exists($product->image))
+                            <img src="{{ asset('storage/'.$product->image) }}" style="width: 100%;max-width: 250px;">
                             @endif
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>

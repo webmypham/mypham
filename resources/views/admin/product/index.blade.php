@@ -81,8 +81,8 @@
                             </td>
                             <td>{{ $value->category_name }}</td>
                             <td>
-                                @if ($value->image)
-                                <img class="img-circle avatar" src="{{ url('/upload/'.$value->image) }}" width="50px;">
+                                @if (Storage::disk()->exists($value->image))
+                                    <img class="img-circle avatar" src="{{ asset('storage/'.$value->image) }}" width="50px;">
                                 @endif
                             </td>
                             <td>{{ $value->quantity }}</td>

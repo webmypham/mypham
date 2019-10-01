@@ -443,10 +443,6 @@ button {
 	display: table;
 	margin: 0
 }
-.table div {
-	display: table-cell;
-	vertical-align: middle
-}
 .parent {
 	display: table;
 	float: left
@@ -3350,7 +3346,7 @@ input[type="email"] {
 th {
     padding: 6px;
     text-align: left;
-    border: 1px solid #eee
+    /* border: 1px solid #eee */
 }
 .cart_table {
     background-color: #fff
@@ -3419,7 +3415,7 @@ th {
         float: left!important
     }
 }
-.item-menu img {
+#icon-cart {
     height: 20px;
     margin: 5px 0 7px;
     margin-left: -3px
@@ -3447,17 +3443,16 @@ span.cart-counter {
     color: #333
 }
 .top-cart-content {
-    display: none;
-    width: 300px;
     position: absolute;
+    width: 270px;
     top: 100%;
     right: 0;
+    z-index: 1024;
+    margin: 0;
     background: #fff;
-    padding: 0;
-    text-align: left;
-    box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.4);
-    z-index: 999;
-    color: #333
+    display: none;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
 }
 .top-subtotal {
     color: #333;
@@ -4069,20 +4064,6 @@ button.button#empty_cart_button:before {
     float: right;
     margin-left: 8px
 }
-.cart .button,
-.cart .btn {
-    border: 1px #ddd solid;
-    background: #fff;
-    padding: 8px 12px;
-    transition: color 300ms ease-in-out 0s, background-color 300ms ease-in-out 0s, background-position 300ms ease-in-out 0;
-    text-transform: uppercase
-}
-.cart .button:hover,
-.cart .btn:hover {
-    border: 1px solid #da1313;
-    background: #da1313;
-    color: #FFF
-}
 .cart-collaterals h3 {
     font-size: 15px;
     margin-bottom: 15px;
@@ -4112,13 +4093,6 @@ button.button#empty_cart_button:before {
     border: medium none!important;
     box-shadow: none!important;
     color: #333!important
-}
-.checkout {
-    color: #666;
-    text-align: center;
-    list-style: none;
-    padding: 0;
-    margin: 0
 }
 button.button.btn-proceed-checkout {
     background: #da1313;
@@ -4627,3 +4601,286 @@ button.button.btn-continue:hover {
 /* CSS Back To Top */
 #backtotop { overflow: hidden; position: fixed; z-index: 90; right: 10px; bottom: 10px; display: none; width: 45px; height: 40px; line-height: 30px; color: #eee; text-align: center; background-color: #222222; font-size: 20px; text-indent: 0; cursor: pointer; -webkit-transform: translateZ(0); padding: 4px 0 0; text-align: center; transition: all .5s }
 #backtotop:hover { background-color: #e772a8; color: #fff }
+
+#column-left {
+	/* background: #F7F7F7 !important; */
+	padding: 20px 0 20px 20px;
+    width: 25%;
+    float: left;
+    background: #f2f2f2 !important;
+}
+
+#column-left .box-category {
+	/* background: #fff; */
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.side-column li {
+    list-style: none;
+    position: relative;
+}
+
+.side-column .box-category, .side-column .box-content, .side-column .box-content > div, .side-column .box-content > ul > li:last-of-type, .side-column .oc-module .product-grid-item:last-of-type {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    border-radius: inherit;
+}
+
+.side-column .box-content li a:hover, .side-column .box-category li a:hover, .flyout-menu .flyout > ul > li:hover > a, .flyout-menu .flyout > ul > li > a:active, .side-column .box-content li a.active, .side-column .box-category li a.active {
+    background-color: rgb(255, 255, 255);
+}
+
+.heading-title {
+	text-align: center !important;
+    border-bottom: none !important;
+    color: #303030 !important;
+    margin-bottom: 0px !important;
+    white-space: inherit !important;
+    line-height: 30px;
+    margin-bottom: 15px !important;
+    box-sizing: border-box;
+    background-color: rgb(242,242,242);
+    font-weight: bold;
+    font-family: Tahoma,Geneva,sans-serif;
+    font-style: normal;
+    font-size: 20px;
+    text-transform: none;
+    /* color: rgb(0, 0, 0); */
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.item-single .item-details .table tr:first-child th {
+    width: 150px;
+}
+
+.item-single .item-details .table tr th, .item-single .item-details .table tr td {
+    border-top: 0;
+}
+
+.item-single .item-details .table tr th {
+    color: #999;
+}
+
+.br-white {
+    background-color: #ffffff !important;
+}
+
+.well {
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    /* background-color: #f5f5f5; */
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.item-single .item-details .table {
+    margin-bottom: 0px;
+}
+
+.table .table {
+    background-color: #fff;
+}
+
+.item-single .item-details h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-size: 18px;
+    border-top: 1px solid #ddd;
+}
+
+.inner-content .navi {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-bottom: 0;
+    /* border-top: 0; */
+    box-shadow: 0 1px 2px #ddd;
+}
+
+.navi ul li a {
+    display: block;
+    padding: 12px 14px;
+    background: #fafafa;
+    border-bottom: 1px solid #ddd;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 0;
+}
+
+.header-top .dd-menu .checkout {
+    position: absolute;
+    width: 270px;
+    top: 100%;
+    right: 0;
+    z-index: 1024;
+    margin: 0;
+    background: #fff;
+    display: none;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+#nav .dd-menu ul li {
+    float: none;
+}
+
+.dd-menu .checkout .checkout-item, .dd-menu .login .login-item {
+    padding: 10px;
+    border-bottom: 1px dashed #eee;
+}
+
+.checkout {
+    position: absolute;
+    width: 270px;
+    top: 100%;
+    right: 0;
+    z-index: 1024;
+    margin: 0;
+    background: #fff;
+    display: none;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+	box-shadow: 0 6px 12px rgba(0,0,0,.175);
+	text-align: left;
+}
+
+.dd-menu .checkout .checkout-item img {
+    width: 100%;
+    max-width: 60px;
+    max-height: 60px;
+    border-radius: 0;
+    float: left;
+}
+
+.dd-menu .checkout .checkout-item h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    margin-left: 70px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.dd-menu .checkout .checkout-item h3 a{
+	text-decoration: none;
+	text-transform: none;
+	text-align: left;
+}
+
+.dd-menu .checkout .checkout-item a {
+    display: inline;
+    padding: 0;
+    line-height: 1;
+    border: none;
+    background: transparent;
+}
+
+.img-thumbnail {
+    border-radius: 0 !important;
+}
+
+.img-thumbnail {
+    padding: 4px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+/* css left navi */
+.navi ul li a i {
+    width: 14px;
+    margin-right: 7px;
+    font-size: 14px;
+}
+
+.navi ul li a{
+    text-decoration: none;
+}
+
+/* css cart */
+.inner-content {
+    margin-bottom: 30px;
+    padding-top: 40px;
+}
+.cart {
+    margin-bottom: 40px;
+}
+.inner-content .inner-main h2 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+}
+.text-right {
+    text-align: right;
+}
+.cart td.item-input {
+    width: 150px;
+}
+.form-control {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    box-shadow: none !important;
+}
+.btn {
+    border-radius: 0;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+.main-content h4 {
+    margin-top: 30px;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+    font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: #777;
+}
+
+.cart img.item {
+    max-height: 80px;
+    box-shadow: 0 0 3px #ddd;
+}

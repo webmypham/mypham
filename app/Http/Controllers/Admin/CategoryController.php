@@ -60,7 +60,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::getCategory($id);
+        $categoriesParent = Category::getParent();
+        return view('admin.category.detail', compact('category', 'categoriesParent'));
     }
 
     /**

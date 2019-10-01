@@ -52,8 +52,8 @@
                     </div>
                     <div class="form-group">
                         <label for="input_image">Hình ảnh</label><br />
-                        @if ($product->image)
-                        <img src="{{ url('/').'/upload/'.$product->image }}" style="width: 100%;max-width: 250px;">
+                        @if (Storage::disk()->exists($product->image))
+                        <img src="{{ asset('storage/'.$product->image) }}" style="width: 100%;max-width: 250px;">
                         @endif
                     </div>
                     <a href="{{ route('products.edit', ['product' => $product->id]) }}"><button type="button" class="btn btn-primary">Edit</button></a>

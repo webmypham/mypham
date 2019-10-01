@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use DateTime;
+use Faker\Provider\Image;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -54,8 +56,7 @@ class ProductController extends Controller
         $file = $request->file('image');
         $image = null;
         if ($file) {
-            $image = $this->renameFile($file->getClientOriginalName());
-            $file->move('upload', $image);
+            $image = $file->store('uploads/product');
         }
         $newProduct['image'] = $image;
         Product::create($newProduct);
@@ -108,8 +109,8 @@ class ProductController extends Controller
         $file = $request->file('image');
         $image = null;
         if ($file) {
-            $image = $this->renameFile($file->getClientOriginalName());
-            $file->move('upload', $image);
+            $image = $file->store('uploads/product');
+            // Storage
             $oldImage = Product::find($id)->image;
             if (file_exists('upload/'.$oldImage)) {
                 File::delete('upload/'.$oldImage);

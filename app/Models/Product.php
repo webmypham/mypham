@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\Category;
 
 class Product extends Model
 {
@@ -24,5 +25,21 @@ class Product extends Model
             $query->where('products.id_category', '=', $searchData['id_category']);
         }
         return $query->paginate();
+    }
+
+    public static function getItemByCategory($id) {
+        $query = DB::table('products')
+                ->orderBy('id', 'DESC');
+        $category = Category::find($id);
+        if ($category->is_parent) {
+            $categories = Category::getCategoryChild($id);
+            foreach ($categories as $key => $value) {
+                $idCategories[] = $value->id;
+            }
+        } else {
+            $idCategories[] = $id;
+        }
+        $query->whereIn('id_category', $idCategories);
+        return $query->paginate(12);
     }
 }
