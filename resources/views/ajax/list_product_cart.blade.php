@@ -8,7 +8,7 @@
                 <a href="{{ route('product', ['slug' => str_slug(trim($item['product']->name), '-'), 'id' => $item['product']->id ]) }}">{{ $item['product']->name }} x  {{ $item['quantity'] }}</a>
             </h3>
             <span class="price red pull-right">
-                <em>Giá tiền:</em> 589000 
+                <em>Giá tiền:</em> {{ $item['quantity'] * $item['product']->price }} 
                 <sup>đ</sup>
             </span>
             <div class="clearfix"></div>

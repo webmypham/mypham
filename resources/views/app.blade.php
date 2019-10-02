@@ -122,15 +122,25 @@
                             </div>
                             <div class="col-md-1 col-sm-1 col-xs-12 ">
                                 <div class="item-menu">
-                                    <a href="/p/gio-hang.html">
-                                        <span class="cart-counter simpleCart_quantity">0</span>
+                                    <a href="{{ route('cart') }}">
+                                        <span class="cart-counter simpleCart_quantity">
+                                            @if (Session::get('cart'))
+                                            {{ count(Session::get('cart')) }}
+                                            @else
+                                            0
+                                            @endif
+                                        </span>
                                         <img id="icon-cart" src="https://1.bp.blogspot.com/-BEJFhm2rQ8o/WPm0OKSRqXI/AAAAAAAAHPQ/CaExJP4W-wYVTHM1iK62SsNka7-1nckawCLcB/s1600/cart.png">
                                     </a>
                                     <div class="cart-droplist hidden-xs">
                                         <div class="top-cart-content arrow_box dd-menu" style="display: none;">
                                             <div class="block-subtitle">
                                                 <i aria-hidden="true" class="fa fa-check"></i>
-                                                <span class="cart-counter-list simpleCart_quantity">0</span> Sản phẩm trong giỏ hàng
+                                                <span class="cart-counter-list simpleCart_quantity">
+                                                    @if (Session::get('cart'))
+                                                    {{ count(Session::get('cart')) }}
+                                                    @endif
+                                                </span> Sản phẩm trong giỏ hàng
                                             </div>
                                            <div id="list-cart">
                                                @include('ajax.list_product_cart')
