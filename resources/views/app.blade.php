@@ -96,7 +96,7 @@
                                         </li>
                                         @foreach (get_menu_prent() as $menu)
                                             <li class="dropdown">
-                                                <a class="dropdown-toggle" href="/search/label/san-pham">
+                                                <a class="dropdown-toggle" href="{{ route('category', ['slug' => str_slug(trim($menu->name), '-'), 'id' => $menu->id ]) }}">
                                                     {{ $menu->name }} 
                                                     @if (count(get_menu_child($menu->id)) > 0)
                                                     <i class="fa fa-angle-down"></i>
@@ -105,7 +105,7 @@
                                                 @if (count(get_menu_child($menu->id)) > 0)
                                                 <ul class="dropdown-menu" role="menu">
                                                     @foreach (get_menu_child($menu->id) as $menuChilds)
-                                                    <li><a href="/sua-rua-mat">{{ $menuChilds->name }}</a></li>
+                                                    <li><a href="{{ route('category', ['slug' => str_slug(trim($menuChilds->name), '-'), 'id' => $menuChilds->id ]) }}">{{ $menuChilds->name }}</a></li>
                                                     @endforeach
                                                 </ul>
                                                 @endif
