@@ -40,7 +40,9 @@ class HomeController extends Controller
 
     public function product($slug, $id) {
         $product = Product::find($id);
-        return view('detail_product', compact('product'));
+        $products = Product::where('id_category', $product->id_category)->get()->toArray();
+        $similarProducts = array_chunk($products, 6);
+        return view('detail_product', compact('product', 'similarProducts'));
     }
 
     public function addProductToCart(Request $request) {
