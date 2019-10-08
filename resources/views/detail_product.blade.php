@@ -5,33 +5,13 @@
 	<div class="extended-container">
 		<div class="container j-container">
 			<div class="row product-content">
-				<div id="column-left" class="col-md-2 hidden-sm hidden-xs side-column">
-					<div id="journal-side-category-1331324061" class="journal-side-category-113 box side-category side-category-left side-category-accordion">
-						<div class="box-heading">Dưỡng Da</div>
-						<div class="box-category">
-							<ul>
-								<li>
-									<a href="https://www.kosmebox.com/tay-trang/" class="">Tẩy Trang</a>
-								</li>
-								<li>
-									<a href="https://www.kosmebox.com/sua-rua-mat/" class="">Sữa Rửa Mặt</a>
-								</li>
-								<li>
-									<a href="https://www.kosmebox.com/se-khit-lo-chan-long/" class="">Se Khít Lỗ Chân Lông</a>
-								</li>
-								<li>
-									<a href="https://www.kosmebox.com/chong-nhan-chong-lao-hoa/" class="">Chống Lão Hoá</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-7 col-sm-12 col-xs-12">
+
+				<div class="col-md-9 col-sm-12 col-xs-12">
 					<div class="row">
-						<div class="col-xs-12 col-sm-4">
-							<img src="{{ url('storage/'. $product->image) }}" height="200px" id="zoom1" class="cloudzoom img-responsive full-width img-thumbnail" rel="zoomWidth:450,zoomHeight:450" data-cloudzoom="zoomImage: style="user-select: none;">
+						<div class="col-xs-12 col-sm-5">
+							<img src="{{ url('storage/'. $product->image) }}" height="250px" id="zoom1" class="cloudzoom img-responsive full-width img-thumbnail" rel="zoomWidth:450,zoomHeight:450" data-cloudzoom="zoomImage: style="user-select: none;">
 						</div>
-						<div class="col-xs-12 col-sm-8">
+						<div class="col-xs-12 col-sm-7">
 							<div class="item-details">
 								<!-- heading -->
 								<h1 itemprop="name">{{ $product->name }}</h1>
@@ -93,51 +73,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
-
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="sticky-scroll-box">
-                        <div id="text-15" class="sidebar-widget widget_text">
-                            <div class="textwidget">
-                                <ul class="benifit-icon">
-                                    <li class="icon_list_item">
-                                        <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-nuty.png') }}">
-                                        <div class="icon_description_text">
-                                            <p class="sun-gtmh-title"><strong>HÀNG CHÍNH HÃNG 100%</strong></p>
-                                            <p class="sun-gtmh-desc">Tất cả mặt hàng đều có bill order từ nước ngoài</p>
-                                        </div>
-                                    </li>
-                                    <li class="icon_list_item">
-                                        <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-gift.png') }}">
-                                        <div class="icon_description_text">
-                                            <p class="sun-gtmh-title"><strong>TÍCH ĐIỂM ĐẾN 10% KHI MUA TẠI CỬA HÀNG</strong></p>
-                                            <p class="sun-gtmh-desc">Và tặng quà khi mua online </p>
-                                        </div>
-                                    </li>
-                                    <li class="icon_list_item">
-                                        <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-ship.png') }}">
-                                        <div class="icon_description_text">
-                                            <p class="sun-gtmh-title"><strong> GIAO HÀNG TOÀN QUỐC</strong></p>
-                                            <p class="sun-gtmh-desc">Và hỗ trợ phí ship rẻ nhất cho các quận, tỉnh còn lại.</p>
-                                        </div>
-                                    </li>
-                                    <li class="icon_list_item">
-                                        <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-home.png') }}">
-                                        <div class="icon_description_text">
-                                            <p class="sun-gtmh-title" style="margin-top: 15px;"><strong>HỆ THỐNG CỬA HÀNG THUẬN TIỆN MUA SẮM</strong></p>
-
-                                        </div>
-                                    </li>
-                                </ul>
-                                <p style="color: #3c2665;font-size: 12px;text-align: center;padding: 10px 0 10px 0px;border-top: 1px solid #DDD;margin: 0;">ĐẠI LÝ PHÂN PHỐI CHÍNH THỨC 100 THƯƠNG HIỆU UY TÍN TRÊN THẾ GIỚI</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-			</div>
-            <div class="row">
-                <div class="product-tabs-wrapper col-sm-12 hidden-xs mt-20 mb-20 pl-0">
+                    <div class="product-tabs-wrapper col-sm-12 hidden-xs mt-30 mb-20 pl-0">
                         <ul  class="nav nav-pills">
                             <li class="active">
                                 <a  class="plr-15" href="#description" data-toggle="tab">Chi tiết</a>
@@ -244,7 +180,74 @@
                             </div>
                         </div>
                     </div>
-            </div>
+				</div>
+
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="sticky-scroll-box">
+                            <div id="text-15" class="sidebar-widget widget_text">
+                                <div class="textwidget">
+                                    <ul class="benifit-icon">
+                                        <li class="icon_list_item">
+                                            <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-nuty.png') }}">
+                                            <div class="icon_description_text">
+                                                <p class="sun-gtmh-title"><strong>HÀNG CHÍNH HÃNG 100%</strong></p>
+                                                <p class="sun-gtmh-desc">Tất cả mặt hàng đều có bill order từ nước ngoài</p>
+                                            </div>
+                                        </li>
+                                        <li class="icon_list_item">
+                                            <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-gift.png') }}">
+                                            <div class="icon_description_text">
+                                                <p class="sun-gtmh-title"><strong>TÍCH ĐIỂM ĐẾN 10% KHI MUA TẠI CỬA HÀNG</strong></p>
+                                                <p class="sun-gtmh-desc">Và tặng quà khi mua online </p>
+                                            </div>
+                                        </li>
+                                        <li class="icon_list_item">
+                                            <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-ship.png') }}">
+                                            <div class="icon_description_text">
+                                                <p class="sun-gtmh-title"><strong> GIAO HÀNG TOÀN QUỐC</strong></p>
+                                                <p class="sun-gtmh-desc">Và hỗ trợ phí ship rẻ nhất cho các quận, tỉnh còn lại.</p>
+                                            </div>
+                                        </li>
+                                        <li class="icon_list_item">
+                                            <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-home.png') }}">
+                                            <div class="icon_description_text">
+                                                <p class="sun-gtmh-title" style="margin-top: 15px;"><strong>HỆ THỐNG CỬA HÀNG THUẬN TIỆN MUA SẮM</strong></p>
+
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <p style="color: #3c2665;font-size: 12px;text-align: center;padding: 10px 0 10px 0px;border-top: 1px solid #DDD;margin: 0;">ĐẠI LÝ PHÂN PHỐI CHÍNH THỨC 100 THƯƠNG HIỆU UY TÍN TRÊN THẾ GIỚI</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="column-left" class="col-md-12 hidden-sm hidden-xs side-column mt-20">
+                            <div id="journal-side-category-1331324061" class="journal-side-category-113 box side-category side-category-left side-category-accordion">
+                                <div class="box-heading">Dưỡng Da</div>
+                                <div class="box-category">
+                                    <ul>
+                                        <li>
+                                            <a href="https://www.kosmebox.com/tay-trang/" class="">Tẩy Trang</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.kosmebox.com/sua-rua-mat/" class="">Sữa Rửa Mặt</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.kosmebox.com/se-khit-lo-chan-long/" class="">Se Khít Lỗ Chân Lông</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.kosmebox.com/chong-nhan-chong-lao-hoa/" class="">Chống Lão Hoá</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+			</div>
 
             <div class="row mt-30">
                 <div class="col-md-12">

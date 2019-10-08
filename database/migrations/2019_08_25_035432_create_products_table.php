@@ -18,10 +18,10 @@ class CreateProductsTable extends Migration
             $table->bigInteger('id_category');
             $table->string('sku', 50)->nullable();
             $table->string('name');
-            $table->string('description');
+            $table->string('description', 1000);
             $table->text('detail');
             $table->string('image');
-            $table->float('price');
+            $table->decimal('price', 19);
             $table->integer('quantity');
             $table->integer('shipping_quantity');
             $table->timestamps();
