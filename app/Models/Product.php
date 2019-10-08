@@ -42,4 +42,8 @@ class Product extends Model
         $query->whereIn('id_category', $idCategories);
         return $query->paginate(12);
     }
+
+    public function category() {
+        return $this->belongsTo('App\Models\Category', 'id_category', 'id');
+    }
 }

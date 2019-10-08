@@ -123,7 +123,7 @@
                             <div class="col-md-1 col-sm-1 col-xs-12 ">
                                 <div class="item-menu">
                                     <a href="{{ route('cart') }}">
-                                        <span class="cart-counter simpleCart_quantity">
+                                        <span class="cart-counter simpleCart_quantity" id="cart-count">
                                             @if (Session::get('cart'))
                                             {{ count(Session::get('cart')) }}
                                             @else

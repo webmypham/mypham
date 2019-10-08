@@ -118,4 +118,12 @@ class HomeController extends Controller
             ->get();
         return view('order', compact(['order', 'order_details', 'order_status']));
     }
+
+    public function getCartCount() {
+        $count = 0;
+        if (Session::has('cart')) {
+            $count = count(Session::get('cart'));
+        }
+        return $count;
+    }
 }

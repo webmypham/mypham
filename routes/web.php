@@ -41,3 +41,4 @@ Route::get('cart', 'HomeController@cart')->name('cart');
 Route::get('checkout', 'HomeController@checkout')->name('checkout');
 Route::post('cart/create', 'HomeController@createOrder')->name('save_order');
 Route::get('order/detail/{id}', 'HomeController@order')->name('order');
+Route::get('get-cart-count', 'HomeController@getCartCount')->name('cartCount');

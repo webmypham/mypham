@@ -140,7 +140,7 @@
                 <div class="product-tabs-wrapper col-sm-12 hidden-xs mt-20 mb-20 pl-0">
                         <ul  class="nav nav-pills">
                             <li class="active">
-                                <a  class="plr-15" href="#description" data-toggle="tab">Mô tả</a>
+                                <a  class="plr-15" href="#description" data-toggle="tab">Chi tiết</a>
                             </li>
                             <li ><a class="plr-15" href="#product-info" data-toggle="tab">Thông tin sản phẩm</a>
                             </li>
@@ -152,7 +152,7 @@
                             <div class="tab-pane active" id="description">
                                 <div class="basel-tab-wrapper">
                                     <div class="mt-20">
-                                        {{ $product->description }}
+                                        {!! $product->detail !!}
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                                             <tbody>
                                             <tr>
                                                 <td>Mã: </td>
-                                                <td> <span class="sku">N/A</span></td>
+                                                <td> <span class="sku">{{ $product->sku }}</span></td>
                                             </tr>
                                             <tr>
                                                 <td><span class="posted_in">Tên</span></td>
@@ -171,22 +171,11 @@
                                             </tr>
                                             <tr>
                                                 <td><span class="posted_in">Danh mục:</span></td>
-                                                <td><a href="https://nuty.vn/danh-muc/cham-soc-toc" rel="tag">Chăm sóc tóc</a>, <a href="https://nuty.vn/danh-muc/cham-soc-toc/dau-goi" rel="tag">Dầu gội</a>, <a href="https://nuty.vn/danh-muc/cham-soc-toc/dau-xa" rel="tag">Dầu xả</a>, <a href="https://nuty.vn/danh-muc/cham-soc-toc/set-dau-goi" rel="tag">Set dầu gội</a></td>
+                                                <td><a rel="tag">{{ $product->category->name ?? '' }}</a></td>
                                             </tr>
                                             <tr>
-                                                <th class="woocommerce-product-attributes-item__label">Loại</th>
-                                                <td class="woocommerce-product-attributes-item__value"><p>Kerasys Damage Clinic, Kerasys Scalp Clinic, Kerasys Volume Clinic</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="woocommerce-product-attributes-item__label">Dung tích</th>
-                                                <td class="woocommerce-product-attributes-item__value"><p>600ml</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="woocommerce-product-attributes-item__label">Xuất xứ</th>
-                                                <td class="woocommerce-product-attributes-item__value"><p>Hàn Quốc</p>
-                                                </td>
+                                                <td><span class="posted_in">Mô tả:</span></td>
+                                                <td><a rel="tag">{{ $product->description }}</a></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -197,7 +186,7 @@
                                 <div id="reviews" class="woocommerce-Reviews">
                                     <div id="comments" class="mt-20 ">
                                         <h2 class="woocommerce-Reviews-title">
-                                            1 đánh giá cho <span>Bộ 2 Dầu Gội + 1 Dầu Xả Kerasys (600ml/chai)</span></h2>
+                                            1 đánh giá cho <span>{{ $product->name }}</span></h2>
 
                                         <ol class="commentlist">
                                             <li class="comment byuser comment-author-phansang even thread-even depth-1" id="li-comment-7865">
@@ -316,6 +305,13 @@
 				},
 				success: function(data) {
 					$('#list-cart').html(data);
+                    $.ajax({
+                        url: "{{ route('cartCount') }}",
+                        success: function( response ) {
+                            console.log(response);
+                            $('#cart-count').text(response);
+                        }
+                    });
 				}
 			});
 		}

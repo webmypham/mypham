@@ -5185,7 +5185,7 @@ textarea {
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
     color: #fff;
-    background-color: #3c2665;
+    background-color: #da1313;
 }
 .nav-pills>li>a {
     border-radius: 0px;
@@ -5228,7 +5228,7 @@ textarea {
     margin-bottom: 30px;
     text-transform: uppercase;
     position: relative;
-    color: #3C2665;
+    color: #da1313;
 }
 
 .carousel {
