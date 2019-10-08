@@ -12,6 +12,12 @@
     <section class="content">
         <div class="row">
             <!-- general form elements -->
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title"> Thêm sản phẩm </h3>
@@ -20,6 +26,10 @@
                 <!-- form start -->
                 <form role="form" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                     <div class="box-body">
+                        <div class="form-group">
+                            <label for="input_name">Mã sản phẩm</label>
+                            <input type="text" class="form-control" id="input_sku" name="sku" placeholder="Mã sản phẩm" value="{{ old('sku') }}">
+                        </div>
                         <div class="form-group">
                             <label for="input_name">Tên sản phẩm</label>
                             <input type="text" class="form-control" id="input_name" name="name" placeholder="Tên sản phẩm" value="{{ old('name') }}">

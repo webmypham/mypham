@@ -40,7 +40,9 @@ class HomeController extends Controller
 
     public function product($slug, $id) {
         $product = Product::find($id);
-        return view('detail_product', compact('product'));
+        $products = Product::where('id_category', $product->id_category)->get()->toArray();
+        $similarProducts = array_chunk($products, 6);
+        return view('detail_product', compact('product', 'similarProducts'));
     }
 
     public function addProductToCart(Request $request) {
@@ -115,5 +117,13 @@ class HomeController extends Controller
             ->where('id_order', $id)
             ->get();
         return view('order', compact(['order', 'order_details', 'order_status']));
+    }
+
+    public function getCartCount() {
+        $count = 0;
+        if (Session::has('cart')) {
+            $count = count(Session::get('cart'));
+        }
+        return $count;
     }
 }
