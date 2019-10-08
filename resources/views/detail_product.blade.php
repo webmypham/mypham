@@ -269,7 +269,7 @@
                                     <div class="col-md-2">
                                         <a href="#">
                                             <img src="{{ url('/storage') . '/' . $productItem['image'] }}" alt="Image" style="max-width:100%; height: 150px" />
-                                            <p class="text-center" style="color: #000; margin-bottom: 0">{{ $productItem['name'] }}</p>
+                                            <p class="text-center" style="color: #000; margin-bottom: 0">{{ Str::limit($productItem['name'], 40) }}</p>
                                             <p class="text-center" style="color: #3C2665; font-weight: bold; margin-top: 0">{{ number_format($productItem['price'], 0) }} đ</p>
                                         </a>
                                     </div>
