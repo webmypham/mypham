@@ -130,7 +130,7 @@
                                             <a class="dropdown-toggle" href="/search/label/san-pham">Liên hệ </a>
                                         </li>
                                         <li class="">
-                                            <a href="/search/label/tin-tuc">Tin tức</a>
+                                            <a href="{{ url('/news') }}">Tin tức</a>
                                         </li>
                                     </ul>
                                 </div>

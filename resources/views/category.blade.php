@@ -19,7 +19,7 @@
                                     <div class="sale-label sale-top-right">-15%</div>
                                 </div>
                                 <h4 class="product-name">
-                                    <a href="{{ route('product', ['slug' => str_slug(trim($product->name), '-'), 'id' => $product->id ]) }}">{{ $product->name }}</a>
+                                    <a href="{{ route('product', ['slug' => str_slug(trim($product->name), '-'), 'id' => $product->id ]) }}">{{ Str::limit($product->name, 40) }}</a>
                                 </h4>
                                 <span class="product-price"><span class="old_price">{{ number_format($product->price, 0) }}₫</span> {{ number_format($product->price, 0) }}₫</span>
                             </div>

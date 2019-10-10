@@ -31,8 +31,14 @@ Route::group([
 
         // orders
         Route::resource('orders', 'OrderController');
+
+        // news
+        Route::resource('news', 'NewsController');
     });
 });
+
+Route::get('news', 'HomeController@news')->name('user.news');
+Route::get('news/{id}', 'HomeController@newsDetail')->name('user.newsDetail');
 
 Route::get('{slug}/{id}', 'HomeController@category')->name('category');
 Route::get('san-pham/{slug}/{id}', 'HomeController@product')->name('product');
@@ -51,6 +57,5 @@ Route::get('logout', 'HomeController@logout')->name('user.logout');
 
 Route::post('comment', 'HomeController@comment')->name('user.comment');
 
-Route::get('news', 'HomeController@news')->name('user.news');
-Route::get('new/{id}', 'HomeController@newsDetail')->name('user.newsDetail');
+
 

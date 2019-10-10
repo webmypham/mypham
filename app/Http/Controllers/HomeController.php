@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\News;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
@@ -209,11 +210,13 @@ class HomeController extends Controller
 
     public function news()
     {
-        return view('news');
+        $news = News::paginate(4);
+        return view('news', compact('news'));
     }
 
-    public function newsDetail()
+    public function newsDetail(Request $request, $id)
     {
-        return view('newsDetail');
+        $news = News::find($id);
+        return view('newsDetail', compact('news'));
     }
 }

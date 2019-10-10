@@ -6,39 +6,13 @@
 		<div class="container j-container">
 			<div class="row product-content">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 news_post_loop">
-                    @foreach ($news as $newsItem)
-                        <div class="row mt-20">
-                            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                                <div class="news_post_loop_img">
-                                    <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">
-                                        <img itemprop="image" src="{{ url('storage/' . $newsItem->thumbnail) }}" alt="" width="100%">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                <div class="news_post_loop_title">
-                                    <h3>
-                                        <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">{{ $newsItem->title }}</a>
-                                    </h3>
-                                </div>
-                                <div class="news_post_loop_info">
-                                    <p class="cl_old">
-                                        <span><i class="fa fa-user" aria-hidden="true"></i> Admin</span>
-                                        <span><i class="fa fa-calendar" aria-hidden="true"></i>{{ $newsItem->created_at }}</span>
-                                    </p>
-                                </div>
-                                <div class="news_post_loop_content cl_old">
-                                    {{ $newsItem->description }}
-                                </div>
-                                <div class="news_post_loop_more">
-                                    <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}" class="site-button-dark">
-                                        <span>Xem chi tiết &gt;&gt; </span>
-                                    </a>
-                                </div>
-                            </div>
+                    <div id="summary2852700041858529792">
+                        <div class="tintuc">
+                            <h1 class="newstitle">{{ $news->title }}</h1>
+                            <br>
+                            <p>{!! $news->content !!}  }}</p>
                         </div>
-                    @endforeach
-                    {{ $news->links('vendor.pagination.bootstrap-4') }}
+                    </div>
                 </div>
                 <div class="col-md-3 col-sm-12 col-xs-12">
                     <div class="row">

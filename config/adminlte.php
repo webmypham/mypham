@@ -171,7 +171,7 @@ return [
                 [
                     'text'    => 'Quản lý đánh giá',
                     'url'     => 'admin/reviews'
-                ],
+                ]
             ],
         ],
         [
@@ -198,6 +198,11 @@ return [
             'text'    => 'Quản lý người dùng',
             'icon'    => 'fa fa-book',
             'url'     => 'admin/users'
+        ],
+        [
+            'text'    => 'Quản lý tin tức',
+            'icon'    => 'fa fa-book',
+            'url'     => 'admin/news'
         ],
     ],
 

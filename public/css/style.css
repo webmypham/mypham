@@ -1740,14 +1740,11 @@ header .fixed-nav {
 .pagination li a {
 	border-radius: 0!important;
 	color: #000;
-	border: none;
 	margin: 0;
-	padding: 0
+	padding: auto
 }
 .pagination li a:hover {
 	color: #da1313;
-	border: none;
-	background: none
 }
 .pagination>.active>a,
 .pagination>.active>a:focus,
@@ -1755,9 +1752,9 @@ header .fixed-nav {
 .pagination>.active>span,
 .pagination>.active>span:focus,
 .pagination>.active>span:hover {
-	background: none;
-	border: none;
-	color: #da1313
+	background: #da1313;
+	color: #fff;
+    border: 1px solid #da1313;
 }
 footer {
 	float: left;
@@ -5391,4 +5388,14 @@ textarea {
 .forgot-password:active,
 .forgot-password:focus{
     color: rgb(12, 97, 33);
+}
+
+.site-button-dark {
+    margin-top: 20px;
+    float: none;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 400;
+    padding: 10px;
+    border: 1px solid #b3b3b3;
 }
