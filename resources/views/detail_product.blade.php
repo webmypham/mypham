@@ -122,11 +122,11 @@
                                 <div id="reviews" class="woocommerce-Reviews">
                                     <div id="comments" class="mt-20 ">
                                         <h2 class="woocommerce-Reviews-title">
-                                            1 đánh giá cho <span>{{ $product->name }}</span></h2>
+                                            {{ count($comments) }} đánh giá cho <span>{{ $product->name }}</span></h2>
 
                                         <ol class="commentlist">
+                                            @foreach ($comments as $comment)
                                             <li class="comment byuser comment-author-phansang even thread-even depth-1" id="li-comment-7865">
-
                                                 <div id="comment-7865" class="comment_container">
 
                                                     <img alt="" src="https://secure.gravatar.com/avatar/c94587dd5453c16fa9ea5e6280882c95?s=60&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c94587dd5453c16fa9ea5e6280882c95?s=120&amp;d=mm&amp;r=g 2x" class="avatar avatar-60 photo" height="60" width="60">
@@ -134,46 +134,45 @@
 
 
                                                         <p class="meta">
-                                                            <strong class="woocommerce-review__author">Mỹ Lệ </strong>
-                                                            <span class="woocommerce-review__dash">–</span> <time class="woocommerce-review__published-date" datetime="2017-03-10T22:13:51+07:00">Tháng Ba 10, 2017</time>
+                                                            <strong class="woocommerce-review__author">{{ $comment->user->name ?? '' }}</strong>
+                                                            <span class="woocommerce-review__dash">–</span> <time class="woocommerce-review__published-date" datetime="2017-03-10T22:13:51+07:00">{{ Carbon\Carbon::parse($comment->created_at)->format('d/m/y') }}</time>
                                                         </p>
 
-                                                        <div class="description"><p>Tiếp tục phát huy nha shop</p>
+                                                        <div class="description"><p>{{ $comment->content }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </li><!-- #comment-## -->
+                                            @endforeach
                                         </ol>
 
                                     </div>
+                                    @if (Session::get('user_logged') === true)
 
-                                    <div id="review_form_wrapper">
-                                        <div id="review_form">
-                                            <div id="respond" class="comment-respond">
-                                                <span id="reply-title" class="comment-reply-title">Thêm đánh giá <small>
-                                                    <a rel="nofollow" id="cancel-comment-reply-link" style="display:none;">Hủy</a></small></span>
-                                                <form action="https://nuty.vn/wp-comments-post.php" method="post" id="commentform" class="comment-form">
-                                                    <label for="comment">Đánh giá của bạn&nbsp;<span class="required">*</span></label>
-                                                    <textarea id="comment" name="comment" cols="45" rows="8" required="" class="form-control"></textarea>
-                                                    <p class="comment-form-author">
-                                                        <label for="author">Tên&nbsp;
-                                                            <span class="required">*</span>
-                                                        </label>
-                                                        <input id="author" name="author" type="text" value="" size="30" required="" class="form-control">
-                                                    </p>
-                                                    <p class="comment-form-email">
-                                                        <label for="email">Email&nbsp;<span class="required">*</span></label>
-                                                        <input id="email" name="email" type="email" value="" size="30" required="" class="form-control">
-                                                    </p>
-                                                    <p class="form-submit">
-                                                        <input name="submit" type="submit" id="submit" class="btn btn-primary" value="Gửi đi">
-                                                        <input type="hidden" name="comment_post_ID" value="35242" id="comment_post_ID">
-                                                        <input type="hidden" name="comment_parent" id="comment_parent" value="0">
-                                                    </p>
-                                                </form>
-                                            </div><!-- #respond -->
+                                        <div id="review_form_wrapper">
+                                            <div id="review_form">
+                                                <div id="respond" class="comment-respond">
+                                                    <span id="reply-title" class="comment-reply-title">Thêm đánh giá <small>
+                                                        <a rel="nofollow" id="cancel-comment-reply-link" style="display:none;">Hủy</a></small></span>
+                                                    <form action="{{ route('user.comment') }}" method="post" class="comment-form">
+                                                        {!! csrf_field() !!}
+                                                        <label for="comment">Đánh giá của bạn&nbsp;<span class="required">*</span></label>
+                                                        <textarea id="comment" name="comment" cols="45" rows="8" required="" class="form-control"></textarea>
+
+                                                        <p class="form-submit mt-20">
+                                                            <input name="submit" type="submit" id="submit" class="btn btn-primary" value="Gửi đi">
+                                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                            @if (Session::get('user_logged') === true)
+                                                                <input type="hidden" name="user_id" value="{{ Session::get('user_info')->id }}">
+                                                            @endif
+                                                        </p>
+                                                    </form>
+                                                </div><!-- #respond -->
+                                            </div>
                                         </div>
-                                    </div>
+                                    @else
+                                        <p>Bạn cần đăng nhập để bình luận</p>
+                                    @endif
 
                                     <div class="clear"></div>
                                 </div>

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -42,7 +45,8 @@ class HomeController extends Controller
         $product = Product::find($id);
         $products = Product::where('id_category', $product->id_category)->get()->toArray();
         $similarProducts = array_chunk($products, 6);
-        return view('detail_product', compact('product', 'similarProducts'));
+        $comments = Comment::where('id_product', $product->id)->get();
+        return view('detail_product', compact('product', 'similarProducts', 'comments'));
     }
 
     public function addProductToCart(Request $request) {
@@ -125,5 +129,91 @@ class HomeController extends Controller
             $count = count(Session::get('cart'));
         }
         return $count;
+    }
+
+    public function login()
+    {
+        return view('login');
+    }
+
+    public function checkLogin(Request $request)
+    {
+        if (empty($request->email) || empty($request->password)) {
+            return back()->withInput()->with('error', 'Email và mật khẩu không được để trống');
+        }
+
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                Session::put('user_logged', true);
+                Session::put('user_info', $user);
+                return redirect('/');
+            } else {
+                return back()->withInput()->with('error', 'Email hoặc mật khẩu không chính xác');
+            }
+        } else {
+            return back()->withInput()->with('error', 'Email hoặc mật khẩu không chính xác');
+        }
+    }
+
+    public function registerView()
+    {
+        return view('register');
+    }
+
+    public function register(Request $request)
+    {
+        if (empty($request->email) || empty($request->password)) {
+            return back()->withInput()->with('error', 'Email và mật khẩu không được để trống');
+        }
+        if ($request->password != $request->confirm_password) {
+            return back()->withInput()->with('error', 'Mật khẩu và xác nhận mật khẩu không khớp');
+        }
+
+        $existUser = User::where('email', $request->email)->first();
+        if ($existUser) {
+            return back()->withInput()->with('error', 'Email đã được sử dụng');
+        }
+        $user = new User();
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+
+        $user->save();
+        Session::put('user_logged', true);
+        Session::put('user_info', $user);
+        return redirect('/');
+    }
+
+    public function logout() {
+        Session::put('user_logged', false);
+        Session::put('user_info', null);
+        return redirect('/');
+    }
+
+    public function comment(Request $request)
+    {
+        if (empty($request->comment)) {
+            return back()->withInput()->with('error', 'Vui lòng nhập bình luộn');
+        }
+        $comment = new Comment();
+        $comment->id_product = $request->product_id;
+        $comment->id_user = $request->user_id;
+        $comment->content = $request->comment;
+        $comment->save();
+
+        return redirect()->back();
+    }
+
+    public function news()
+    {
+        return view('news');
+    }
+
+    public function newsDetail()
+    {
+        return view('newsDetail');
     }
 }

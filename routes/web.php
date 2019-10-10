@@ -42,3 +42,15 @@ Route::get('checkout', 'HomeController@checkout')->name('checkout');
 Route::post('cart/create', 'HomeController@createOrder')->name('save_order');
 Route::get('order/detail/{id}', 'HomeController@order')->name('order');
 Route::get('get-cart-count', 'HomeController@getCartCount')->name('cartCount');
+
+Route::get('register', 'HomeController@registerView')->name('register');
+Route::post('register', 'HomeController@register')->name('user.register');
+Route::get('login', 'HomeController@login')->name('login');
+Route::post('login', 'HomeController@checkLogin')->name('user.login');
+Route::get('logout', 'HomeController@logout')->name('user.logout');
+
+Route::post('comment', 'HomeController@comment')->name('user.comment');
+
+Route::get('news', 'HomeController@news')->name('user.news');
+Route::get('new/{id}', 'HomeController@newsDetail')->name('user.newsDetail');
+

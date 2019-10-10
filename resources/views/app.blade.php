@@ -39,18 +39,33 @@
                                 Tư vấn miễn phí 24/7 - Giao hàng nhanh chóng
                             </p>
                         </div>
-                        <div class="col-md-6 col-sm-6" id="open_shopping_cart">
-                            <div class="login">
-                                <a class="my-account" href="/account/login">
-                        Đăng nhập
-                        </a>
+                        @if (Session::get('user_logged') === true)
+                            <div class="col-md-6 col-sm-6" id="open_shopping_cart">
+                                <div class="login">
+                                    <a class="my-account" href="/logout">
+                                        Đăng xuất
+                                    </a>
+
+                                </div>
+                                <div class="login">
+                                    Xin chào <b>{{ Session::get('user_info')->name }}</b>
+                                </div>
                             </div>
-                            <div class="login">
-                                <a class="my-account" href="/account/register">
-                        Đăng ký
-                        </a>
+                         @else
+                            <div class="col-md-6 col-sm-6" id="open_shopping_cart">
+                                <div class="login">
+                                    <a class="my-account" href="/login">
+                                        Đăng nhập
+                                        </a>
+                                </div>
+                                <div class="login">
+                                    <a class="my-account" href="/register">
+                                        Đăng ký
+                                    </a>
+
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
