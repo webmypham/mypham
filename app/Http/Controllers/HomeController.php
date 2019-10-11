@@ -20,8 +20,10 @@ class HomeController extends Controller
         $menus = Category::getParent();
         $listProduct = [];
         foreach ($menus as $menu) {
+            $subCategory = Category::getCategoryChild($menu->id);
+            $catIds = array_map(create_function('$o', 'return $o->id;'), $subCategory);
             $products = DB::table('products')
-                ->where('id_category', $menu->id)
+                ->whereIn('id_category', $catIds)
                 ->orderBy('id', 'DESC')
                 ->limit(8)
                 ->get();
@@ -30,9 +32,11 @@ class HomeController extends Controller
                 'products' => $products
             ];
         }
+        $news = News::latest('created_at')->limit(2)->get();
         return view('index', [
             'menus' => $menus,
-            'listProduct' => $listProduct
+            'listProduct' => $listProduct,
+            'news' => $news
         ]);
     }
 
@@ -95,8 +99,12 @@ class HomeController extends Controller
                 'price' => $value['product']->price
             ];
         }
+        $user_id = 1;
+        if (Session::get('user_logged') === true) {
+            $user_id = Session::get('user_info')->id;
+        }
         $order = [
-            'id_user' => 1,
+            'id_user' => $user_id,
             'id_payment' => $request->id_payment,
             'status' => 0,
             'status_payment' => 0,
@@ -218,5 +226,51 @@ class HomeController extends Controller
     {
         $news = News::find($id);
         return view('newsDetail', compact('news'));
+    }
+
+    public function orders()
+    {
+        if (Session::get('user_logged') !== true) {
+            return redirect('/');
+        }
+        $user = Session::get('user_info');
+        $orders = Order::where('id_user', $user->id)->get();
+        foreach($orders as $key => $order) {
+            $orders[$key]->status_text = Order::getStatusNameAttribute($order->status);
+            $orders[$key]->status_class = Order::getStatusClassNameAttribute($order->status);
+        }
+        return view('orders', compact('orders'));
+    }
+
+    public function orderDetail(Request $request, $id)
+    {
+        if (Session::get('user_logged') !== true) {
+            return redirect('/');
+        }
+        $order_status = config('const.order_status');
+        $order_details = DB::table('order_details')
+            ->select(
+                'order_details.*',
+                'orders.status',
+                'orders.amount',
+                'orders.created_at as created_order_at',
+                'products.name as product_name',
+                'products.image as product_image',
+                'users.name as user_name',
+                'users.email as user_email',
+                'users.phone as user_phone',
+                'users.address as user_address'
+            )
+            ->join('products', 'products.id', '=', 'order_details.id_product')
+            ->join('orders', 'orders.id', '=', 'order_details.id_order')
+            ->join('users', 'users.id', '=', 'orders.id_user')
+            ->where('id_order', $id)
+            ->get();
+        foreach($order_details as $key => $order) {
+            $order_details[$key]->status_text = Order::getStatusNameAttribute($order->status);
+            $order_details[$key]->status_class = Order::getStatusClassNameAttribute($order->status);
+        }
+
+        return view('order_detail', compact('order_details'));
     }
 }

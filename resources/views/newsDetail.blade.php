@@ -2,7 +2,7 @@
 @section('title') Mỹ phẩm cao cấp chính hãng @endsection
 @section('content')
 <section class="main-col">
-	<div class="extended-container">
+	<div class="extended-container mb-20">
 		<div class="container j-container">
 			<div class="row product-content">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 news_post_loop">
@@ -10,7 +10,7 @@
                         <div class="tintuc">
                             <h1 class="newstitle">{{ $news->title }}</h1>
                             <br>
-                            <p>{!! $news->content !!}  }}</p>
+                            <p>{!! $news->content !!}</p>
                         </div>
                     </div>
                 </div>

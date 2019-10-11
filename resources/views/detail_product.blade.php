@@ -14,7 +14,7 @@
 						<div class="col-xs-12 col-sm-7">
 							<div class="item-details">
 								<!-- heading -->
-								<h1 itemprop="name">{{ $product->name }}</h1>
+								<h1 class="name mb-20">{{ $product->name }}</h1>
 								<meta itemprop="url" content="/product/mat-ong-tam-dao-honeco-nano-curcumin-tot-cho-da-day-boi-bo-suc-khoe-600g.4686.html">
 								<div class="rating hidden"></div>
 								<!-- table -->
@@ -95,22 +95,22 @@
                             <div class="tab-pane" id="product-info">
                                 <div class="basel-tab-wrapper">
                                     <div class="mt-20">
-                                        <table class="table table-striped table-hover">
+                                        <table class="table table-striped table-hover table-responsive">
                                             <tbody>
                                             <tr>
-                                                <td>Mã: </td>
+                                                <td style="min-width: 100px">Mã: </td>
                                                 <td> <span class="sku">{{ $product->sku }}</span></td>
                                             </tr>
                                             <tr>
-                                                <td><span class="posted_in">Tên</span></td>
+                                                <td><span class="posted_in">Tên: </span></td>
                                                 <td>{{ $product->name }}</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="posted_in">Danh mục:</span></td>
+                                                <td><span class="posted_in">Danh mục: </span></td>
                                                 <td><a rel="tag">{{ $product->category->name ?? '' }}</a></td>
                                             </tr>
                                             <tr>
-                                                <td><span class="posted_in">Mô tả:</span></td>
+                                                <td><span class="posted_in">Mô tả: </span></td>
                                                 <td><a rel="tag">{{ $product->description }}</a></td>
                                             </tr>
                                             </tbody>

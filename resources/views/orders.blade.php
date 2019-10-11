@@ -6,38 +6,39 @@
 		<div class="container j-container">
 			<div class="row product-content">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 news_post_loop">
-                    @foreach ($news as $newsItem)
-                        <div class="row mt-20">
-                            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                                <div class="news_post_loop_img">
-                                    <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">
-                                        <img itemprop="image" src="{{ url('storage/' . $newsItem->thumbnail) }}" alt="" width="100%">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                <div class="news_post_loop_title">
-                                    <h3>
-                                        <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">{{ $newsItem->title }}</a>
-                                    </h3>
-                                </div>
-                                <div class="news_post_loop_info">
-                                    <p class="cl_old">
-                                        <span><i class="fa fa-calendar" aria-hidden="true"></i> {{ Carbon\Carbon::parse($newsItem->created_at)->format('d/m/Y') }}</span>
-                                    </p>
-                                </div>
-                                <div class="news_post_loop_content cl_old">
-                                    {{ Str::limit($newsItem->description, 300) }}
-                                </div>
-                                <div class="news_post_loop_more">
-                                    <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}" class="site-button-dark">
-                                        <span>Xem chi tiết &gt;&gt; </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                    {{ $news->links('vendor.pagination.bootstrap-4') }}
+                    <div class="panel-body table-responsive">
+                        <!-- Table -->
+                        <table class="table table-striped table-bordered" >
+                            <tr>
+                                <th>No</th>
+                                <th>Tổng tiền</th>
+                                <th>Ngày đặt</th>
+                                <th>Trạng thái</th>
+                                <th width="10%" align="center">Chức năng</th>
+                            </tr>
+                            <tbody>
+                            @foreach($orders as $key=>$value)
+                                <tr>
+                                    <td>
+                                        {{ $key + 1 }}
+                                    </td>
+                                    <td>
+                                        {{ $value->amount }} VNĐ
+                                    </td>
+                                    <td>
+                                        {{ Carbon\Carbon::parse($value->created_at)->format('d/m/Y') }}
+                                    </td>
+                                    <td width="20%">
+                                        <span class="btn {{ 'btn-'.$value->status_class }}">{{ $value->status_text }}</span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('user.orderDetail', ['id'=> $value->id]) }}" class="btn btn-info">Xem chi tiết</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="col-md-3 col-sm-12 col-xs-12">
                     <div class="row">

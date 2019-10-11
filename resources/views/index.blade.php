@@ -129,31 +129,26 @@
                                         </div>
                                         <div class="blog-inner clearfix">
                                             <div class="row">
-                                                <div class="blog-inner clearfix">
-                                                    <div class="row">
-                                                        <div class="blog-img col-md-4 col-sm-4 col-xs-12">
-                                                            <a href="https://myphamaumy.blogspot.com/2017/04/cach-tri-nam-on-gian-va-hieu-qua-bang.html"><img src="https://bizweb.dktcdn.net/100/106/007/files/cach-tri-nam-don-gian-va-hieu-qua-bang-cay-lo-hoi-1.png?v=1468482918631" alt="Cách Trị Nám Đơn Giản và Hiệu Quả Bằng Cây Lô Hội"></a>
-                                                        </div>
-                                                        <div class="col-md-8 col-sm-8 col-xs-12">
-                                                            <h3><a href="https://myphamaumy.blogspot.com/2017/04/cach-tri-nam-on-gian-va-hieu-qua-bang.html">Cách Trị Nám Đơn Giản và Hiệu Quả Bằng Cây Lô Hội</a></h3>
-                                                            <p>1. Lô hội và nước vo gạoChuẩn bị thực hiện chữa nám da mặt với lô hội như sau: Bạn chỉ cần lấy phần...</p>
-                                                            <p id="more-info"><span><a href="https://myphamaumy.blogspot.com/2017/04/cach-tri-nam-on-gian-va-hieu-qua-bang.html">Đọc thêm <i class="fa fa-angle-right"></i></a></span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="blog-inner clearfix">
-                                                    <div class="row">
-                                                        <div class="blog-img col-md-4 col-sm-4 col-xs-12">
-                                                            <a href="https://myphamaumy.blogspot.com/2017/04/iem-mat-8-thu-pham-gay-kho-da.html"><img src="https://2.bp.blogspot.com/-ZmZEr1UlKCU/WPcc4iFvgYI/AAAAAAAAHOY/gYZan43d7A85KhmBQ3cKcl1wLj45rmvSwCLcB/s640/145915899101-2185116-cbebf902-c83c-48a2-b700-e96eda05376b%2B%25281%2529.jpg" alt="“Điểm mặt” 8 thủ phạm gây khô da"></a>
-                                                        </div>
-                                                        <div class="col-md-8 col-sm-8 col-xs-12">
-                                                            <h3><a href="https://myphamaumy.blogspot.com/2017/04/iem-mat-8-thu-pham-gay-kho-da.html">“Điểm mặt” 8 thủ phạm gây khô da</a></h3>
-                                                            <p>Ngoài nguyên nhân chính đến từ cấu trúc da do cơ địa mỗi người quyết định, da còn chịu sự tác động ...</p>
-                                                            <p id="more-info"><span><a href="https://myphamaumy.blogspot.com/2017/04/iem-mat-8-thu-pham-gay-kho-da.html">Đọc thêm <i class="fa fa-angle-right"></i></a></span></p>
+                                                @foreach($news as $newsItem)
+                                                    <div class="blog-inner clearfix">
+                                                        <div class="row">
+                                                            <div class="blog-img col-md-4 col-sm-4 col-xs-12">
+                                                                <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">
+                                                                    <img src="{{ url('storage/' . $newsItem->thumbnail) }}" alt=""></a>
+                                                            </div>
+                                                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                                                <h3>
+                                                                    <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">{{ $newsItem->title }}</a></h3>
+                                                                <p>{{ Str::limit($newsItem->description, 100) }}</p>
+                                                                <p id="more-info">
+                                                                    <span>
+                                                                        <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">Đọc thêm <i class="fa fa-angle-right"></i></a>
+                                                                    </span>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>

@@ -42,11 +42,11 @@ class CategoryController extends Controller
     {
         $newCategory = [
             'name' => $request->name,
-            'is_parent' => 0
+            'is_parent' => 1
         ];
         if($request->id_parent){
             $newCategory['id_parent'] = $request->id_parent;
-            $newCategory['is_parent'] = 1;
+            $newCategory['is_parent'] = 0;
         }
         Category::create($newCategory);
         return redirect()->route('categories.index');;

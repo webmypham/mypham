@@ -132,6 +132,11 @@
                                         <li class="">
                                             <a href="{{ url('/news') }}">Tin tức</a>
                                         </li>
+                                        @if (Session::get('user_logged') === true)
+                                            <li class="">
+                                                <a href="{{ url('/orders') }}">Đơn hàng</a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
@@ -201,12 +206,12 @@
                         <h4>Địa chỉ cửa hàng</h4>
                         <div class="">
                             <p><i class="fa fa-map-marker"></i> 442 Đội Cấn - Ba Đình - Hà Nội</p>
-                            <p><i class="fa fa-phone"></i> 0967 84 99 34</p>
-                            <p><i class="fa fa-envelope"></i> your-email@gmail.com</p>
-                            <p><i class="fa fa-globe"></i> www.azatemplate.com</p>
+                            <p><i class="fa fa-phone"></i> 0981 861 865</p>
+                            <p><i class="fa fa-envelope"></i> thuthanh250@gmail.com</p>
+                            <p><i class="fa fa-globe"></i>www.azatemplate.com</p>
                         </div>
                         <div class="footer_hotline">
-                            <p>Hotline: 0967 84 99 34</p>
+                            <p>Hotline: 0981 861 865</p>
                         </div>
                     </div>
                 </div>
@@ -216,7 +221,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <span class="copyright">&copy; Copyright by ThanhTV</span>
+                            <span class="copyright">&copy; Copyright Thanh Thanh</span>
                             <a href="#" id="backtotop" style="display: inline-block;"><i class="fa fa-angle-up"></i></a>
                         </div>
                         <!-- end col-9 -->

@@ -6,38 +6,59 @@
 		<div class="container j-container">
 			<div class="row product-content">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 news_post_loop">
-                    @foreach ($news as $newsItem)
-                        <div class="row mt-20">
-                            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                                <div class="news_post_loop_img">
-                                    <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">
-                                        <img itemprop="image" src="{{ url('storage/' . $newsItem->thumbnail) }}" alt="" width="100%">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                <div class="news_post_loop_title">
-                                    <h3>
-                                        <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">{{ $newsItem->title }}</a>
-                                    </h3>
-                                </div>
-                                <div class="news_post_loop_info">
-                                    <p class="cl_old">
-                                        <span><i class="fa fa-calendar" aria-hidden="true"></i> {{ Carbon\Carbon::parse($newsItem->created_at)->format('d/m/Y') }}</span>
-                                    </p>
-                                </div>
-                                <div class="news_post_loop_content cl_old">
-                                    {{ Str::limit($newsItem->description, 300) }}
-                                </div>
-                                <div class="news_post_loop_more">
-                                    <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}" class="site-button-dark">
-                                        <span>Xem chi tiết &gt;&gt; </span>
-                                    </a>
-                                </div>
+                    <h1 class="text-center">Chi tiết đơn hàng</h1>
+                    <p class="name mt-30">Mã đơn hàng:  {{ $order_details[0]->id_order ?? '' }}</p>
+                    <p class="name">Ngày đặt:  {{ Carbon\Carbon::parse($order_details[0]->created_order_at)->format('d/m/Y') }}</p>
+                    <p class="name">Trạng thái: <b style="font-size: 20px"> {{ $order_details[0]->status_text ?? ''}}</b></p>
+                    <h4 class="mt-30">Danh sách sản phẩm:</h4>
+
+                    <div class="panel-body table-responsive">
+                        <!-- Table -->
+                        <table class="table table-striped table-bordered" >
+                            <tr>
+                                <th>STT</th>
+                                <th>Hình ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                            </tr>
+                            <tbody>
+                            @foreach($order_details as $key=>$value)
+                                <tr>
+                                    <td>
+                                        {{ $key + 1 }}
+                                    </td>
+                                    <td>
+                                        @if (Storage::disk()->exists($value->product_image))
+                                            <img class="img-circle avatar" src="{{ asset('storage/'.$value->product_image) }}" width="50px;">
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $value->product_name }}
+                                    </td>
+                                    <td>
+                                        {{ $value->quantity }}
+                                    </td>
+                                    <td>
+                                        {{ $value->price }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <h4 class="text-right">Tổng cộng: {{ $order_details[0]->amount ?? 0 }}</h4>
+                        <hr />
+                        <div class="address-1 mt-30">
+                            <h3>Thông tin nhận hàng</h3>
+                            <div class="mt-20">
+                                <p class="name">{{  $order_details[0]->user_name }}</p>
+
+                                <p><span>Địa chỉ: </span>{{  $order_details[0]->user_address }}</p>
+
+                                <p><span>Điện thoại:</span> {{  $order_details[0]->user_phone }}</p>
                             </div>
                         </div>
-                    @endforeach
-                    {{ $news->links('vendor.pagination.bootstrap-4') }}
+                    </div>
                 </div>
                 <div class="col-md-3 col-sm-12 col-xs-12">
                     <div class="row">
