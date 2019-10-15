@@ -57,6 +57,7 @@ Route::post('comment', 'HomeController@comment')->name('user.comment');
 
 Route::get('orders', 'HomeController@orders')->name('user.orders');
 Route::get('order/{id}', 'HomeController@orderDetail')->name('user.orderDetail');
+Route::post('cancel-order', 'HomeController@cancelOrder')->name('user.cancelOrder');
 
 
 Route::get('{slug}/{id}', 'HomeController@category')->name('category');

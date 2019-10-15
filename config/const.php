@@ -3,10 +3,10 @@
 return [
     'page_size' => 20,
     'order_status' => [
-        '0' => 'Đang chờ',
+        '0' => 'Đang xử lý',
+        '2' => 'Dã xác nhận',
         '1' => 'Đã hủy',
-        '2' => 'Đã chấp nhận',
-        '5' => 'Đã hoàn thành',
-        '6' => 'Đã thanh toán'
+        '10' => 'Đang giao hàng',
+        '5' => 'Đã giao thành công'
     ]
 ];

@@ -270,7 +270,16 @@ class HomeController extends Controller
             $order_details[$key]->status_text = Order::getStatusNameAttribute($order->status);
             $order_details[$key]->status_class = Order::getStatusClassNameAttribute($order->status);
         }
+        $order_id = $id;
 
-        return view('order_detail', compact('order_details'));
+        return view('order_detail', compact('order_details', 'order_id'));
+    }
+
+    public function cancelOrder(Request $request) {
+        $data = [
+            'status' => 1
+        ];
+        Order::where('id', $request->id)->update($data);
+        return redirect()->route('user.orders');
     }
 }

@@ -5205,6 +5205,10 @@ textarea {
     margin-bottom: 20px !important;
 }
 
+.mr-10 {
+    margin-right: 10px !important;
+}
+
 .pl-0 {
     padding-left: 0 !important;
 }

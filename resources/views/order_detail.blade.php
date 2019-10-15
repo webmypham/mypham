@@ -7,10 +7,24 @@
 			<div class="row product-content">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 news_post_loop">
                     <h1 class="text-center">Chi tiết đơn hàng</h1>
+                    @if ($order_details[0]->status != 1)
+                        <form action="{{ route('user.cancelOrder') }}" method="post">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="id" value="{{ $order_id }}" />
+                            <button class="btn btn-primary pull-right mt-20 mr-10" type="submit">Hủy đơn hàng</button>
+                        </form>
+                    @endif
+
                     <p class="name mt-30">Mã đơn hàng:  {{ $order_details[0]->id_order ?? '' }}</p>
+
                     <p class="name">Ngày đặt:  {{ Carbon\Carbon::parse($order_details[0]->created_order_at)->format('d/m/Y') }}</p>
                     <p class="name">Trạng thái: <b style="font-size: 20px"> {{ $order_details[0]->status_text ?? ''}}</b></p>
-                    <h4 class="mt-30">Danh sách sản phẩm:</h4>
+
+                    <div>
+                        <h4 class="mt-30">Danh sách sản phẩm:</h4>
+
+                    </div>
+
 
                     <div class="panel-body table-responsive">
                         <!-- Table -->
