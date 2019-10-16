@@ -43,7 +43,11 @@ class HomeController extends Controller
     public function category($slug, $id) {
         $category = Category::find($id);
         $products = Product::getItemByCategory($id);
-        return view('category', compact('products', 'category'));
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
+        return view('category', compact('products', 'category', 'categories'));
     }
 
     public function product($slug, $id) {
@@ -51,7 +55,11 @@ class HomeController extends Controller
         $products = Product::where('id_category', $product->id_category)->get()->toArray();
         $similarProducts = array_chunk($products, 6);
         $comments = Comment::where('id_product', $product->id)->get();
-        return view('detail_product', compact('product', 'similarProducts', 'comments'));
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
+        return view('detail_product', compact('product', 'similarProducts', 'comments', 'categories'));
     }
 
     public function addProductToCart(Request $request) {
@@ -80,11 +88,19 @@ class HomeController extends Controller
     }
 
     public function cart() {
-        return view('cart');
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
+        return view('cart', compact('categories'));
     }
 
     public function checkout() {
-        return view('checkout');
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
+        return view('checkout', compact('categories'));
     }
 
     public function createOrder(Request $request) {
@@ -129,7 +145,11 @@ class HomeController extends Controller
             ->join('products', 'products.id', '=', 'order_details.id_product')
             ->where('id_order', $id)
             ->get();
-        return view('order', compact(['order', 'order_details', 'order_status']));
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
+        return view('order', compact(['order', 'order_details', 'order_status', 'categories']));
     }
 
     public function getCartCount() {
@@ -239,7 +259,11 @@ class HomeController extends Controller
             $orders[$key]->status_text = Order::getStatusNameAttribute($order->status);
             $orders[$key]->status_class = Order::getStatusClassNameAttribute($order->status);
         }
-        return view('orders', compact('orders'));
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
+        return view('orders', compact('orders', 'categories'));
     }
 
     public function orderDetail(Request $request, $id)
@@ -271,8 +295,12 @@ class HomeController extends Controller
             $order_details[$key]->status_class = Order::getStatusClassNameAttribute($order->status);
         }
         $order_id = $id;
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
 
-        return view('order_detail', compact('order_details', 'order_id'));
+        return view('order_detail', compact('order_details', 'order_id', 'categories'));
     }
 
     public function cancelOrder(Request $request) {

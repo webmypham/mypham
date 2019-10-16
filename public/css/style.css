@@ -5403,3 +5403,26 @@ textarea {
     padding: 10px;
     border: 1px solid #b3b3b3;
 }
+
+.left-sidebar {
+    padding: 0 !important;
+}
+
+.left-sidebar .categories {
+    width: 100%;
+    float: left;
+    margin-bottom: 20px;
+    padding: 0 !important;
+}
+
+.left-sidebar .title {
+    width: 100%;
+    font-size: 15px;
+    padding: 15px 0;
+    margin: 0;
+    color: #fff;
+    background-color: #da1313;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+}

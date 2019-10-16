@@ -131,21 +131,19 @@
                                             <div class="row">
                                                 @foreach($news as $newsItem)
                                                     <div class="blog-inner clearfix">
-                                                        <div class="row">
-                                                            <div class="blog-img col-md-4 col-sm-4 col-xs-12">
-                                                                <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">
-                                                                    <img src="{{ url('storage/' . $newsItem->thumbnail) }}" alt=""></a>
-                                                            </div>
-                                                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                                                <h3>
-                                                                    <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">{{ $newsItem->title }}</a></h3>
-                                                                <p>{{ Str::limit($newsItem->description, 100) }}</p>
-                                                                <p id="more-info">
+                                                        <div class="blog-img col-md-4 col-sm-4 col-xs-12 ">
+                                                            <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">
+                                                                <img src="{{ url('storage/' . $newsItem->thumbnail) }}" alt=""></a>
+                                                        </div>
+                                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                                            <h3>
+                                                                <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">{{ $newsItem->title }}</a></h3>
+                                                            <p>{{ Str::limit($newsItem->description, 100) }}</p>
+                                                            <p id="more-info">
                                                                     <span>
                                                                         <a href="{{ route('user.newsDetail', ['news' => $newsItem->id]) }}">Đọc thêm <i class="fa fa-angle-right"></i></a>
                                                                     </span>
-                                                                </p>
-                                                            </div>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 @endforeach
