@@ -38,6 +38,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        {{ $orders->links('vendor.pagination.right') }}
                     </div>
                 </div>
                 <div class="col-md-3 hidden-sm hidden-xs side-column mt-20 left-sidebar">

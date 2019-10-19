@@ -38,25 +38,27 @@
                             </tr>
                             <tbody>
                             @foreach($order_details as $key=>$value)
-                                <tr>
-                                    <td>
-                                        {{ $key + 1 }}
-                                    </td>
-                                    <td>
-                                        @if (Storage::disk()->exists($value->product_image))
-                                            <img class="img-circle avatar" src="{{ asset('storage/'.$value->product_image) }}" width="50px;">
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ $value->product_name }}
-                                    </td>
-                                    <td>
-                                        {{ $value->quantity }}
-                                    </td>
-                                    <td>
-                                        {{ $value->price }}
-                                    </td>
-                                </tr>
+                                @if ($value->product_name)
+                                    <tr>
+                                        <td>
+                                            {{ $key + 1 }}
+                                        </td>
+                                        <td>
+                                            @if (Storage::disk()->exists($value->product_image))
+                                                <img class="img-circle avatar" src="{{ asset('storage/'.$value->product_image) }}" width="50px;">
+                                            @endif
+                                        </td>
+                                        <td>
+                                            {{ $value->product_name }}
+                                        </td>
+                                        <td>
+                                            {{ $value->quantity }}
+                                        </td>
+                                        <td>
+                                            {{ $value->price }}
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                             </tbody>
                         </table>

@@ -73,7 +73,6 @@
                             </tbody>
                         </table>
                     </div>
-
                     <form class="form-horizontal" id="payment-update-form">
                         <h2>Thanh toán</h2>
                         <div class="form-group">

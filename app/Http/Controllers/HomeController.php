@@ -173,6 +173,9 @@ class HomeController extends Controller
 
         $user = User::where('email', $request->email)->first();
         if ($user) {
+            if ($user->id_role != 2) {
+                return back()->withInput()->with('error', 'Tài khoản không không có quyền truy cập');
+            }
             if (Hash::check($request->password, $user->password)) {
                 Session::put('user_logged', true);
                 Session::put('user_info', $user);
@@ -209,7 +212,7 @@ class HomeController extends Controller
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->address = $request->address;
-
+        $user->id_role = 2;
         $user->save();
         Session::put('user_logged', true);
         Session::put('user_info', $user);
@@ -254,7 +257,7 @@ class HomeController extends Controller
             return redirect('/');
         }
         $user = Session::get('user_info');
-        $orders = Order::where('id_user', $user->id)->get();
+        $orders = Order::where('id_user', $user->id)->paginate(6);
         foreach($orders as $key => $order) {
             $orders[$key]->status_text = Order::getStatusNameAttribute($order->status);
             $orders[$key]->status_class = Order::getStatusClassNameAttribute($order->status);
@@ -285,7 +288,7 @@ class HomeController extends Controller
                 'users.phone as user_phone',
                 'users.address as user_address'
             )
-            ->join('products', 'products.id', '=', 'order_details.id_product')
+            ->leftJoin('products', 'products.id', '=', 'order_details.id_product')
             ->join('orders', 'orders.id', '=', 'order_details.id_order')
             ->join('users', 'users.id', '=', 'orders.id_user')
             ->where('id_order', $id)
