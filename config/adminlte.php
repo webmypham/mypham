@@ -30,16 +30,16 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Mỹ Phẩm</b>',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<b>M</b>P',
 
     /*
     |--------------------------------------------------------------------------
     | Skin Color
     |--------------------------------------------------------------------------
     |
-    | Choose a skin color for your admin panel. The available skin colors:
+    | Choose a skin color for your admin panel. The  available skin colors:
     | blue, black, purple, yellow, red, and green. Each skin also has a
     | light variant: blue-light, purple-light, purple-light, etc.
     |

@@ -8,11 +8,13 @@
                 </a>
                 <ul class="list-unstyled">
                     @foreach($cat->subCat as $subCat)
+                        @if (!$loop->first)
                         <li>
                             <a href="{{ route('category', ['slug' => str_slug(trim($subCat->name), '-'), 'id' => $subCat->id ]) }}" style="padding-left: 30px">
                                 <i class="fa fa-minus"></i>{{ $subCat->name }}
                             </a>
                         </li>
+                        @endif
                    @endforeach
                 </ul>
             </li>
