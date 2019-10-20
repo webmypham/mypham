@@ -45,7 +45,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        if (empty($request->sku) || empty($request->name) || empty($request->id_category) || empty($request->description) || empty($request->quantity) || empty($request->detail)) {
+            return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
+        }
         $newProduct = [
+            'sku' => $request->sku,
             'name' => $request->name,
             'id_category' => $request->id_category,
             'description' => $request->description,

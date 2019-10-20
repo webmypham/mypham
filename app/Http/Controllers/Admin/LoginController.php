@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 // use App\Http\Requests\LoginRequest;
@@ -26,11 +27,17 @@ class LoginController extends Controller
 				'password'=>$request->password
 			];
 
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+                if ($user->id_role != 1) {
+                    return back()->withInput()->with('error', 'Tài khoản không không có quyền truy cập');
+                }
+            }
 			if(Auth::attempt($login)){
 				return redirect()->route('products.index');
 			}
 			else{
-				return redirect()->back();
+                return back()->withInput()->with('error', 'Tài khoản hoặc mật khẩu không chính xác');
 			}
 		}
 

@@ -11,7 +11,7 @@ class Product extends Model
     protected $table = 'products';
     protected $perPage = 20;
     protected $dates = ['created_at', 'created_at'];
-    protected $fillable = ['name', 'id_category', 'description', 'price', 'detail', 'image', 'quantity'];
+    protected $fillable = ['sku', 'name', 'id_category', 'description', 'price', 'detail', 'image', 'quantity'];
 
     public static function getProducts($searchData) {
         $query = DB::table('products')
@@ -41,5 +41,9 @@ class Product extends Model
         }
         $query->whereIn('id_category', $idCategories);
         return $query->paginate(12);
+    }
+
+    public function category() {
+        return $this->belongsTo('App\Models\Category', 'id_category', 'id');
     }
 }

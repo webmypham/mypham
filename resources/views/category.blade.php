@@ -10,22 +10,26 @@
                 </div>
                 <div class="col-md-9 col-sm-12 col-xs-12">
                     <h1 class="heading-title">{{ $category->name }}</h1>
-                    <div class="row">
-                        @foreach ($products as $product)
-                        <div class="col-md-3 col-sm-6 product-item">
-                            <div class="product-box">
-                                <div class="product-image">
-                                    <a href="{{ route('product', ['slug' => str_slug(trim($product->name), '-'), 'id' => $product->id ]) }}"><img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->name }}"></a>
-                                    <div class="sale-label sale-top-right">-15%</div>
-                                </div>
-                                <h4 class="product-name">
-                                    <a href="{{ route('product', ['slug' => str_slug(trim($product->name), '-'), 'id' => $product->id ]) }}">{{ $product->name }}</a>
-                                </h4>
-                                <span class="product-price"><span class="old_price">{{ number_format($product->price, 0) }}₫</span> {{ number_format($product->price, 0) }}₫</span>
+                        @for ($i = 0; $i < count($products); $i+=4)
+                            <div class="row">
+                                @for ($j = $i; $j < $i + 4; $j++)
+                                    @if ($j < count($products))
+                                    <div class="col-md-3 col-sm-6 product-item">
+                                        <div class="product-box">
+                                            <div class="product-image">
+                                                <a href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id ]) }}"><img src="{{ asset('storage/'.$products[$j]->image) }}" alt="{{ $products[$j]->name }}"></a>
+                                                <div class="sale-label sale-top-right">-15%</div>
+                                            </div>
+                                            <h4 class="product-name">
+                                                <a href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id ]) }}">{{ Str::limit($products[$j]->name, 40) }}</a>
+                                            </h4>
+                                            <span class="product-price"><span class="old_price">{{ number_format($products[$j]->price, 0) }}₫</span> {{ number_format($products[$j]->price, 0) }}₫</span>
+                                        </div>
+                                    </div>
+                                    @endif
+                                @endfor
                             </div>
-                        </div>
-                        @endforeach
-                    </div>
+                        @endfor
                 </div>
             </div>
         </div>

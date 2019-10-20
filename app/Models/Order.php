@@ -36,6 +36,7 @@ class Order extends Model
     const STATUS_CANCEL_RENEWAL = 7;
     const STATUS_EDIT = 8;
     const STATUS_TMP = 9;
+    const STATUS_DELIVERY = 10;
 
     const SEEN = 1;
     const NOT_SEEN = 0;
@@ -68,19 +69,23 @@ class Order extends Model
         switch ($status) {
             case Order::STATUS_WAIT:
                 {
-                    return "Đang chờ";
+                    return "Đang xử lý";
                 }
             case Order::STATUS_ACTIVE:
                 {
-                    return "Đã chấp nhận";
+                    return "Đã xác nhận";
                 }
             case Order::STATUS_CANCEL:
                 {
                     return "Đã huỷ";
                 }
+            case Order::STATUS_DELIVERY:
+                {
+                    return "Đang giao hàng";
+                }
             case Order::STATUS_COMPLETE:
                 {
-                    return "Đã hoàn thành";
+                    return "Đã giao thành công";
                 }
             case Order::STATUS_RATE:
                 {
@@ -109,6 +114,10 @@ class Order extends Model
             case Order::STATUS_CANCEL:
                 {
                     return "danger";
+                }
+            case Order::STATUS_DELIVERY:
+                {
+                    return "warning";
                 }
             case Order::STATUS_COMPLETE:
                 {
