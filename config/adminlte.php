@@ -195,7 +195,7 @@ return [
             'url'     => 'admin/users'
         ],
         [
-            'text'    => 'Quản lý người dùng',
+            'text'    => 'Quản lý khách hàng',
             'icon'    => 'fa fa-book',
             'url'     => 'admin/users'
         ],

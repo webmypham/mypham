@@ -79,25 +79,24 @@
                             </div>
 
                         </div>
-                        <div id="column-left" class="col-md-12 hidden-sm hidden-xs side-column mt-20">
-                            <div id="journal-side-category-1331324061" class="journal-side-category-113 box side-category side-category-left side-category-accordion">
-                                <div class="box-heading">Dưỡng Da</div>
-                                <div class="box-category">
-                                    <ul>
-                                        <li>
-                                            <a href="https://www.kosmebox.com/tay-trang/" class="">Tẩy Trang</a>
+                        <div class="col-md-12 hidden-sm hidden-xs side-column mt-20 left-sidebar">
+                            <div class="categories">
+                                <h4 class="title">Danh mục </h4>
+                                <ul class="nav navbar-nav">
+                                    @foreach($categories as $category)
+                                        <li class="active dropdown">
+                                            <a class="dropdown-toggle" href="{{ route('category', ['slug' => str_slug(trim($category->name), '-'), 'id' => $category->id ]) }}">
+                                                <i class="fa fa-circle"></i> {{$category->name}}
+                                                <i class="fa fa-plus"></i>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                @foreach ($category->subCat as $subCat)
+                                                    <li><a href="{{ route('category', ['slug' => str_slug(trim($subCat->name), '-'), 'id' => $subCat->id ]) }}">{{ $subCat->name }}</a></li>
+                                                @endforeach
+                                            </ul>
                                         </li>
-                                        <li>
-                                            <a href="https://www.kosmebox.com/sua-rua-mat/" class="">Sữa Rửa Mặt</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.kosmebox.com/se-khit-lo-chan-long/" class="">Se Khít Lỗ Chân Lông</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.kosmebox.com/chong-nhan-chong-lao-hoa/" class="">Chống Lão Hoá</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
                     </div>
