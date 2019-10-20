@@ -5,7 +5,7 @@
 	<div class="extended-container">
 		<div class="container j-container">
 			<div class="row product-content">
-				<div id="column-left" class="col-md-2 hidden-sm hidden-xs side-column">
+				{{-- <div id="column-left" class="col-md-2 hidden-sm hidden-xs side-column">
 					<div id="journal-side-category-1331324061" class="journal-side-category-113 box side-category side-category-left side-category-accordion">
 						<div class="box-heading">Dưỡng Da</div>
 						<div class="box-category">
@@ -25,8 +25,11 @@
 							</ul>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-7 col-sm-12 col-xs-12">
+                </div> --}}
+                <div class="col-sm-3 hidden-xs">
+                    @include('left_nav')
+                </div>
+				<div class="col-md-6 col-sm-12 col-xs-12">
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
 							<img src="https://cdn.shustore.com/xuanhanh_vn/1/4686/4686_4bcd265d55724d00b53c447ce1980a4a_240x240.png" id="zoom1" class="cloudzoom img-responsive full-width img-thumbnail" rel="zoomWidth:450,zoomHeight:450" data-cloudzoom="zoomImage: 'https://cdn.shustore.com/xuanhanh_vn/1/4686/4686_4bcd265d55724d00b53c447ce1980a4a_900x900.png'" style="user-select: none;">
@@ -97,7 +100,7 @@
 						<div class="col-xs-12">
 							<h3>Thông tin  sản phẩm</h3>
 							<div itemprop="description">
-								{{ $product->description }}
+								{!! $product->detail !!}
 							</div>
 						</div>
 					</div>
