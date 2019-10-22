@@ -243,13 +243,21 @@ class HomeController extends Controller
     public function news()
     {
         $news = News::paginate(4);
-        return view('news', compact('news'));
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
+        return view('news', compact('news','categories'));
     }
 
     public function newsDetail(Request $request, $id)
     {
         $news = News::find($id);
-        return view('newsDetail', compact('news'));
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
+        return view('newsDetail', compact('news', 'categories'));
     }
 
     public function orders()

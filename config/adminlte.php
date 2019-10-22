@@ -199,7 +199,7 @@ return [
             'url'     => 'admin/users'
         ],
         [
-            'text'    => 'Quản lý người dùng',
+            'text'    => 'Quản lý khách hàng',
             'icon'    => 'fa fa-book',
             'url'     => 'admin/users'
         ],
@@ -209,10 +209,15 @@ return [
             'url'     => 'admin/news'
         ],
         [
+            'text'    => 'Quản lý bình luận',
+            'icon'    => 'fa fa-book',
+            'url'     => 'admin/comments'
+        ],
+        [
             'text'    => 'Thống kê',
             'icon'    => 'fa fa-table ',
             'url'     => 'admin/statistic'
-        ],
+        ]
     ],
 
     /*

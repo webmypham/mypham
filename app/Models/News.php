@@ -17,7 +17,7 @@ class News extends Model
         $query = DB::table('news')
             ->select('news.*')
             ->orderBy('news.id', 'DESC');
-        if (isset($searchData['name'])) {
+        if (isset($searchData['title'])) {
             $query->where('news.title', 'LIKE', '%'.$searchData['title'].'%');
         }
         return $query->paginate();

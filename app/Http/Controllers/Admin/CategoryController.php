@@ -49,7 +49,7 @@ class CategoryController extends Controller
             $newCategory['is_parent'] = 0;
         }
         Category::create($newCategory);
-        return redirect()->route('categories.index');;
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -62,7 +62,7 @@ class CategoryController extends Controller
     {
         $category = Category::getCategory($id);
         $categoriesParent = Category::getParent();
-        return view('admin.category.detail', compact('category', 'categoriesParent'));
+        return view('admin.category.show', compact('category', 'categoriesParent'));
     }
 
     /**
@@ -73,7 +73,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        // 
+        $category = Category::find($id);
+        $categoriesParent = Category::getParent();
+        return view('admin.category.edit', compact('category', 'categoriesParent'));
     }
 
     /**
@@ -85,7 +87,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $newCategory = [
+            'name' => $request->name,
+            'is_parent' => 1
+        ];
+        if($request->id_parent){
+            $newCategory['id_parent'] = $request->id_parent;
+            $newCategory['is_parent'] = 0;
+        }
+        Category::where('id', $id)->update($newCategory);
+        return redirect()->route('categories.index');;
     }
 
     /**
@@ -96,6 +107,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::where('id', $id);
+        if (!$category) {
+            return redirect()->back()->withErrors( 'Danh mục không tồn tại');
+        }
+        $category->delete();
+        return redirect()->back()->withSuccess('Xóa danh mục thành công');
     }
 }

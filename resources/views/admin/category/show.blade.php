@@ -18,26 +18,22 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="{{ route('categories.store') }}" method="POST">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <label for="input_name">Tên category</label>
-                            <input type="text" class="form-control" id="input_name" name="name" placeholder="tên" value="{{ old('name') }}">
-                        </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="input_name">Tên category</label>
+                        <input type="text" class="form-control" id="input_name" name="name" placeholder="tên" value="{{ $category->name }}">
+                    </div>
                         <div class="form-group">
                             <label>Category cha:</label>
                             <select name="id_parent" class="form-control">
                                 <option value="">Chọn</option>
                                 @foreach ($categoriesParent as $each)
-                                    <option value="{{ $each->id }}">{{ $each->name }}</option>
+                                    <option value="{{ $each->id }}" {{ $category->id_parent == $each->id ? 'selected' : '' }}>{{ $each->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="_method" value="POST">
-                        <button type="submit" class="btn btn-primary">Tạo category</button>
+                        <a href="{{ route('categories.edit', ['category' => $category->id]) }}"><button type="button" class="btn btn-primary">Edit</button></a>
                     </div>
-                </form>
             </div>
         </div>
     </section>

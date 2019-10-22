@@ -7,7 +7,7 @@
 			<div class="row product-content">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 news_post_loop">
                     <h1 class="text-center">Chi tiết đơn hàng</h1>
-                    @if ($order_details[0]->status != 1)
+                    @if ($order_details[0]->status === '0' && $order_details[0]->status !== '1')
                         <form action="{{ route('user.cancelOrder') }}" method="post">
                             {{ csrf_field() }}
                             <input type="hidden" name="id" value="{{ $order_id }}" />

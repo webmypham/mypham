@@ -37,6 +37,10 @@ Route::group([
 
         Route::get('statistic', 'StatisticController@index');
         Route::get('sale', 'SaleController@index');
+        // news
+        Route::resource('users', 'UserController');
+
+        Route::resource('comments', 'CommentController');
     });
 });
 

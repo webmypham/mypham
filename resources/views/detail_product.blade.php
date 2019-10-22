@@ -138,7 +138,7 @@
                                                             <span class="woocommerce-review__dash">–</span> <time class="woocommerce-review__published-date" datetime="2017-03-10T22:13:51+07:00">{{ Carbon\Carbon::parse($comment->created_at)->format('d/m/y') }}</time>
                                                         </p>
 
-                                                        <div class="description"><p>{{ $comment->content }}</p>
+                                                        <div class="description"><p>{!! $comment->content !!}</p>
                                                         </div>
                                                     </div>
                                                 </div>
