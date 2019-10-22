@@ -204,6 +204,11 @@ return [
             'icon'    => 'fa fa-book',
             'url'     => 'admin/news'
         ],
+        [
+            'text'    => 'Quản lý bình luận',
+            'icon'    => 'fa fa-book',
+            'url'     => 'admin/comments'
+        ],
     ],
 
     /*

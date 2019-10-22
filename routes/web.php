@@ -37,6 +37,8 @@ Route::group([
 
         // news
         Route::resource('users', 'UserController');
+
+        Route::resource('comments', 'CommentController');
     });
 });
 
