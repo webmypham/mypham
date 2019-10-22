@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Quản lý sản phẩm')
+@section('title', 'Quản lý khuyến mãi')
 
 @section('content_header')
 
-    <h1>Quản lý sản phẩm</h1>
+    <h1>Quản lý khuyến mãi</h1>
 
 @stop
 
@@ -14,33 +14,13 @@
         {{-- @include('flash::message') --}}
 
         <div class="row form-group">
-            {{-- <div class="col-md-4">
-                <input type="text" placeholder="name" id="js-search-name" class="form-control" value="{{ $searchData && isset($searchData['name']) ? $searchData['name'] : '' }}">
-            </div>
-            <div class="col-md-4">
-                <select name="parent_id" id="js-search-parent-id" class="form-control">
-                    <option value="">Chọn</option>
-                    @foreach ($categoriesParent as $each)
-                        <option value="{{ $each->id }}">{{ $each->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-primary" id="js-search-button">Tìm kiếm</button>
-            </div> --}}
         </div>
-        {{-- <div class="row form-group">
-            <div class="col-md-8">
-                <a href="{{ url('categories/create')}}"
-                class="btn btn-info">Thêm</a>
-            </div>
-        </div> --}}
 
         <div class="message"></div>
 
         <div class="panel panel-default">
             <div class="box-header">
-                <h3 class="box-title">Danh sách category</h3>
+                <h3 class="box-title">Danh sách khuyến mãi</h3>
                 <a href="{{ route('categories.create') }}" class="btn btn-info" style="float: right;">Thêm</a>
             </div>
             <div class="panel-body table-responsive">
@@ -48,13 +28,22 @@
                 <table class="table table-striped table-bordered" >
                     <tr>
                         <th width="50px">No</th>
-                        <th>Tên</th>
-                        <th>Thuộc category</th>
-                        <th>Ngày tạo</th>
+                        <th>Khuyến mãi</th>
+                        <th>Trạng thái</th>
+                        <th>Bắt đầu</th>
+                        <th>Kết thúc</th>
                         <th width="15%" align="center">Chức năng</th>
                     </tr>
                     <tbody>
-                    @foreach($categories as $key=>$value)
+                        <tr>
+                            <td>1</td>
+                            <td>Giảm 15%</td>
+                            <td><span class="btn btn-success">Đang áp dụng</span></td>
+                            <td>2019-10-17 12:46:54</td>
+                            <td>2019-10-17 12:46:54</td>
+                            <td></td>
+                        </tr>
+                    {{-- @foreach($categories as $key=>$value)
                         <tr>
                             <td>
                                 {{ (($categories->currentPage() - 1 ) * $categories->perPage() ) + $loop->iteration }}
@@ -70,12 +59,12 @@
                                 <button class="btn btn-small btn-danger remove" data-url="{{ url('categories/' . $value->id) }}"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                     </tbody>
                 </table>
             </div>
             <div class="panel-footer clearfix">
-                {{ $categories->links() }}
+                {{-- {{ $categories->links() }} --}}
             </div>
         </div>
     </div>

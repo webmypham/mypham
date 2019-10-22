@@ -34,6 +34,9 @@ Route::group([
 
         // news
         Route::resource('news', 'NewsController');
+
+        Route::get('statistic', 'StatisticController@index');
+        Route::get('sale', 'SaleController@index');
     });
 });
 

@@ -4,21 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 
-class CategoryController extends Controller
+class SaleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $searchData = $request->all();
-        $categories = Category::getCategories($searchData);
-        $categoriesParent = Category::getParent();
-        return  view('admin.category.index', compact('categories', 'searchData','categoriesParent'));
+        return view('admin.sale.index');
     }
 
     /**
@@ -28,8 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categoriesParent = Category::getParent();
-        return view('admin.category.create', compact('categoriesParent'));
+        //
     }
 
     /**
@@ -40,16 +35,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $newCategory = [
-            'name' => $request->name,
-            'is_parent' => 1
-        ];
-        if($request->id_parent){
-            $newCategory['id_parent'] = $request->id_parent;
-            $newCategory['is_parent'] = 0;
-        }
-        Category::create($newCategory);
-        return redirect()->route('categories.index');;
+        //
     }
 
     /**
@@ -60,9 +46,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::getCategory($id);
-        $categoriesParent = Category::getParent();
-        return view('admin.category.detail', compact('category', 'categoriesParent'));
+        //
     }
 
     /**
@@ -73,7 +57,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        // 
+        //
     }
 
     /**

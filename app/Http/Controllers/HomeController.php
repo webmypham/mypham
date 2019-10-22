@@ -21,7 +21,8 @@ class HomeController extends Controller
         $listProduct = [];
         foreach ($menus as $menu) {
             $subCategory = Category::getCategoryChild($menu->id);
-            $catIds = array_map(create_function('$o', 'return $o->id;'), $subCategory);
+            // $catIds = array_map(create_function('$o', 'return $o->id;'), $subCategory);
+            $catIds = array_map(function ($o) {return $o->id;}, $subCategory);
             $products = DB::table('products')
                 ->whereIn('id_category', $catIds)
                 ->orderBy('id', 'DESC')
