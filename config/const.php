@@ -8,5 +8,13 @@ return [
         '1' => 'Đã hủy',
         '10' => 'Đang giao hàng',
         '5' => 'Đã giao thành công'
+    ],
+    'sale_status' => [
+        '0' => 'Đang áp dụng',
+        '1' => 'Không áp dụng',
+    ],
+    'sale_status_class' => [
+        '0' => 'btn btn-success',
+        '1' => 'btn btn-danger',
     ]
 ];

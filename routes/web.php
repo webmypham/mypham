@@ -36,7 +36,7 @@ Route::group([
         Route::resource('news', 'NewsController');
 
         Route::get('statistic', 'StatisticController@index');
-        Route::get('sale', 'SaleController@index');
+        Route::resource('sale', 'SaleController');
         // news
         Route::resource('users', 'UserController');
 

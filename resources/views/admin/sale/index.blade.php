@@ -21,7 +21,7 @@
         <div class="panel panel-default">
             <div class="box-header">
                 <h3 class="box-title">Danh sách khuyến mãi</h3>
-                <a href="{{ route('categories.create') }}" class="btn btn-info" style="float: right;">Thêm</a>
+                <a href="{{ route('sale.create') }}" class="btn btn-info" style="float: right;">Thêm</a>
             </div>
             <div class="panel-body table-responsive">
                 <!-- Table -->
@@ -35,14 +35,24 @@
                         <th width="15%" align="center">Chức năng</th>
                     </tr>
                     <tbody>
+                        @foreach ($sales as $item)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td><span class="{{ config('const.sale_status_class.'.$item->status) }}">{{ config('const.sale_status.'.$item->status) }}</span></td>
+                            <td>{{ $item->date_start }}</td>
+                            <td>{{ $item->date_end }}</td>
+                            <td></td>
+                        </tr>
+                        @endforeach
+                        {{-- <tr>
                             <td>1</td>
                             <td>Giảm 15%</td>
                             <td><span class="btn btn-success">Đang áp dụng</span></td>
                             <td>2019-10-17 12:46:54</td>
                             <td>2019-10-17 12:46:54</td>
                             <td></td>
-                        </tr>
+                        </tr> --}}
                     {{-- @foreach($categories as $key=>$value)
                         <tr>
                             <td>
