@@ -45,7 +45,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if (empty($request->sku) || empty($request->name) || empty($request->id_category) || empty($request->description) || empty($request->quantity) || empty($request->detail)) {
+        if (empty($request->sku) || empty($request->name) || empty($request->id_category) || empty($request->description) || empty($request->price) || empty($request->detail)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
         }
         $newProduct = [
@@ -53,8 +53,8 @@ class ProductController extends Controller
             'name' => $request->name,
             'id_category' => $request->id_category,
             'description' => $request->description,
+            'quantity' => 0,
             'price' => $request->price,
-            'quantity' => $request->quantity,
             'detail' => $request->detail,
         ];
         $file = $request->file('image');
@@ -102,12 +102,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (empty($request->name) || empty($request->id_category) || empty($request->description) || empty($request->price) || empty($request->detail)) {
+            return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
+        }
         $newProduct = [
             'name' => $request->name,
             'id_category' => $request->id_category,
             'description' => $request->description,
             'price' => $request->price,
-            'quantity' => $request->quantity,
             'detail' => $request->detail,
         ];
         $file = $request->file('image');

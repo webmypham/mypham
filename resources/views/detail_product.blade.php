@@ -53,19 +53,32 @@
 												<tr>
 													<th>Trạng thái:</th>
 													<td>
-														<span class="label label-danger">Hết hàng</span>
+                                                        @if($product->quantity == 0)
+														    <span class="label label-danger">{{ $product->quantity == 0 ? 'Hết hàng' : '' }}</span>
+                                                        @else
+                                                            <span class="label label-primary">Còn {{ $product->quantity }} sản phẩm</span>
+                                                        @endif
 													</td>
 												</tr>
+                                                @if($product->quantity > 0)
 												<tr>
 													<td colspan="2">
 														<div class="input-group">
-															<input type="number" value="1" min="1" product="1363" class="product-quantity form-control" style="width: 70px; z-index: auto;" name="quantity" id="quantity">
+															<input type="number" value="1" min="1" max="{{ $product->quantity }}" class="product-quantity form-control" style="width: 70px; z-index: auto; height: 36px" name="quantity" id="quantity">
 															<a href="#" class="btn btn-success cart-add-button" product="1363" onclick="addToCart({{ $product->id }})" variant="">
 																<i class="fa fa-shopping-cart"></i>&nbsp; Thêm vào giỏ hàng
 															</a>&nbsp;
 														</div>
 													</td>
 												</tr>
+                                                @endif
+                                                <tr id="message-error" class="hidden">
+                                                    <td colspan="2">
+                                                        <div class="alert alert-danger alert-block" style="background-color: #da1313; color: #fff; margin-top: 20px">
+                                                            <strong id="message-error-content">Vui lòng nhập số lượng lớn hơn 0</strong>
+                                                        </div>
+                                                    </td>
+                                                </tr>
 											</tbody>
 										</table>
 									</div>
@@ -296,25 +309,35 @@
 @section('script')
 	<script>
 		function addToCart(id) {
-			var quantity = $('#quantity').val();
-			$.ajax({
-				url: "{{ route('addToCart') }}",
-				type: 'GET',
-				data: {
-					id: id,
-					quantity: quantity
-				},
-				success: function(data) {
-					$('#list-cart').html(data);
-                    $.ajax({
-                        url: "{{ route('cartCount') }}",
-                        success: function( response ) {
-                            console.log(response);
-                            $('#cart-count').text(response);
-                        }
-                    });
-				}
-			});
+			var quantity = parseInt($('#quantity').val());
+			console.log(quantity);
+			if (isNaN(quantity) || quantity < 1) {
+                $('#message-error').removeClass('hidden');
+                $('#message-error-content').text('Vui lòng nhập số lượng lớn hơn 0');
+            } else if (quantity > {{ $product->quantity ?? 0 }}) {
+			    $('#message-error-content').text('Không đủ hàng, chỉ còn {{ $product->quantity }} sản phẩm');
+                $('#message-error').removeClass('hidden');
+            } else {
+                $('#message-error').addClass('hidden');
+                $.ajax({
+                    url: "{{ route('addToCart') }}",
+                    type: 'GET',
+                    data: {
+                        id: id,
+                        quantity: quantity
+                    },
+                    success: function(data) {
+                        $('#list-cart').html(data);
+                        $.ajax({
+                            url: "{{ route('cartCount') }}",
+                            success: function( response ) {
+                                console.log(response);
+                                $('#cart-count').text(response);
+                            }
+                        });
+                    }
+                });
+            }
 		}
         $(document).ready(function() {
             $('#Carousel').carousel({

@@ -2,45 +2,52 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Admin | Quản lý danh mục sản phẩm')
+@section('title', 'Admin | Quản lý slide')
 
 @section('content_header')
-    <h1> Quản lý danh mục sản phẩm</h1>
+    <h1> Quản lý slide </h1>
 @stop
 
 @section('content')
     <section class="content">
         <div class="row">
             <!-- general form elements -->
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Chỉnh sửa danh mục sản phẩm</h3>
+                    <h3 class="box-title"> Chỉnh sửa slidec </h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="{{ route('categories.update', ['category' => $category->id]) }}" method="POST" enctype="multipart/form-data">
+                <form role="form" action="{{ route('slides.update', ['slides' => $slide->id]) }}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="PATCH">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="input_name">Tên sản phẩm</label>
-                            <input type="text" class="form-control" id="input_name" name="name" placeholder="Tên sản phẩm" value="{{ $category->name }}" >
+                            <label for="input_name">Tiêu đề</label>
+                            <input type="text" class="form-control" id="input_name" name="name" placeholder="Tên sản phẩm" value="{{ $slide->name }}" >
                         </div>
                         <div class="form-group">
-                            <label>Danh mục cha:</label>
-                            <select name="id_parent" class="form-control">
-                                <option value="">Chọn</option>
-                                @foreach ($categoriesParent as $each)
-                                    <option value="{{ $each->id }}"  {{ $category->id_parent == $each->id ? 'selected' : '' }}>{{ $each->name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="input_description">Thứ tự</label>
+                            <input type="number" class="form-control" id="input_description" name="order" placeholder="Mô tả" value="{{ $slide->order }}" >
                         </div>
                         <div class="form-group">
-                            <label for="input_image">Hình ảnh</label>
-                            <input type="file" id="input_image" name="image">
+                                <label for="input_image">Hình ảnh</label>
+                                <input type="file" id="input_image" name="image">
+                            </div>
+                        <div class="form-group">
+                            <label for="input_image">Hình ảnh cũ</label><br />
+                            @if (Storage::disk()->exists($slide->image))
+                            <img src="{{ asset('storage/'.$slide->image) }}" style="width: 100%;max-width: 250px;">
+                            @endif
                         </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <a href="{{ url()->previous() }}"><button type="button" class="btn">Back</button></a>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <a href="{{ url()->previous() }}"><button type="button" class="btn">Quay lại</button></a>
                     </div>
                 </form>
             </div>

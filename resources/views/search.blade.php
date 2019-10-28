@@ -9,13 +9,6 @@
                     @include('left_nav')
                 </div>
                 <div class="col-md-9 col-sm-12 col-xs-12">
-                    <div class="spacing">
-                        <ul class="breadcrumb" style="margin-top: 0">
-                            <li><a href="{{ url('/') }}">Trang chủ</a></li>
-                            <li class="arrow">»</li>
-                            <li><strong>{{ $category->name }}</strong></li>
-                        </ul>
-                    </div>
                     {{--<h1 class="heading-title">{{ $category->name }}</h1>--}}
                         @for ($i = 0; $i < count($products); $i+=4)
                             <div class="row">

@@ -16,7 +16,8 @@ class Order extends Model
         'status',
         'id_payment',
         'status_payment',
-        'amount'
+        'amount',
+        'note'
     ];
 
     const NO_RENEWAL = 0;

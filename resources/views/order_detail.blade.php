@@ -72,6 +72,10 @@
                                 <p><span>Địa chỉ: </span>{{  $order_details[0]->user_address }}</p>
 
                                 <p><span>Điện thoại:</span> {{  $order_details[0]->user_phone }}</p>
+
+                                <p><span>Hình thức thanh toán: </span>{{ $order_details[0]->payment ?? '' }}</p>
+
+                                <p><span>Ghi chú: </span>{{ $order_details[0]->note ?? '' }}</p>
                             </div>
                         </div>
                     </div>

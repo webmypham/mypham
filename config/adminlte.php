@@ -167,10 +167,6 @@ return [
                 [
                     'text'    => 'Quản lý danh mục',
                     'url'     => 'admin/categories'
-                ],
-                [
-                    'text'    => 'Quản lý đánh giá',
-                    'url'     => 'admin/reviews'
                 ]
             ],
         ],
@@ -208,6 +204,16 @@ return [
             'text'    => 'Quản lý bình luận',
             'icon'    => 'fa fa-book',
             'url'     => 'admin/comments'
+        ],
+        [
+            'text'    => 'Quản lý nhập/xuất hàng',
+            'icon'    => 'fa fa-book',
+            'url'     => 'admin/receipts'
+        ],
+        [
+            'text'    => 'Quản lý slide',
+            'icon'    => 'fa fa-book',
+            'url'     => 'admin/slides'
         ],
     ],
 

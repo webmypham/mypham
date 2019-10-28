@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Quản lý sản phẩm')
+@section('title', 'Quản lý danh mục sản phẩm')
 
 @section('content_header')
 
-    <h1>Quản lý sản phẩm</h1>
+    <h1>Quản lý danh mục sản phẩm</h1>
 
 @stop
 
@@ -40,7 +40,7 @@
 
         <div class="panel panel-default">
             <div class="box-header">
-                <h3 class="box-title">Danh sách category</h3>
+                <h3 class="box-title">Danh sách danh mục sản phẩm</h3>
                 <a href="{{ route('categories.create') }}" class="btn btn-info" style="float: right;">Thêm</a>
             </div>
             <div class="panel-body table-responsive">
@@ -49,6 +49,7 @@
                     <tr>
                         <th width="50px">No</th>
                         <th>Tên</th>
+                        <th>Ảnh</th>
                         <th>Thuộc category</th>
                         <th>Ngày tạo</th>
                         <th width="15%" align="center">Chức năng</th>
@@ -61,6 +62,11 @@
                             </td>
                             <td>
                                 <a href="/categories/{{ $value->id }}">{{ $value->name }}</a>
+                            </td>
+                            <td>
+                                @if (Storage::disk()->exists($value->image))
+                                    <img class="avatar" src="{{ asset('storage/'.$value->image) }}" width="80px;">
+                                @endif
                             </td>
                             <td>{{ $value->parent_name }}</td>
                             <td>{{ date('d/m/Y: H:i', strtotime($value->created_at)) }}</td>

@@ -44,10 +44,10 @@
                                 <label for="input_price">Giá</label>
                                 <input type="number" class="form-control" id="input_price" name="price" value="{{ $product->price }}" >
                             </div>
-                            <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="input_quantity">Số lượng</label>
-                                <input type="number" class="form-control" id="input_quantity" name="quantity" value="{{ $product->quantity }}" >
-                            </div>
+                            {{--<div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">--}}
+                                {{--<label for="input_quantity">Số lượng</label>--}}
+                                {{--<input type="number" class="form-control" id="input_quantity" name="quantity" value="{{ $product->quantity }}" >--}}
+                            {{--</div>--}}
                         </div>
                         <div class="form-group">
                             <label for="input_detail">Chi tiết</label>
