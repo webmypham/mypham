@@ -136,4 +136,21 @@ class Order extends Model
                 return "default";
         }
     }
+
+    public static function statistic() {
+        $result = DB::table('orders')
+        ->select('status',DB::raw('count(*) as order_count'))
+        ->groupBy('status')
+        ->get();
+        return $result;
+    }
+
+    public static function getRevenue() {
+        $result = DB::table('orders')
+            ->select(DB::raw('DATE_FORMAT(updated_at, "%m/%Y") as month, SUM(amount) as amount'))
+            ->groupBy('month')
+            ->orderBy('month', 'DESC')
+            ->get();
+        return $result;
+    }
 }

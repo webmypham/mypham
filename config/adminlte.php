@@ -167,6 +167,14 @@ return [
                 [
                     'text'    => 'Quản lý danh mục',
                     'url'     => 'admin/categories'
+                ],
+                [
+                    'text'    => 'Quản lý đánh giá',
+                    'url'     => 'admin/reviews'
+                ],
+                [
+                    'text'    => 'Khuyến mãi',
+                    'url'     => 'admin/sale'
                 ]
             ],
         ],
@@ -215,6 +223,10 @@ return [
             'icon'    => 'fa fa-book',
             'url'     => 'admin/slides'
         ],
+            'text'    => 'Thống kê',
+            'icon'    => 'fa fa-table ',
+            'url'     => 'admin/statistic'
+        ]
     ],
 
     /*

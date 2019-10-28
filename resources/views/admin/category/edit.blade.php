@@ -1,7 +1,4 @@
-{{-- resources/views/admin/dashboard.blade.php --}}
-
 @extends('adminlte::page')
-
 @section('title', 'Admin | Quản lý danh mục sản phẩm')
 
 @section('content_header')
@@ -53,18 +50,6 @@
 @stop
 
 @section('js')
-    <script src="/ckeditor/ckeditor.js"></script>
     <script>
-        $(function () {
-            CKEDITOR.replace('input_detail',
-            {
-                filebrowserBrowseUrl : '/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl : '/ckfinder/ckfinder.html?type=Images',
-                filebrowserFlashBrowseUrl : '/ckfinder/ckfinder.html?type=Flash',
-                filebrowserUploadUrl : '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl : '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFlashUploadUrl : '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-            });
-        })
     </script>
 @stop
