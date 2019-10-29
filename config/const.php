@@ -16,5 +16,9 @@ return [
     'sale_status_class' => [
         '0' => 'btn btn-success',
         '1' => 'btn btn-danger',
+    ],
+    'sale_type' => [
+        '1' => 'Giảm theo phần trăm',
+        '2' => 'Giảm vào giá'
     ]
 ];

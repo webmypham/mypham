@@ -86,9 +86,22 @@
                                                     <div class="product-box">
                                                         <div class="product-image">
                                                             <a href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}"><img src="{{ asset('storage/'.$products['products'][$j]->image) }}" alt="{{ $products['products'][$j]->name }}"></a>
-                                                            <div class="sale-label sale-top-right">-15%</div>
+                                                            @if ($products['products'][$j]->sale_value)
+                                                            <div class="sale-label sale-top-right">-{{ $products['products'][$j]->sale }}</div>
+                                                            @endif
                                                         </div>
-                                                        <h4 class="product-name"><a href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}">{{ Str::limit($products['products'][$j]->name, 40) }}</a></h4><span class="product-price"><span class="old_price">{{ number_format($products['products'][$j]->price, 0) }}₫</span> {{ number_format($products['products'][$j]->price, 0) }}₫</span>
+                                                        <h4 class="product-name"><a href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}">{{ Str::limit($products['products'][$j]->name, 40) }}</a></h4>
+                                                        @if ($products['products'][$j]->sale_value)
+                                                        <span class="product-price">
+                                                            <span class="old_price">{{ number_format($products['products'][$j]->price, 0) }}₫</span>
+                                                            {{ number_format($products['products'][$j]->sale_price, 0) }}₫
+                                                        </span>
+                                                        @else
+                                                        <span class="product-price">
+                                                            {{ number_format($products['products'][$j]->price, 0) }}₫
+                                                        </span>
+                                                        @endif
+                                                        
                                                     </div>
                                                 </div>
                                                 @endif

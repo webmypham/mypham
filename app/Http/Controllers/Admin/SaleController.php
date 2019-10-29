@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleType;
 
@@ -28,7 +30,9 @@ class SaleController extends Controller
     public function create()
     {
         $saleTypes = SaleType::all();
-        return view('admin.sale.create', compact('saleTypes'));
+        $categories = Category::getAllCategoryChild();
+        $products = Product::all();
+        return view('admin.sale.create', compact('saleTypes', 'categories', 'products'));
     }
 
     /**
@@ -47,7 +51,13 @@ class SaleController extends Controller
             'date_end' => $request->date_end,
             'status'    => 0
         ];
-        Sale::create($data);
+        $sale = Sale::create($data);
+        $products = $request->products;
+        foreach ($products as $value) {
+            $product = Product::find($value);
+            $product->sale_id = $sale->id;
+            $product->save();
+        }
         return redirect()->route('sale.index');
     }
 

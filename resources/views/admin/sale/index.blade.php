@@ -42,7 +42,10 @@
                             <td><span class="{{ config('const.sale_status_class.'.$item->status) }}">{{ config('const.sale_status.'.$item->status) }}</span></td>
                             <td>{{ $item->date_start }}</td>
                             <td>{{ $item->date_end }}</td>
-                            <td></td>
+                            <td>
+                                <a class="btn btn-small btn-info" href="{{ route('sale.edit', ['sale' => $item->id]) }}"><i class="fa fa-edit"></i></a>
+                                <button class="btn btn-small btn-danger remove" data-postid="{{ $item->id }}" data-toggle="modal" data-target="#confirmModal" data-url="{{ route('sale.destroy', ['sale' => $item->id]) }}"><i class="fa fa-trash"></i></button>
+                            </td>
                         </tr>
                         @endforeach
                         {{-- <tr>

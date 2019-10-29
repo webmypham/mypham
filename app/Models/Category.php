@@ -63,4 +63,12 @@ class Category extends Model
             ->get();
         return $query->toArray();
     }
+
+    public static function getAllCategoryChild() {
+        $query = DB::table('categories')
+            ->select('categories.*')
+            ->where('categories.is_parent', 0)
+            ->get();
+        return $query;
+    }
 }

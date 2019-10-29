@@ -14,7 +14,7 @@
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Thêm danh mục</h3>
+                    <h3 class="box-title">Thêm chương trình khuyến mãi</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -47,6 +47,50 @@
                                 <input id="input_date_end" class="form-control" type="date" name="date_end">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Chọn sản phẩm áp dụng</button>
+                        </div>
+                        <!-- The Modal -->
+                        <div class="modal" id="myModal">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                        
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Chọn sản phẩm áp dụng</h4>
+                                    </div>
+                        
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Tên sản phẩm</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($products as $product)
+                                                <tr>
+                                                    <td scope="row">
+                                                        <input type="checkbox" value="{{ $product->id }}" name="products[]">
+                                                    </td>
+                                                    <td>{{ $product->name }}</td>
+                                                <tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                        
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" id="select_categories">Chọn</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                        
+                                    </div>
+                                </div>
+                            </div>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="POST">
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -54,7 +98,7 @@
                 </form>
             </div>
         </div>
-    </section>
+    </section> 
 @stop
 
 @section('css')
@@ -63,5 +107,13 @@
 
 @section('js')
     <script>
+        // $('#sale_apply').change(function() {
+        //     var sale_apply_type = $('#sale_apply').val();
+        //     $('#myModal').modal();
+        // });
+
+        // $('#select_categories').click(function() {
+
+        // });
     </script>
 @stop
