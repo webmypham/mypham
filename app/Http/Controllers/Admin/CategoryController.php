@@ -48,6 +48,12 @@ class CategoryController extends Controller
             $newCategory['id_parent'] = $request->id_parent;
             $newCategory['is_parent'] = 0;
         }
+        $file = $request->file('image');
+        $image = null;
+        if ($file) {
+            $image = $file->store('uploads/category');
+        }
+        $newCategory['image'] = $image;
         Category::create($newCategory);
         return redirect()->route('categories.index');
     }
@@ -95,6 +101,19 @@ class CategoryController extends Controller
             $newCategory['id_parent'] = $request->id_parent;
             $newCategory['is_parent'] = 0;
         }
+
+        $file = $request->file('image');
+        $image = null;
+        if ($file) {
+            $image = $file->store('uploads/category');
+            // Storage
+            $oldImage = Category::find($id)->image;
+            if (file_exists('upload/'.$oldImage)) {
+                File::delete('upload/'.$oldImage);
+            }
+            $newCategory['image'] = $image;
+        }
+
         Category::where('id', $id)->update($newCategory);
         return redirect()->route('categories.index');;
     }

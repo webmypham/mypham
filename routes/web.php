@@ -40,7 +40,14 @@ Route::group([
         // news
         Route::resource('users', 'UserController');
 
+        // comments
         Route::resource('comments', 'CommentController');
+
+        // receipt
+        Route::resource('receipts', 'ReceiptController');
+
+        //slide
+        Route::resource('slides', 'SlideController');
     });
 });
 
@@ -48,6 +55,9 @@ Route::get('news', 'HomeController@news')->name('user.news');
 Route::get('news/{id}', 'HomeController@newsDetail')->name('user.newsDetail');
 
 Route::get('add-to-cart', 'HomeController@addProductToCart')->name('addToCart');
+Route::get('remove-from-cart', 'HomeController@removeProductFromCart')->name('removeFromCart');
+Route::get('update-cart', 'HomeController@updateCart')->name('updateCart');
+
 Route::get('cart', 'HomeController@cart')->name('cart');
 Route::get('checkout', 'HomeController@checkout')->name('checkout');
 Route::post('cart/create', 'HomeController@createOrder')->name('save_order');
@@ -69,4 +79,6 @@ Route::post('cancel-order', 'HomeController@cancelOrder')->name('user.cancelOrde
 
 Route::get('{slug}/{id}', 'HomeController@category')->name('category');
 Route::get('san-pham/{slug}/{id}', 'HomeController@product')->name('product');
+
+Route::get('search', 'HomeController@search')->name('search');
 

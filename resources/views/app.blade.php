@@ -85,8 +85,8 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-12 pull-right">
-                            <form action="/search" class="search-form" id="search_mini_form" method="get">
-                                <input id="search" maxlength="70" name="query" placeholder="Từ khóa cần tìm kiếm" type="text" value="">
+                            <form action="{{ route('search') }}" class="search-form" id="search_mini_form" method="get">
+                                <input id="search" maxlength="70" name="keyword" placeholder="Từ khóa cần tìm kiếm" type="text" value="{{ $keyword ?? '' }}">
                                 <button type="submit" value="Tìm kiếm">
                                     Tìm kiếm
                                 </button>

@@ -90,37 +90,37 @@
                         <div class="form-group">
                             <label for="full_name" class="col-sm-3 control-label">Họ tên</label>
                             <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="email" disabled="" value="Test">
+                                    <input type="text" class="form-control" id="email" disabled="" value="{{ $user->name ?? '' }}">
                                 </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-sm-3 control-label">Email</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="email" disabled="" value="tranvanthanhx11@gmail.com">
+                                <input type="text" class="form-control" id="email" disabled="" value="{{ $user->email ?? '' }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="phone" class="col-sm-3 control-label">Điện thoại</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="phone" name="phone" disabled="" placeholder="Điện thoại" value="09856169450">
+                                <input type="text" class="form-control" id="phone" name="phone" disabled="" placeholder="Điện thoại" value="{{ $user->phone ?? '' }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="street" class="col-sm-3 control-label">Địa chỉ</label>
                             <div class="col-sm-8">
-                                <textarea class="form-control" id="street" name="street" rows="3" disabled="" placeholder="Địa chỉ">北四条西（２０～３０丁目）</textarea>
+                                <textarea class="form-control" id="street" name="street" rows="3" disabled="" placeholder="Địa chỉ">{{ $user->address ?? '' }}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="province" class="col-sm-3 control-label">Tỉnh thành</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="province" name="phone" disabled="" placeholder="Điện thoại" value="Hồ Chí Minh">
+                                <input type="text" class="form-control" id="province" name="phone" disabled="" placeholder="Điện thoại" value="{{ $user->phone ?? '' }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Ghi chú</label>
                             <div class="col-sm-8">
-                                <textarea class="form-control" id="Comment" name="Comment" disabled="" rows="3"></textarea>
+                                <textarea class="form-control" id="Comment" name="Comment" disabled="" rows="3">{{ $order->note }}</textarea>
                             </div>
                         </div>
 

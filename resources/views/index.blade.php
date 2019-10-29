@@ -5,34 +5,56 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="col-md-10 col-sm-9 col-xs-12 no-padding-left">
-                    <div class="slide_index">
-                        <div class="owl-carousel owl-theme" id="owl-demo" style="opacity: 1; display: block;">
-                            <div class="owl-wrapper-outer">
-                                <div class="owl-wrapper" style="width: 3740px; left: 0px; display: block; transition: all 1000ms ease 0s; transform: translate3d(0px, 0px, 0px);">
-                                    <div class="owl-item" style="width: 935px;">
-                                        <div class="item">
-                                            <a href="#">
-                                                <img src="https://3.bp.blogspot.com/-0RQHhK5UtbA/WPm0o_lvSmI/AAAAAAAAHPU/2UfzfiXEGgAdSSV2rRmmyGQOMHs7T337gCLcB/s1600/banner-bg.jpg">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="owl-item" style="width: 935px;">
-                                        <div class="item">
-                                            <a href="#">
-                                                <img src="https://2.bp.blogspot.com/-ug9522gpq98/WPm1AsdlT8I/AAAAAAAAHPY/H2zLbV9I8VoAYnkZJCG2JT3k3smfgLocQCLcB/s1600/banner-bg2.jpg">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    {{--<div class="slide_index">--}}
+                        {{--<div class="owl-carousel owl-theme" id="owl-demo" style="opacity: 1; display: block;">--}}
+                            {{--<div class="owl-wrapper-outer">--}}
+                                {{--<div class="owl-wrapper" style="width: 3740px; left: 0px; display: block; transition: all 1000ms ease 0s; transform: translate3d(0px, 0px, 0px);">--}}
+                                    {{--<div class="owl-item" style="width: 935px;">--}}
+                                        {{--<div class="item">--}}
+                                            {{--<a href="#">--}}
+                                                {{--<img src="https://3.bp.blogspot.com/-0RQHhK5UtbA/WPm0o_lvSmI/AAAAAAAAHPU/2UfzfiXEGgAdSSV2rRmmyGQOMHs7T337gCLcB/s1600/banner-bg.jpg">--}}
+                                            {{--</a>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="owl-item" style="width: 935px;">--}}
+                                        {{--<div class="item">--}}
+                                            {{--<a href="#">--}}
+                                                {{--<img src="https://2.bp.blogspot.com/-ug9522gpq98/WPm1AsdlT8I/AAAAAAAAHPY/H2zLbV9I8VoAYnkZJCG2JT3k3smfgLocQCLcB/s1600/banner-bg2.jpg">--}}
+                                            {{--</a>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
 
-                            <div class="owl-controls clickable">
-                                <div class="owl-pagination">
-                                    <div class="owl-page active"><span class=""></span></div>
-                                    <div class="owl-page"><span class=""></span></div>
+                            {{--<div class="owl-controls clickable">--}}
+                                {{--<div class="owl-pagination">--}}
+                                    {{--<div class="owl-page active"><span class=""></span></div>--}}
+                                    {{--<div class="owl-page"><span class=""></span></div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="padding: 0 !important;">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            @foreach($slides as $key => $value)
+                                <li data-target="#myCarousel" data-slide-to="{{ $key }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+                            @endforeach
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            @foreach($slides as $key => $value)
+                                <div class="item {{ $loop->first ? 'active' : '' }}">
+                                    <img src="{{ asset('storage/'.$value->image) }}" alt="Los Angeles">
                                 </div>
-                            </div>
+                            @endforeach
+
+
                         </div>
+
+                        <!-- Left and right controls -->
+
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-3 hidden-xs no-padding">
@@ -64,7 +86,9 @@
                                 <div class="col-md-3 hidden-sm hidden-xs">
                                     <div class="banner-top">
                                         <a href="cham-soc-da-mat">
-                                            <img class="img-responsive" src="https://1.bp.blogspot.com/-Nmpc4xoCH44/WPm3DuKAULI/AAAAAAAAHPw/WJUl5AlQNzIO0MfMWKS2CWETNQyNY4pqwCLcB/s1600/banner_left1.png">
+                                            @if ($products['image'])
+                                                <img class="img-responsive" src="{{ asset('storage/'.$products['image']) }}">
+                                            @endif
                                         </a>
                                     </div>
                                     <div class="banner-bottom">

@@ -10,7 +10,7 @@ class Category extends Model
     protected $table = 'categories';
     protected $perPage = 20;
     protected $dates = ['created_at', 'created_at'];
-    protected $fillable = ['name', 'id_parent', 'is_parent'];
+    protected $fillable = ['name', 'id_parent', 'is_parent', 'image'];
 
     public static function getParent() {
         return DB::table('categories')->where('is_parent', 1)->get();
@@ -34,7 +34,7 @@ class Category extends Model
         $builder = DB::table('categories')
             ->select('categories.*', 'parent.name as parent_name')
             ->leftJoin('categories as parent', 'categories.id_parent', '=', 'parent.id')
-            ->orderBy('name', 'ASC');
+            ->orderBy('created_at', 'DESC');
 
         if (isset($data['name'])) {
             $builder->searchLike(['name' => $data['name']]);

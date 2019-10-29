@@ -86,26 +86,26 @@
                                         <div class="form-group">
                                             <label for="email" class="col-sm-3 control-label">Email</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="email" value="">
+                                                <input type="text" class="form-control" id="email" value="{{ $user->email ?? ''}}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="full_name" class="col-sm-3 control-label">Họ tên</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" name="full_name" id="full_name" placeholder="Họ tên" value="">
+                                                <input class="form-control" name="full_name" id="full_name" placeholder="Họ tên" value="{{ $user->name ?? ''}}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="phone" class="col-sm-3 control-label">Điện thoại</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Điện thoại" value="">
+                                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Điện thoại" value="{{ $user->phone ?? ''}}">
                                             </div>
                                             <div class="col-sm-5">Viết liền, không chấm, không gạch ngang</div>
                                         </div>
                                         <div class="form-group">
                                             <label for="street" class="col-sm-3 control-label">Địa chỉ</label>
                                             <div class="col-sm-8">
-                                                <textarea class="form-control" id="street" name="street" rows="3" placeholder="Địa chỉ"></textarea>
+                                                <textarea class="form-control" id="street" name="street" rows="3" placeholder="Địa chỉ">{{ $user->address ?? '' }}</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -211,7 +211,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Ghi chú</label>
                                             <div class="col-sm-8">
-                                                <textarea class="form-control" id="Comment" name="Comment" rows="3" placeholder="Nội dung ghi chú giúp chúng tôi xử lý đơn hàng chính xác hơn"></textarea>
+                                                <textarea class="form-control" id="Comment" name="note" rows="3" placeholder="Nội dung ghi chú giúp chúng tôi xử lý đơn hàng chính xác hơn"></textarea>
                                             </div>
                                         </div>
                                     </div>

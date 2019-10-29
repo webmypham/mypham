@@ -2,10 +2,10 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Quản lý danh mục sản phẩm')
 
 @section('content_header')
-    <h1> Quản lý danh mục </h1>
+    <h1> Quản lý danh mục sản phẩm</h1>
 @stop
 
 @section('content')
@@ -14,11 +14,11 @@
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Thêm danh mục</h3>
+                    <h3 class="box-title">Thêm danh mục sản phẩm</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="{{ route('categories.store') }}" method="POST">
+                <form role="form" action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="input_name">Tên category</label>
@@ -32,6 +32,10 @@
                                     <option value="{{ $each->id }}">{{ $each->name }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="input_image">Hình ảnh</label>
+                            <input type="file" name="image">
                         </div>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="POST">

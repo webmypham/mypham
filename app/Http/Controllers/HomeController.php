@@ -8,6 +8,7 @@ use App\Models\News;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\Slide;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,8 +22,7 @@ class HomeController extends Controller
         $listProduct = [];
         foreach ($menus as $menu) {
             $subCategory = Category::getCategoryChild($menu->id);
-            // $catIds = array_map(create_function('$o', 'return $o->id;'), $subCategory);
-            $catIds = array_map(function ($o) {return $o->id;}, $subCategory);
+            $catIds = array_column($subCategory, 'id');
             $products = DB::table('products')
                 ->select('products.*', 'sale.value as sale_value', 'sale_type_id')
                 ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
@@ -47,14 +47,17 @@ class HomeController extends Controller
             }
             $listProduct[$menu->id] = [
                 'name' => $menu->name,
+                'image' => $menu->image,
                 'products' => $products
             ];
         }
         $news = News::latest('created_at')->limit(2)->get();
+        $slides = Slide::orderBy('order', 'ASC')->get();
         return view('index', [
             'menus' => $menus,
             'listProduct' => $listProduct,
-            'news' => $news
+            'news' => $news,
+            'slides' => $slides
         ]);
     }
 
@@ -90,7 +93,12 @@ class HomeController extends Controller
             $exist = false;
             foreach ($cart as $key => $value) {
                 if ($value['product']->id == $product->id) {
-                    $cart[$key]['quantity'] = $value['quantity'] + $request->quantity;
+                    $quantity = $value['quantity'] + $request->quantity;
+                    if ($quantity > $product->quantity) {
+                        $quantcity = $product->quantity;
+                    }
+                    $cart[$key]['quantity'] = $quantcity;
+
                     $exist = true;
                 }
             } 
@@ -103,6 +111,35 @@ class HomeController extends Controller
         }
         Session::put('cart', $cart);
         return view('ajax.list_product_cart');
+    }
+
+    public function removeProductFromCart(Request $request) {
+        $cart = [];
+        if (Session::get('cart')) {
+            $cart = Session::get('cart');
+        }
+        foreach ($cart as $key => $value) {
+            if ($value['product']->id == $request->id) {
+                array_splice($cart, $key, 1);
+            }
+        }
+        Session::put('cart', $cart);
+        return 'true';
+    }
+
+    public function updateCart(Request $request)
+    {
+        $cartData = $request->cart;
+        $carts = [];
+        foreach ($cartData as $cart) {
+            $product = Product::find($cart['id']);
+            $carts[] = [
+                'product' => $product,
+                'quantity' => $cart['quantity']
+            ];
+        }
+        Session::put('cart', $carts);
+        return response()->json(['status' => true], 200);
     }
 
     public function cart() {
@@ -118,7 +155,8 @@ class HomeController extends Controller
         foreach ($categories as $menu) {
             $menu->subCat = Category::getCategoryChild($menu->id);
         }
-        return view('checkout', compact('categories'));
+        $user = Session::get('user_info');
+        return view('checkout', compact('categories', 'user'));
     }
 
     public function createOrder(Request $request) {
@@ -142,7 +180,8 @@ class HomeController extends Controller
             'id_payment' => $request->id_payment,
             'status' => 0,
             'status_payment' => 0,
-            'amount' => $amount
+            'amount' => $amount,
+            'note' => $request->note
         ];
         $od = Order::create($order);
         foreach($orderDetail as $key => $value) {
@@ -167,7 +206,8 @@ class HomeController extends Controller
         foreach ($categories as $menu) {
             $menu->subCat = Category::getCategoryChild($menu->id);
         }
-        return view('order', compact(['order', 'order_details', 'order_status', 'categories']));
+        $user = Session::get('user_info');
+        return view('order', compact(['order', 'order_details', 'order_status', 'categories'], 'user'));
     }
 
     public function getCartCount() {
@@ -306,6 +346,8 @@ class HomeController extends Controller
                 'order_details.*',
                 'orders.status',
                 'orders.amount',
+                'orders.id_payment',
+                'orders.note',
                 'orders.created_at as created_order_at',
                 'products.name as product_name',
                 'products.image as product_image',
@@ -322,6 +364,19 @@ class HomeController extends Controller
         foreach($order_details as $key => $order) {
             $order_details[$key]->status_text = Order::getStatusNameAttribute($order->status);
             $order_details[$key]->status_class = Order::getStatusClassNameAttribute($order->status);
+            switch ($order_details[$key]->id_payment) {
+                case 1:
+                    $order_details[$key]->payment = 'Nhận tiền khi giao hàng';
+                    break;
+                case 2:
+                    $order_details[$key]->payment = 'Chuyển khoản qua ngân hàng';
+                    break;
+                case 3:
+                    $order_details[$key]->payment = 'Thanh toán qua VTC Pay (pay.vtc.vn)';
+                    break;
+                default:
+                    break;
+            }
         }
         $order_id = $id;
         $categories = Category::getParent();
@@ -338,5 +393,15 @@ class HomeController extends Controller
         ];
         Order::where('id', $request->id)->update($data);
         return redirect()->route('user.orders');
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->keyword;
+        $products = Product::where('name', 'like', "%$keyword%")->get();
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
+        return view('search', compact('products', 'categories', 'keyword'));
     }
 }

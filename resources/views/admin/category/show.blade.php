@@ -5,7 +5,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1> Quản lý danh mục </h1>
+    <h1> Quản lý danh mục sản phẩm</h1>
 @stop
 
 @section('content')
@@ -14,7 +14,7 @@
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Thêm danh mục</h3>
+                    <h3 class="box-title">Xem danh mục sản phẩm</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->

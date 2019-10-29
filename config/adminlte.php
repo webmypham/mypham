@@ -214,6 +214,16 @@ return [
             'url'     => 'admin/comments'
         ],
         [
+            'text'    => 'Quản lý nhập/xuất hàng',
+            'icon'    => 'fa fa-book',
+            'url'     => 'admin/receipts'
+        ],
+        [
+            'text'    => 'Quản lý slide',
+            'icon'    => 'fa fa-book',
+            'url'     => 'admin/slides'
+        ],
+        [
             'text'    => 'Thống kê',
             'icon'    => 'fa fa-table ',
             'url'     => 'admin/statistic'
