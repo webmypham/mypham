@@ -223,6 +223,7 @@ return [
             'icon'    => 'fa fa-book',
             'url'     => 'admin/slides'
         ],
+        [
             'text'    => 'Thống kê',
             'icon'    => 'fa fa-table ',
             'url'     => 'admin/statistic'
