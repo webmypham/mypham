@@ -387,4 +387,20 @@ class HomeController extends Controller
         }
         return view('search', compact('products', 'categories', 'keyword'));
     }
+
+    public function guide(Request $request)
+    {
+        return view('guide');
+    }
+
+    public function bestseller(Request $request)
+    {
+        $products = DB::table('products')->join('order_details', 'order_details.id_product', 'products.id')
+            ->groupBy('order_details.id_product')->orderByRaw('SUM(order_details.quantity) DESC')->limit(50)->get();
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
+        return view('bestseller', compact('products', 'categories'));
+    }
 }

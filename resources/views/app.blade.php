@@ -127,7 +127,10 @@
                                             </li>
                                         @endforeach
                                         <li class="dropdown">
-                                            <a class="dropdown-toggle" href="/search/label/san-pham">Liên hệ </a>
+                                            <a class="dropdown-toggle" href="{{ route('user.bestseller') }}">Bán chạy </a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" href="{{ route('user.guide') }}">Hướng dẫn mua hàng </a>
                                         </li>
                                         <li class="">
                                             <a href="{{ url('/news') }}">Tin tức</a>
@@ -260,28 +263,8 @@
             _WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'mainblog', document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/3877460894-lbx__vi.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/368954415-lightbox_bundle.css'}, 'displayModeFull'));
         </script>
         <!-- Load Facebook SDK for JavaScript -->
-        <div id="fb-root"></div>
-        <script>
-            window.fbAsyncInit = function() {
-                FB.init({
-                    xfbml            : true,
-                    version          : 'v4.0'
-                });
-            };
+        <script lang="javascript">var _vc_data = {id : 5082824, secret : '31ebf6a2928b0b771b0bd68e5ba0ae8f'};(function() {var ga = document.createElement('script');ga.type = 'text/javascript';ga.async=true; ga.defer=true;ga.src = '//live.vnpgroup.net/client/tracking.js?id=5082824';var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();</script>
 
-            (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
-
-        <!-- Your customer chat code -->
-        <div class="fb-customerchat"
-             attribution=setup_tool
-             page_id="1864780080465322">
-        </div>
         @yield('script')
     </body>
 </html>

@@ -169,10 +169,6 @@ return [
                     'url'     => 'admin/categories'
                 ],
                 [
-                    'text'    => 'Quản lý đánh giá',
-                    'url'     => 'admin/reviews'
-                ],
-                [
                     'text'    => 'Khuyến mãi',
                     'url'     => 'admin/sale'
                 ]

@@ -82,4 +82,6 @@ Route::get('{slug}/{id}', 'HomeController@category')->name('category');
 Route::get('san-pham/{slug}/{id}', 'HomeController@product')->name('product');
 
 Route::get('search', 'HomeController@search')->name('search');
+Route::get('guide', 'HomeController@guide')->name('user.guide');
+Route::get('bestseller', 'HomeController@bestseller')->name('user.bestseller');
 
