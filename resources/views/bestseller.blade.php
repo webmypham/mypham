@@ -24,11 +24,11 @@
                                     <div class="col-md-3 col-sm-6 product-item">
                                         <div class="product-box">
                                             <div class="product-image">
-                                                <a href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id ]) }}"><img src="{{ asset('storage/'.$products[$j]->image) }}" alt="{{ $products[$j]->name }}"></a>
+                                                <a href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id_product ]) }}"><img src="{{ asset('storage/'.$products[$j]->image) }}" alt="{{ $products[$j]->name }}"></a>
                                                 <div class="sale-label sale-top-right">-15%</div>
                                             </div>
                                             <h4 class="product-name">
-                                                <a href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id ]) }}">{{ Str::limit($products[$j]->name, 40) }}</a>
+                                                <a href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id_product ]) }}">{{ Str::limit($products[$j]->name, 40) }}</a>
                                             </h4>
                                             <span class="product-price"><span class="old_price">{{ number_format($products[$j]->price, 0) }}₫</span> {{ number_format($products[$j]->price, 0) }}₫</span>
                                         </div>
