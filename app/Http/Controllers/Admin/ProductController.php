@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Sale;
 use DateTime;
 use Faker\Provider\Image;
 use Illuminate\Support\Facades\File;
@@ -34,7 +35,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.product.create', compact('categories'));
+        $sales = Sale::all();
+        return view('admin.product.create', compact('categories', 'sales'));
     }
 
     /**
@@ -90,7 +92,8 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $categories = Category::all();
-        return view('admin.product.edit', compact('product', 'categories'));
+        $sales = Sale::all();
+        return view('admin.product.edit', compact('product', 'categories', 'sales'));
     }
 
     /**
@@ -111,6 +114,7 @@ class ProductController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'detail' => $request->detail,
+            'sale_id' => $request->sale_id,
         ];
         $file = $request->file('image');
         $image = null;

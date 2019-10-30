@@ -54,9 +54,18 @@
                             <textarea class="form-control" id="input_detail" name="detail" placeholder="" rows="10" cols="80" >{{ $product->detail }}</textarea>
                         </div>
                         <div class="form-group">
-                                <label for="input_image">Hình ảnh</label>
-                                <input type="file" id="input_image" name="image">
-                            </div>
+                            <label for="input_sale_id">Chọn khuyến mãi</label>
+                            <select name="sale_id" class="form-control" id="input_sale_id">
+                                <option value="">Chọn</option>
+                                @foreach ($sales as $each)
+                                    <option value="{{ $each->id }}">{{ $each->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="input_image">Hình ảnh</label>
+                            <input type="file" id="input_image" name="image">
+                        </div>
                         <div class="form-group">
                             <label for="input_image">Hình ảnh cũ</label><br />
                             @if (Storage::disk()->exists($product->image))
