@@ -5,7 +5,7 @@
 	<div class="extended-container mb-20">
 		<div class="container j-container">
 			<div class="row product-content">
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 news_post_loop">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 news_post_loop fp-14">
                     <h1 class="text-center"  style="margin-top: 15px; margin-bottom: 15px">CÁCH MUA HÀNG TRÊN WEBSITE MỸ PHẨM COSMETIC</h1>
                     <p>Không cần trực tiếp đến siêu thị mua hàng, bạn có thể lựa chọn cách mua hàng online bằng cách chọn một trong những cách mua hàng sau:</p>
                     <p>Cách 1: Gọi điện thoại đến tổng đài (0981-861-865) hoặc (1800.8198) từ 7h30-21h (cả CN & ngày lễ) để đặt hàng, nhân viên chúng tôi luôn sẵn phục vụ, tư vấn và hỗ trợ quý khách mua được sản phẩm ưng ý.</p>
@@ -38,49 +38,6 @@
                     <p></p>
                     <p></p>
                     <p></p>
-
-                </div>
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="sticky-scroll-box">
-                            <div id="text-15" class="sidebar-widget widget_text">
-                                <div class="textwidget">
-                                    <ul class="benifit-icon">
-                                        <li class="icon_list_item">
-                                            <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-nuty.png') }}">
-                                            <div class="icon_description_text">
-                                                <p class="sun-gtmh-title"><strong>HÀNG CHÍNH HÃNG 100%</strong></p>
-                                                <p class="sun-gtmh-desc">Tất cả mặt hàng đều có bill order từ nước ngoài</p>
-                                            </div>
-                                        </li>
-                                        <li class="icon_list_item">
-                                            <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-gift.png') }}">
-                                            <div class="icon_description_text">
-                                                <p class="sun-gtmh-title"><strong>TÍCH ĐIỂM ĐẾN 10% KHI MUA TẠI CỬA HÀNG</strong></p>
-                                                <p class="sun-gtmh-desc">Và tặng quà khi mua online </p>
-                                            </div>
-                                        </li>
-                                        <li class="icon_list_item">
-                                            <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-ship.png') }}">
-                                            <div class="icon_description_text">
-                                                <p class="sun-gtmh-title"><strong> GIAO HÀNG TOÀN QUỐC</strong></p>
-                                                <p class="sun-gtmh-desc">Và hỗ trợ phí ship rẻ nhất cho các quận, tỉnh còn lại.</p>
-                                            </div>
-                                        </li>
-                                        <li class="icon_list_item">
-                                            <img class="lazy list-img-icon lazy-loaded" src="{{ asset('images/icon-home.png') }}">
-                                            <div class="icon_description_text">
-                                                <p class="sun-gtmh-title" style="margin-top: 15px;"><strong>HỆ THỐNG CỬA HÀNG THUẬN TIỆN MUA SẮM</strong></p>
-
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <p style="color: #3c2665;font-size: 12px;text-align: center;padding: 10px 0 10px 0px;border-top: 1px solid #DDD;margin: 0;">ĐẠI LÝ PHÂN PHỐI CHÍNH THỨC 100 THƯƠNG HIỆU UY TÍN TRÊN THẾ GIỚI</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
 			</div>
         </div>
