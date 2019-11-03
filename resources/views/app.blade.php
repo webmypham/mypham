@@ -133,12 +133,11 @@
                                             <i class="fa fa-angle-down"></i>
                                             </a>
                                             <ul class="dropdown-menu" role="menu">
+                                                @if (Session::get('user_logged') === true)
+                                                    <li><a href="{{ url('/orders') }}">Đơn hàng</a></li>
+                                                @endif
                                                 <li><a href="{{ route('user.bestseller') }}">Bán chạy </a></li>
                                                 <li><a class="dropdown-toggle" href="{{ route('user.guide') }}">Hướng dẫn mua hàng </a></li>
-
-                                                @if (Session::get('user_logged') === true)
-                                                <li><a href="{{ url('/orders') }}">Đơn hàng</a></li>
-                                                @endif
                                             </ul>
                                         </li>
                                     </ul>
