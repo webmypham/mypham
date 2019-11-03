@@ -126,20 +126,21 @@
                                                 @endif
                                             </li>
                                         @endforeach
+                                        <li><a href="{{ url('/news') }}">Tin tức</a></li>
                                         <li class="dropdown">
-                                            <a class="dropdown-toggle" href="{{ route('user.bestseller') }}">Bán chạy </a>
+                                            <a class="dropdown-toggle">
+                                            Khác
+                                            <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="{{ route('user.bestseller') }}">Bán chạy </a></li>
+                                                <li><a class="dropdown-toggle" href="{{ route('user.guide') }}">Hướng dẫn mua hàng </a></li>
+
+                                                @if (Session::get('user_logged') === true)
+                                                <li><a href="{{ url('/orders') }}">Đơn hàng</a></li>
+                                                @endif
+                                            </ul>
                                         </li>
-                                        <li class="dropdown">
-                                            <a class="dropdown-toggle" href="{{ route('user.guide') }}">Hướng dẫn mua hàng </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="{{ url('/news') }}">Tin tức</a>
-                                        </li>
-                                        @if (Session::get('user_logged') === true)
-                                            <li class="">
-                                                <a href="{{ url('/orders') }}">Đơn hàng</a>
-                                            </li>
-                                        @endif
                                     </ul>
                                 </div>
                             </div>

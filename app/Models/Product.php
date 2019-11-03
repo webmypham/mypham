@@ -46,7 +46,7 @@ class Product extends Model
             })
             ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
             ->whereIn('id_category', $idCategories);
-        $products = $query->paginate(12);
+        $products = $query->paginate(16);
         foreach($products as $key => $value) {
             switch ($value->sale_type_id) {
                 case 1:

@@ -41,12 +41,19 @@
 															<link itemprop="availability" href="http://schema.org/OutOfStock">
 														</div>
 														<span>
-															<s class="old-price">{{ number_format($product->price, 0) }} 
-																<sup>đ</sup>
-															</s>
-															<strong class="theme">{{ number_format($product->price, 0) }} 
-																<sup>đ</sup>
-															</strong>
+                                                            @if ($product->sale_value)
+                                                                <s class="old-price">{{ number_format($product->price, 0) }}
+                                                                    <sup>đ</sup>
+                                                                </s>
+
+                                                                <strong class="theme">{{ number_format($product->sale_price, 0) }}
+                                                                    <sup>đ</sup>
+                                                                </strong>
+                                                            @else
+                                                                <strong class="theme">{{ number_format($product->price, 0) }}
+                                                                    <sup>đ</sup>
+                                                                </strong>
+                                                            @endif
 														</span>
 													</td>
 												</tr>
@@ -76,6 +83,13 @@
                                                     <td colspan="2">
                                                         <div class="alert alert-danger alert-block" style="background-color: #da1313; color: #fff; margin-top: 20px">
                                                             <strong id="message-error-content">Vui lòng nhập số lượng lớn hơn 0</strong>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr id="message-success" class="hidden">
+                                                    <td colspan="2">
+                                                        <div class="alert alert-success alert-block" style="background-color: #5cb85c; color: #fff; margin-top: 20px">
+                                                            <strong id="message-error-content">Thêm vào giỏ hàng thành công</strong>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -120,7 +134,7 @@
                                             </tr>
                                             <tr>
                                                 <td><span class="posted_in">Danh mục: </span></td>
-                                                <td><a rel="tag">{{ $product->category->name ?? '' }}</a></td>
+                                                <td><a rel="tag">{{ $product->category_name ?? '' }}</a></td>
                                             </tr>
                                             <tr>
                                                 <td><span class="posted_in">Mô tả: </span></td>
@@ -333,6 +347,10 @@
                             success: function( response ) {
                                 console.log(response);
                                 $('#cart-count').text(response);
+                                $('#message-success').removeClass('hidden');
+                                setTimeout(function () {
+                                    $('#message-success').addClass('hidden');
+                                }, 2000)
                             }
                         });
                     }

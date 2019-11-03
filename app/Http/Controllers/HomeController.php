@@ -72,7 +72,26 @@ class HomeController extends Controller
     }
 
     public function product($slug, $id) {
-        $product = Product::find($id);
+        $product = DB::table('products')
+            ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
+            ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
+            ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
+            ->leftJoin('categories', 'categories.id', '=', 'products.id_category')
+            ->where('products.id', $id)
+            ->first();
+        switch ($product->sale_type_id) {
+            case 1:
+                $product->sale = $product->sale_value.'%';
+                $product->sale_price = $product->price - $product->price * $product->sale_value / 100;
+                break;
+            case 2:
+                $product->sale = number_format($product->sale_value, 0).'đ';
+                $product->sale_price = $product->price - $product->sale_value;
+                break;
+            default:
+                break;
+        }
+//        dd($product);
         $products = Product::where('id_category', $product->id_category)->get()->toArray();
         $similarProducts = array_chunk($products, 6);
         $comments = Comment::where('id_product', $product->id)->get();
@@ -170,6 +189,12 @@ class HomeController extends Controller
                 'quantity'  => $value['quantity'],
                 'price' => $value['product']->price
             ];
+            $product = Product::find($value['product']->id);
+            $newQuantity = 0;
+            if ($product->quantity > $value['quantity']) {
+                $newQuantity = $product->quantity - $value['quantity'];
+            }
+            $product->update(['quantity' => $newQuantity]);
         }
         $user_id = 1;
         if (Session::get('user_logged') === true) {
