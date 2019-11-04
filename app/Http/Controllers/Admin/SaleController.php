@@ -80,7 +80,11 @@ class SaleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $saleTypes = SaleType::all();
+        $categories = Category::getAllCategoryChild();
+        $products = Product::all();
+        $sale = Sale::find($id);
+        return view('admin.sale.edit', compact('sale', 'saleTypes', 'categories', 'products'));
     }
 
     /**
@@ -92,7 +96,22 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = [
+            'name' => $request->name,
+            'sale_type_id' => $request->sale_type_id,
+            'value' => $request->value,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end,
+            'status'    => 0
+        ];
+        Sale::where('id', $id)->update($data);
+        $products = $request->products;
+        foreach ($products as $value) {
+            $product = Product::find($value);
+            $product->sale_id = $id;
+            $product->save();
+        }
+        return redirect()->route('sale.index');
     }
 
     /**
@@ -103,6 +122,9 @@ class SaleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sale = Sale::find($id);
+        $sale->delete();
+        $products = Product::where('sale_id', $id)->update(['sale_id' => null]);
+        return redirect()->back()->withSuccess('Xóa thành công');
     }
 }

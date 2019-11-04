@@ -48,31 +48,6 @@
                             </td>
                         </tr>
                         @endforeach
-                        {{-- <tr>
-                            <td>1</td>
-                            <td>Giảm 15%</td>
-                            <td><span class="btn btn-success">Đang áp dụng</span></td>
-                            <td>2019-10-17 12:46:54</td>
-                            <td>2019-10-17 12:46:54</td>
-                            <td></td>
-                        </tr> --}}
-                    {{-- @foreach($categories as $key=>$value)
-                        <tr>
-                            <td>
-                                {{ (($categories->currentPage() - 1 ) * $categories->perPage() ) + $loop->iteration }}
-                            </td>
-                            <td>
-                                <a href="/categories/{{ $value->id }}">{{ $value->name }}</a>
-                            </td>
-                            <td>{{ $value->parent_name }}</td>
-                            <td>{{ date('d/m/Y: H:i', strtotime($value->created_at)) }}</td>
-                            <td align="center">
-                                <a class="btn btn-small btn-info" href="{{ route('categories.edit', ['category' => $value->id]) }}"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-small btn-info" href="/categories/{{ $value->id }}"><i class="fa fa-eye"></i></a>
-                                <button class="btn btn-small btn-danger remove" data-url="{{ url('categories/' . $value->id) }}"><i class="fa fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    @endforeach --}}
                     </tbody>
                 </table>
             </div>
@@ -81,6 +56,30 @@
             </div>
         </div>
     </div>
+    <!-- modal confirm delete -->
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header header-modal-delete">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title" align="center">Confirmation</h2>
+                </div>
+                    
+                <div class="modal-body">
+                    <h4 align="center" style="margin:0;">Bạn có muốn xoá dữ liệu này không?</h4>
+                </div>
+                <div class="modal-footer">
+                    <form method="POST" id="deleteForm">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">YES</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./modal confirm delete -->
 @stop
 
 @section('css')
@@ -88,5 +87,12 @@
 @stop
 
 @section('js')
-    <script></script>
+    <script>
+        $('#confirmModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var url = button.data('url');
+            var modal = $(this);
+            $("#deleteForm").attr("action",url)
+        });
+    </script>
 @stop
