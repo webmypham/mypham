@@ -72,7 +72,26 @@ class HomeController extends Controller
     }
 
     public function product($slug, $id) {
-        $product = Product::find($id);
+        $product = DB::table('products')
+            ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
+            ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
+            ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
+            ->leftJoin('categories', 'categories.id', '=', 'products.id_category')
+            ->where('products.id', $id)
+            ->first();
+        switch ($product->sale_type_id) {
+            case 1:
+                $product->sale = $product->sale_value.'%';
+                $product->sale_price = $product->price - $product->price * $product->sale_value / 100;
+                break;
+            case 2:
+                $product->sale = number_format($product->sale_value, 0).'đ';
+                $product->sale_price = $product->price - $product->sale_value;
+                break;
+            default:
+                break;
+        }
+//        dd($product);
         $products = Product::where('id_category', $product->id_category)->get()->toArray();
         $similarProducts = array_chunk($products, 6);
         $comments = Comment::where('id_product', $product->id)->get();
@@ -170,6 +189,12 @@ class HomeController extends Controller
                 'quantity'  => $value['quantity'],
                 'price' => $value['product']->price
             ];
+            $product = Product::find($value['product']->id);
+            $newQuantity = 0;
+            if ($product->quantity > $value['quantity']) {
+                $newQuantity = $product->quantity - $value['quantity'];
+            }
+            $product->update(['quantity' => $newQuantity]);
         }
         $user_id = 1;
         if (Session::get('user_logged') === true) {
@@ -403,5 +428,39 @@ class HomeController extends Controller
             $menu->subCat = Category::getCategoryChild($menu->id);
         }
         return view('search', compact('products', 'categories', 'keyword'));
+    }
+
+    public function guide(Request $request)
+    {
+        return view('guide');
+    }
+
+    public function bestseller(Request $request)
+    {
+        $products = DB::table('products')
+            ->select('products.*', 'sale.value as sale_value', 'sale_type_id')
+            ->join('order_details', 'order_details.id_product', 'products.id')
+            ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
+            ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
+            ->groupBy('order_details.id_product')->orderByRaw('SUM(order_details.quantity) DESC')->limit(50)->get();
+        foreach($products as $key => $value) {
+            switch ($value->sale_type_id) {
+                case 1:
+                    $products[$key]->sale = $value->sale_value.'%';
+                    $products[$key]->sale_price = $products[$key]->price - $products[$key]->price * $value->sale_value / 100;
+                    break;
+                case 2:
+                    $products[$key]->sale = number_format($value->sale_value, 0).'đ';
+                    $products[$key]->sale_price = $products[$key]->price - $products[$key]->sale_value;
+                    break;
+                default:
+                    break;
+            }
+        }
+        $categories = Category::getParent();
+        foreach ($categories as $menu) {
+            $menu->subCat = Category::getCategoryChild($menu->id);
+        }
+        return view('bestseller', compact('products', 'categories'));
     }
 }

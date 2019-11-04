@@ -13,7 +13,7 @@
                         <ul class="breadcrumb" style="margin-top: 0">
                             <li><a href="{{ url('/') }}">Trang chủ</a></li>
                             <li class="arrow">»</li>
-                            <li><strong>{{ $category->name }}</strong></li>
+                            <li><strong>Bán chạy</strong></li>
                         </ul>
                     </div>
                     {{--<h1 class="heading-title">{{ $category->name }}</h1>--}}
@@ -35,7 +35,7 @@
                                             @if ($products[$j]->sale_value)
                                                 <span class="product-price">
                                                             <span class="old_price">{{ number_format($products[$j]->price, 0) }}₫</span>
-                                                            {{ number_format($products[$j]->sale_price  , 0) }}₫
+                                                            {{ number_format($products[$j]->sale_price, 0) }}₫
                                                         </span>
                                             @else
                                                 <span class="product-price">
@@ -48,7 +48,6 @@
                                 @endfor
                             </div>
                         @endfor
-                    {{ $products->links('vendor.pagination.bootstrap-4') }}
                 </div>
             </div>
         </div>

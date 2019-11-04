@@ -663,7 +663,7 @@ header .navbar-default .navbar-nav>li i {
 }
 header .navbar-default .navbar-nav>li>a {
 	color: #fff;
-	padding: 10px 20px;
+	padding: 10px 15px;
 	text-transform: uppercase;
 	font-size: 14px
 }
@@ -5425,4 +5425,8 @@ textarea {
     text-transform: uppercase;
     text-align: center;
     font-family: 'Roboto Condensed', sans-serif;
+}
+
+.fp-14 p {
+    font-size: 16px !important;
 }

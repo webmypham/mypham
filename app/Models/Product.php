@@ -29,7 +29,8 @@ class Product extends Model
 
     public static function getItemByCategory($id) {
         $query = DB::table('products')
-                ->orderBy('id', 'DESC');
+                ->select('products.*', 'sale.value as sale_value', 'sale_type_id')
+                ->orderBy('products.id', 'DESC');
         $category = Category::find($id);
         if ($category->is_parent) {
             $categories = Category::getCategoryChild($id);
@@ -39,8 +40,29 @@ class Product extends Model
         } else {
             $idCategories[] = $id;
         }
-        $query->whereIn('id_category', $idCategories);
-        return $query->paginate(12);
+        $query
+            ->leftJoin('sale', function($join) {
+                $join->on('sale.id', '=', 'products.sale_id');
+            })
+            ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
+            ->whereIn('id_category', $idCategories);
+        $products = $query->paginate(16);
+        foreach($products as $key => $value) {
+            switch ($value->sale_type_id) {
+                case 1:
+                    $products[$key]->sale = $value->sale_value.'%';
+                    $products[$key]->sale_price = $products[$key]->price - $products[$key]->price * $value->sale_value / 100;
+                    break;
+                case 2:
+                    $products[$key]->sale = number_format($value->sale_value, 0).'đ';
+                    $products[$key]->sale_price = $products[$key]->price - $products[$key]->sale_value;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return $products;
     }
 
     public function category() {

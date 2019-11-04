@@ -52,7 +52,7 @@
 													<div class="input-group">
 														<input class="form-control" type="number" min="0" max="2147483647" value="{{ $item['quantity'] }}" name="cart_quantity_1363" id="cart_quantity_1363">
 														<div class="input-group-btn">
-															<a class="btn btn-danger" href="#" onclick="cart_remove(1363, ); event.preventDefault();">
+															<a class="btn btn-danger" href="#" onclick="cart_remove({{ $item['product']->id }}); event.preventDefault();">
 																<i class="fa fa-times"></i>
 															</a>
 														</div>
@@ -233,3 +233,24 @@
 	</div>
 </section>
 @endsection
+
+@section('script')
+    <script>
+        function cart_remove(id) {
+            var quantity = parseInt($('#quantity').val());
+            console.log(quantity);
+            $.ajax({
+                url: "{{ route('removeFromCart') }}",
+                type: 'GET',
+                data: {
+                    id: id,
+                },
+                success: function(data) {
+                    window.location.reload();
+                }
+            });
+
+
+        }
+    </script>
+ @endsection
