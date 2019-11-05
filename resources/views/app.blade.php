@@ -263,8 +263,9 @@
             _WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'mainblog', document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/3877460894-lbx__vi.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/368954415-lightbox_bundle.css'}, 'displayModeFull'));
         </script>
         <!-- Load Facebook SDK for JavaScript -->
-        <script lang="javascript">var _vc_data = {id : 5082824, secret : '31ebf6a2928b0b771b0bd68e5ba0ae8f'};(function() {var ga = document.createElement('script');ga.type = 'text/javascript';ga.async=true; ga.defer=true;ga.src = '//live.vnpgroup.net/client/tracking.js?id=5082824';var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();</script>
-
         @yield('script')
+
+        <!-- https://app.purechat.com/ -->
+        <script type='text/javascript' data-cfasync='false'>window.purechatApi = { l: [], t: [], on: function () { this.l.push(arguments); } }; (function () { var done = false; var script = document.createElement('script'); script.async = true; script.type = 'text/javascript'; script.src = 'https://app.purechat.com/VisitorWidget/WidgetScript'; document.getElementsByTagName('HEAD').item(0).appendChild(script); script.onreadystatechange = script.onload = function (e) { if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) { var w = new PCWidget({c: '9a38ff3d-ad85-4cb8-ab62-7668da4149e5', f: true }); done = true; } }; })();</script>End of Tawk.to Script
     </body>
 </html>
