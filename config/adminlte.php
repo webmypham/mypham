@@ -220,10 +220,10 @@ return [
             'url'     => 'admin/slides'
         ],
         [
-            'text'    => 'Thống kê',
+            'text'    => 'Báo cáo báng hàng',
             'icon'    => 'fa fa-table ',
             'url'     => 'admin/statistic'
-        ]
+        ],
     ],
 
     /*

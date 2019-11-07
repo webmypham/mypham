@@ -38,6 +38,7 @@ class Order extends Model
     const STATUS_EDIT = 8;
     const STATUS_TMP = 9;
     const STATUS_DELIVERY = 10;
+    const STATUS_RETURN = 11;
 
     const SEEN = 1;
     const NOT_SEEN = 0;

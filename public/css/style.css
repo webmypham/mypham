@@ -5430,3 +5430,15 @@ textarea {
 .fp-14 p {
     font-size: 16px !important;
 }
+
+.box{
+    padding:60px 0px;
+}
+
+.box-part{
+    background:#FFF;
+    border-radius:0;
+    padding:60px 10px;
+    margin:30px 0px;
+}
+

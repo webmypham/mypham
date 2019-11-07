@@ -10,32 +10,6 @@
 
 @section('content')
 <div class="container-fluid spark-screen">
-
-        {{-- @include('flash::message') --}}
-
-        <div class="row form-group">
-            {{-- <div class="col-md-4">
-                <input type="text" placeholder="name" id="js-search-name" class="form-control" value="{{ $searchData && isset($searchData['name']) ? $searchData['name'] : '' }}">
-            </div>
-            <div class="col-md-4">
-                <select name="parent_id" id="js-search-parent-id" class="form-control">
-                    <option value="">Chọn</option>
-                    @foreach ($categoriesParent as $each)
-                        <option value="{{ $each->id }}">{{ $each->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-primary" id="js-search-button">Tìm kiếm</button>
-            </div> --}}
-        </div>
-        {{-- <div class="row form-group">
-            <div class="col-md-8">
-                <a href="{{ url('categories/create')}}"
-                class="btn btn-info">Thêm</a>
-            </div>
-        </div> --}}
-
         <div class="message"></div>
 
         <div class="panel panel-default">
