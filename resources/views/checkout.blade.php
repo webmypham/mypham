@@ -9,6 +9,12 @@
 					@include('left_nav')
 				</div>
 				<div class="col-sm-9 col-xs-12">
+                    @if ($message = Session::get('error'))
+                        <div class="alert alert-danger alert-block" style="background-color: #da1313; color: #fff; margin-top: 20px">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @endif
                     {{-- <h1>Xác nhận đặt hàng</h1> --}}
 						<div class="inner-main account cart">
 							@if (Session::get('cart'))
@@ -50,7 +56,7 @@
 												<!-- Quantity with refresh and remove button -->
 												<td class="item-input">
 													<div class="input-group">
-														<input class="form-control" type="number" min="0" max="2147483647" value="{{ $item['quantity'] }}" name="cart_quantity_1363" id="cart_quantity_1363">
+														<input class="form-control" type="number" min="0" max="2147483647" value="{{ $item['quantity'] }}" readonly>
 														<div class="input-group-btn">
 															<a class="btn btn-danger" href="#" onclick="cart_remove({{ $item['product']->id }}); event.preventDefault();">
 																<i class="fa fa-times"></i>

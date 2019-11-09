@@ -114,9 +114,9 @@ class HomeController extends Controller
                 if ($value['product']->id == $product->id) {
                     $quantity = $value['quantity'] + $request->quantity;
                     if ($quantity > $product->quantity) {
-                        $quantcity = $product->quantity;
+                        $quantity = $product->quantity;
                     }
-                    $cart[$key]['quantity'] = $quantcity;
+                    $cart[$key]['quantity'] = $quantity;
 
                     $exist = true;
                 }
@@ -191,8 +191,12 @@ class HomeController extends Controller
             ];
             $product = Product::find($value['product']->id);
             $newQuantity = 0;
-            if ($product->quantity > $value['quantity']) {
+            if ($product->quantity >= $value['quantity']) {
                 $newQuantity = $product->quantity - $value['quantity'];
+            } else {
+                $value['product']->quantity = $product->quantity;
+                Session::put('cart', $cart);
+                return back()->withInput()->with('error', 'Không dủ hàng vui lòng kiểm tra lại giỏ hàng');
             }
             $product->update(['quantity' => $newQuantity]);
         }
@@ -214,7 +218,7 @@ class HomeController extends Controller
             OrderDetail::create($value);
         }
         Session::forget('cart');
-        return redirect(route('order', ['id' =>  $od->id]));
+        return redirect(route('order', ['id' =>  $od->id]))->with('success', 'Đặt hàng thành công');;
     }
 
     public function order($id) {

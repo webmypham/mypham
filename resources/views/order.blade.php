@@ -9,6 +9,12 @@
                     @include('left_nav')
                 </div>
                 <div class="col-sm-9 col-xs-12">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-block" style="background-color: #5cb85c; color: #fff; margin-top: 20px">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @endif
                     <!-- top heading -->
                     <h2>Chi tiết đơn hàng</h2>
                     <!-- heading -->
