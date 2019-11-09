@@ -208,7 +208,7 @@
                             <!-- Table -->
                             <table class="table table-striped table-bordered">
                                 <tr>
-                                    <th>Đơn hàng</th>
+                                    <th>Mã đơn hàng</th>
                                     <th>Ngày bán</th>
                                     <th>Khách hàng</th>
                                     <th>Số lượng</th>
@@ -241,7 +241,7 @@
                             <!-- Table -->
                             <table class="table table-striped table-bordered">
                                 <tr>
-                                    <th>Đơn hàng</th>
+                                    <th>Mã đơn hàng</th>
                                     <th>Ngày bán</th>
                                     <th>Khách hàng</th>
                                     <th>Số lượng</th>

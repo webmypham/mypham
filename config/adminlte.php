@@ -189,11 +189,11 @@ return [
             //     ],
             // ],
         ],
-        [
-            'text'    => 'Quản lý liên hệ',
-            'icon'    => 'fa fa-book',
-            'url'     => 'admin/users'
-        ],
+//        [
+//            'text'    => 'Quản lý liên hệ',
+//            'icon'    => 'fa fa-book',
+//            'url'     => 'admin/users'
+//        ],
         [
             'text'    => 'Quản lý khách hàng',
             'icon'    => 'fa fa-book',
@@ -220,7 +220,7 @@ return [
             'url'     => 'admin/slides'
         ],
         [
-            'text'    => 'Báo cáo báng hàng',
+            'text'    => 'Báo cáo bán hàng',
             'icon'    => 'fa fa-table ',
             'url'     => 'admin/statistic'
         ],
