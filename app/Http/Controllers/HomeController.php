@@ -289,6 +289,10 @@ class HomeController extends Controller
             return back()->withInput()->with('error', 'Mật khẩu và xác nhận mật khẩu không khớp');
         }
 
+        if (empty($request->name) || empty($request->phone) || empty($request->address)) {
+            return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
+        }
+
         $existUser = User::where('email', $request->email)->first();
         if ($existUser) {
             return back()->withInput()->with('error', 'Email đã được sử dụng');

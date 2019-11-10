@@ -7,7 +7,8 @@ return [
         '2' => 'Dã xác nhận',
         '1' => 'Đã hủy',
         '10' => 'Đang giao hàng',
-        '5' => 'Đã giao thành công'
+        '5' => 'Đã giao thành công',
+        '11' => 'Trả hàng'
     ],
     'sale_status' => [
         '0' => 'Đang áp dụng',

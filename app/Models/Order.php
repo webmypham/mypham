@@ -97,6 +97,10 @@ class Order extends Model
                 {
                     return "Bắt đầu gặp";
                 }
+            case Order::STATUS_RETURN:
+                {
+                    return "Trả hàng";
+                }
             default:
                 return "Không xác định";
         }
@@ -132,6 +136,10 @@ class Order extends Model
             case Order::STATUS_START_MEET:
                 {
                     return "info";
+                }
+            case Order::STATUS_RETURN:
+                {
+                    return "danger";
                 }
             default:
                 return "default";
