@@ -37,9 +37,9 @@ class StatisticController extends Controller
             ->whereMonth('created_at', '=', $month)
             ->whereYear('created_at', '=', $year)
             ->whereNotIn('status', [1, 11])
-            ->first();
+            ->sum('amount');
         if ($orderAmount) {
-            $revenues = $orderAmount->amount;
+            $revenues = $orderAmount;
         }
         $sale = DB::table('orders')
             ->whereMonth('created_at', '=', $month)
