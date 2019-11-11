@@ -195,6 +195,11 @@ return [
 //            'url'     => 'admin/users'
 //        ],
         [
+            'text'    => 'Sản phẩm bán chạy',
+            'icon'    => 'fa fa-book',
+            'url'     => 'admin/bestseller'
+        ],
+        [
             'text'    => 'Quản lý khách hàng',
             'icon'    => 'fa fa-book',
             'url'     => 'admin/users'

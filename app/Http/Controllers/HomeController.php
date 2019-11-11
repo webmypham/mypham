@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Slide;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -445,11 +446,24 @@ class HomeController extends Controller
 
     public function bestseller(Request $request)
     {
+
+        $now = Carbon::now();
+        $month = $request->month;
+        $year = $request->year;
+
+        if (empty($month)) {
+            $month = $now->month;
+        }
+        if (empty($year)) {
+            $year = $now->year;
+        }
         $products = DB::table('products')
             ->select('products.*', 'sale.value as sale_value', 'sale_type_id')
             ->join('order_details', 'order_details.id_product', 'products.id')
             ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
             ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
+            ->whereMonth('order_details.created_at', '=', $month)
+            ->whereYear('order_details.created_at', '=', $year)
             ->groupBy('order_details.id_product')->orderByRaw('SUM(order_details.quantity) DESC')->limit(50)->get();
         foreach($products as $key => $value) {
             switch ($value->sale_type_id) {

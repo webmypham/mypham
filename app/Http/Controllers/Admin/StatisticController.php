@@ -71,4 +71,29 @@ class StatisticController extends Controller
             ->paginate(10);
         return view('admin.statistic.index', compact('return', 'sale', 'revenues', 'saleData', 'returnData', 'month', 'year'));
     }
+
+    public function bestSeller(Request $request)
+    {
+        $now = Carbon::now();
+        $month = $request->month;
+        $year = $request->year;
+
+        if (empty($month)) {
+            $month = $now->month;
+        }
+        if (empty($year)) {
+            $year = $now->year;
+        }
+
+        $products = DB::table('products')
+            ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name', DB::raw('SUM(order_details.quantity) as sumQuantity'))
+            ->join('order_details', 'order_details.id_product', 'products.id')
+            ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
+            ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
+            ->leftJoin('categories', 'categories.id', '=','products.id_category')
+            ->whereMonth('order_details.created_at', '=', $month)
+            ->whereYear('order_details.created_at', '=', $year)
+            ->groupBy('order_details.id_product')->orderByRaw('SUM(order_details.quantity) DESC')->limit(50)->paginate(10);
+        return view('admin.statistic.bestseller', compact('products', 'month', 'year'));
+    }
 }

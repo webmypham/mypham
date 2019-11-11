@@ -4596,7 +4596,7 @@ button.button.btn-continue:hover {
 }
 
 /* CSS Back To Top */
-#backtotop { overflow: hidden; position: fixed; z-index: 90; right: 10px; bottom: 10px; display: none; width: 45px; height: 40px; line-height: 30px; color: #eee; text-align: center; background-color: #222222; font-size: 20px; text-indent: 0; cursor: pointer; -webkit-transform: translateZ(0); padding: 4px 0 0; text-align: center; transition: all .5s }
+#backtotop { overflow: hidden; position: fixed; z-index: 90; right: 10px; bottom: 90px; display: none; width: 45px; height: 40px; line-height: 30px; color: #eee; text-align: center; background-color: #222222; font-size: 20px; text-indent: 0; cursor: pointer; -webkit-transform: translateZ(0); padding: 4px 0 0; text-align: center; transition: all .5s }
 #backtotop:hover { background-color: #e772a8; color: #fff }
 
 #column-left {

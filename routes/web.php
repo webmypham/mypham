@@ -11,6 +11,25 @@
 |
 */
 
+
+/**
+Route::get là phương thức get Route::post là phương thức post, tham số đâu tiên là url, tham số thứ 2 trước dấu @ là tên controller, sau dấu @ là tên function
+ * Ví dụ: Route::get('/home', 'HomeController@index');
+ * Sẽ khai báo url là '/home gọi controller HomeController và gọi hàm index
+ *
+ * Route::group([
+'namespace' => 'Admin',
+'prefix' => 'admin'
+])
+ *
+ * group sẽ gom nhóm các route lại
+ * namespace là namespace của controller ví dụ namespace là admin thì sẽ lấy các controller trong thư mục admin
+ * prefix là tiền tố của url ví dụ prefix là admin thì url 'products' sẽ là 'admin/product'
+ *
+ *  Route::get('login','LoginController@getLogin')->name('getLogin');
+ * ->name(
+ */
+
 Route::get('/', 'HomeController@index');
 
 Route::group([
@@ -48,6 +67,8 @@ Route::group([
 
         //slide
         Route::resource('slides', 'SlideController');
+
+        Route::get('bestseller', 'StatisticController@bestSeller')->name('admin.bestseller');
     });
 });
 
