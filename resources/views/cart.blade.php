@@ -23,10 +23,10 @@
 									<table class="table table-striped">
 										<thead>
 											<tr>
-												<th>#</th>
-												<th style="width: 100px">Tên</th>
-												<th></th>
-												<th></th>
+												<th>STT</th>
+												<th style="width: 100px">Ảnh</th>
+												<th style="max-width: 400px">Tên SP</th>
+												<th>Số lượng</th>
 												<th>Đơn giá</th>
 												<th>Tổng</th>
 											</tr>
@@ -47,7 +47,7 @@
 														<img class="img-responsive item" src="{{ asset('storage/'.$item['product']->image) }}" alt="{{ $item['product']->name }}">
 													</a>
 												</td>
-												<td>
+												<td style="max-width: 400px">
 													<a href="{{ route('product', ['slug' => str_slug(trim($item['product']->name), '-'), 'id' => $item['product']->id ]) }}">{{ $item['product']->name }}</a>
 												</td>
 												<!-- Product image -->
@@ -64,10 +64,10 @@
                                                     <label>Còn {{ $item['product']->quantity }} sản phẩm</label>
 												</td>
 												<td>
-													{{ number_format($item['product']->price, 0) }}<sup>đ</sup>
+													{{ number_format($item['product']->price, 0) }} đ
 												</td>
 												<td>
-													{{ number_format($item['product']->price * $item['quantity'], 0) }} <sup>đ</sup>
+													{{ number_format($item['product']->price * $item['quantity'], 0) }} đ
 												</td>
 											</tr>
 											@endforeach
@@ -77,8 +77,8 @@
 												<th></th>
 												<th></th>
 												<th></th>
-												<th>Tổng</th>
-												<th>{{ number_format($total, 0) }}</th>
+												<th style="color: red">Tổng</th>
+												<th style="color: red">{{ number_format($total, 0) }} đ</th>
 											</tr>
 										</tbody>
 									</table>
@@ -89,8 +89,12 @@
 									<button class="btn btn-default" type="button" id="update-btn">
 										<i class="fa fa-save"></i>&nbsp;Cập nhật giỏ hàng
 									</button>
-									<a href="javascript:void(0)" class="btn btn-success" id="checkout-btn">Đặt mua</a>
-								</div>
+                                    @if (Session::get('user_logged') === true)
+									    <button type="button" class="btn btn-success" id="checkout-btn">Đặt mua</button>
+								    @else
+                                        <button type="button" class="btn btn-success" id="show-modal-btn" data-target="#popUpWindow">Đặt mua</button>
+                                    @endif
+                                </div>
 								<br>
 							</div>
 							@else
@@ -101,6 +105,25 @@
 				</div>
 			</div>
 		</div>
+        <div class="container">
+        <div class="modal fade" id="myModal" role="dialog" style="background-color: #333; opacity: 0.9; padding-top: 100px">
+            <div class="modal-dialog ">
+
+                <!-- Modal content-->
+                <div class="modal-conten col-md-6 col-md-offset-3">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 style="color:red;">Bạn phải đăng ký hoặc đăng nhập để thực hiện đặt hàng</h4>
+                    </div>
+
+                    <div class="modal-footer" style="text-align: center">
+                        <a href="{{ route('user.register') }}" class="btn btn-default btn-warning"><span class="glyphicon glyphicon-lock"></span> Đăng ký</a>
+                        <a href="{{ route('user.login') }}" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
 	</div>
 </section>
 @endsection
@@ -127,6 +150,10 @@
             $('#Carousel').carousel({
                 interval: 5000
             })
+
+            $("#show-modal-btn").click(function(){
+                $("#myModal").modal();
+            });
 
             function updateCart(isCheckout = false) {
                 var error = false;

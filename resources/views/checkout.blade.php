@@ -25,10 +25,10 @@
 									<table class="table table-striped">
 										<thead>
 											<tr>
-												<th>#</th>
-												<th style="width: 100px">Tên</th>
-												<th></th>
-												<th></th>
+												<th>STT</th>
+												<th style="width: 100px">Ảnh</th>
+												<th style="max-width: 400px">Tên sản phẩm</th>
+												<th>Số lượng</th>
 												<th>Đơn giá</th>
 												<th>Tổng</th>
 											</tr>
@@ -49,7 +49,7 @@
 														<img class="img-responsive item" src="{{ asset('storage/'.$item['product']->image) }}" alt="{{ $item['product']->name }}">
 													</a>
 												</td>
-												<td>
+												<td style="max-width: 400px">
 													<a href="{{ route('product', ['slug' => str_slug(trim($item['product']->name), '-'), 'id' => $item['product']->id ]) }}">{{ $item['product']->name }}</a>
 												</td>
 												<!-- Product image -->
@@ -65,10 +65,10 @@
 													</div>
 												</td>
 												<td>
-													{{ number_format($item['product']->price, 0) }}<sup>đ</sup>
+													{{ number_format($item['product']->price, 0) }} đ
 												</td>
 												<td>
-													{{ number_format($item['product']->price * $item['quantity'], 0) }} <sup>đ</sup>
+													{{ number_format($item['product']->price * $item['quantity'], 0) }} đ
 												</td>
 											</tr>
 											@endforeach
@@ -78,8 +78,8 @@
 												<th></th>
 												<th></th>
 												<th></th>
-												<th>Tổng</th>
-												<th>{{ number_format($total, 0) }}<sup>đ</sup></th>
+												<th style="color: red">Tổng</th>
+												<th style="color: red">{{ number_format($total, 0) }} đ</th>
 											</tr>
 										</tbody>
 									</table>
