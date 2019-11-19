@@ -77,7 +77,7 @@
                         </div>
                         <div class="box-footer">
                             <div class="col-md-3 col-md-offset-3">
-                                @if($order->status !== '1')
+                                @if($order->status !== '1' && $order->status !== '11')
                                     <button type="submit" class="btn-submit btn btn-primary col-md-12">Update</button>
                                 @endif
                             </div>
