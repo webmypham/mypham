@@ -12,6 +12,7 @@ use DateTime;
 use Faker\Provider\Image;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -99,7 +100,7 @@ class UserController extends Controller
         }
         $user = [
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'name' => $request->name,
             'phone' => $request->phone,
             'address' => $request->address

@@ -65,7 +65,7 @@
                         <tr>
                             <td>{{ (($users->currentPage() - 1 ) * $users->perPage() ) + $loop->iteration }}</td>
                             <td>
-                                <a href="/users/{{$value->id}}">{{ $value->email }}</a>
+                                <a href="/admin/users/{{$value->id}}">{{ $value->email }}</a>
                             </td>
                             <td>{{ $value->name }}</td>
 
