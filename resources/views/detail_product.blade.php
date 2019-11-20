@@ -107,7 +107,7 @@
                             </li>
                             <li ><a class="plr-15" href="#product-info" data-toggle="tab">Thông tin sản phẩm</a>
                             </li>
-                            <li ><a class="plr-15" href="#comment" data-toggle="tab">Đánh giá</a>
+                            <li ><a class="plr-15" href="#comment" data-toggle="tab">Bình luận</a>
                             </li>
                         </ul>
 
@@ -149,7 +149,7 @@
                                 <div id="reviews" class="woocommerce-Reviews">
                                     <div id="comments" class="mt-20 ">
                                         <h2 class="woocommerce-Reviews-title">
-                                            {{ count($comments) }} đánh giá cho <span>{{ $product->name }}</span></h2>
+                                            {{ count($comments) }} bình luận cho <span>{{ $product->name }}</span></h2>
 
                                         <ol class="commentlist">
                                             @foreach ($comments as $comment)
@@ -179,11 +179,11 @@
                                         <div id="review_form_wrapper">
                                             <div id="review_form">
                                                 <div id="respond" class="comment-respond">
-                                                    <span id="reply-title" class="comment-reply-title">Thêm đánh giá <small>
+                                                    <span id="reply-title" class="comment-reply-title">Thêm bình luận <small>
                                                         <a rel="nofollow" id="cancel-comment-reply-link" style="display:none;">Hủy</a></small></span>
                                                     <form action="{{ route('user.comment') }}" method="post" class="comment-form">
                                                         {!! csrf_field() !!}
-                                                        <label for="comment">Đánh giá của bạn&nbsp;<span class="required">*</span></label>
+                                                        <label for="comment">Bình luận của bạn&nbsp;<span class="required">*</span></label>
                                                         <textarea id="comment" name="comment" cols="45" rows="8" required="" class="form-control"></textarea>
 
                                                         <p class="form-submit mt-20">
