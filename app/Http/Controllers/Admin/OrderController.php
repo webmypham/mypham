@@ -61,7 +61,9 @@ class OrderController extends Controller
         // hàm config gọi tới thư mục config (/const)
         $order_status = config('const.order_status');
         $disable = array_fill(0, 12, false);
-        if ($order->status == 1) {
+        if ($order->status == 0) {
+            $disable[11] = true;
+        } else if ($order->status == 1) {
             $disable[0] = true;
             $disable[2] = true;
             $disable[5] = true;
@@ -70,10 +72,12 @@ class OrderController extends Controller
         } else if ($order->status == 2) {
             $disable[0] = true;
             $disable[1] = true;
+            $disable[11] = true;
         } else if ($order->status == 10) {
             $disable[0] = true;
             $disable[1] = true;
             $disable[2] = true;
+            $disable[11] = true;
         } else if ($order->status == 5) {
             $disable[0] = true;
             $disable[1] = true;

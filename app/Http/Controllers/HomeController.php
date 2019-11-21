@@ -105,7 +105,26 @@ class HomeController extends Controller
     }
 
     public function addProductToCart(Request $request) {
-        $product = Product::find($request->id);
+        $product = DB::table('products')
+            ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
+            ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
+            ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
+            ->leftJoin('categories', 'categories.id', '=', 'products.id_category')
+            ->where('products.id', $request->id)
+            ->first();
+        switch ($product->sale_type_id) {
+            case 1:
+                $product->sale = $product->sale_value.'%';
+                $product->sale_price = $product->price - $product->price * $product->sale_value / 100;
+                break;
+            case 2:
+                $product->sale = number_format($product->sale_value, 0).'đ';
+                $product->sale_price = $product->price - $product->sale_value;
+                break;
+            default:
+                break;
+        }
+        $product->price = $product->sale_price;
         $cart = [];
         if (Session::get('cart')) {
             $cart = Session::get('cart');
@@ -315,6 +334,58 @@ class HomeController extends Controller
         Session::put('user_info', $user);
         return redirect('/');
     }
+
+    public function updateProfileView()
+    {
+        $user = Session::get('user_info', null);
+        return view('update_profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        if (empty($request->email)) {
+            return back()->withInput()->with('error', 'Email không tồn tại');
+        }
+
+
+        if (empty($request->name)) {
+            return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
+        }
+
+        if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            return back()->withInput()->with('error', 'Email không đúng định dạng');
+        }
+
+        if ($request->old_password && $request->password && $request->password != $request->confirm_password) {
+            return back()->withInput()->with('error', 'Mật khẩu và xác nhận mật khẩu không khớp');
+        }
+
+        $user = User::where('email', $request->email)->first();
+        if ($request->old_password && Hash::check($request->old_password, $user->password)) {
+            return back()->withInput()->with('error', 'Mật khẩu cũ không chính xác');
+        }
+
+        if ($request->old_password && $request->password) {
+            $user->password = Hash::make($request->password);
+        }
+
+        if ($request->name) {
+            $user->name = $request->name;
+        }
+
+        if ($request->phone) {
+            $user->phone = $request->phone;
+        }
+
+        if ($request->address) {
+            $user->address = $request->address;
+        }
+
+        $user->save();
+        Session::put('user_info', $user);
+        return redirect('/');
+    }
+
 
     public function logout() {
         Session::put('user_logged', false);

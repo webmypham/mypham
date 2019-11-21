@@ -94,6 +94,8 @@ Route::get('get-cart-count', 'HomeController@getCartCount')->name('cartCount');
 
 Route::get('register', 'HomeController@registerView')->name('register');
 Route::post('register', 'HomeController@register')->name('user.register');
+Route::get('update-profile', 'HomeController@updateProfileView')->name('user.updateProfileView');
+Route::post('update-profile', 'HomeController@updateProfile')->name('user.updateProfile');
 Route::get('login', 'HomeController@login')->name('login');
 Route::post('login', 'HomeController@checkLogin')->name('user.login');
 Route::get('logout', 'HomeController@logout')->name('user.logout');
