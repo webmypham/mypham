@@ -124,7 +124,7 @@ class HomeController extends Controller
             default:
                 break;
         }
-        $product->price = $product->sale_price;
+        $product->price = $product->sale_price ?? $product->price;
         $cart = [];
         if (Session::get('cart')) {
             $cart = Session::get('cart');
