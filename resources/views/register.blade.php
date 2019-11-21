@@ -13,15 +13,22 @@
         @endif
             <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                <p><h3 class="text-center">Đăng ký</h3></p>
             <p id="profile-name" class="profile-name-card"></p>
             <form class="form-signin" action="{{ route('user.register') }}" method="post">
                 {!! csrf_field() !!}
                 <span id="reauth-email" class="reauth-email"></span>
+                <span>Email <span style="color: red">*</span></span>
                 <input name="email" type="text" class="form-control" placeholder="Email" autofocus value="{{ old('email') }}" autocomplete="off">
+                <span>Mật khẩu <span style="color: red">*</span></span>
                 <input name="password" type="password" class="form-control" placeholder="Mật khẩu">
+                <span>Xác nhận mật khẩu <span style="color: red">*</span></span>
                 <input name="confirm_password" type="password" class="form-control" placeholder="Xác nhận mật khẩu">
+                <span>Tên hiển thị <span style="color: red">*</span></span>
                 <input type="text" name="name" placeholder="Tên hiển thị" value="{{ old('name') }}"/>
+                <span>Số điện thoại</span>
                 <input type="text" name="phone" placeholder="Số điện thoại" value="{{ old('phone') }}"/>
+                <span>Địa chỉ</span>
                 <input type="text" name="address" placeholder="Địa chỉ" value="{{ old('address') }}"/>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Đăng ký</button>
             </form><!-- /form -->

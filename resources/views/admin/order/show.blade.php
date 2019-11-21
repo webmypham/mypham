@@ -32,7 +32,7 @@
                                 <label>Status</label>
                                 <select class="form-control mdb-select md-form" name="status">
                                     @foreach ($order_status as $key => $value )
-                                        <option value="{{ $key }}" {{ $key == $order->status ? 'selected' : '' }}>{{ $value }}</option>
+                                        <option value="{{ $key }}" {{ $key == $order->status ? 'selected' : '' }} {{ $disable[$key] == true ? 'disabled' : '' }}>{{ $value }}</option>
                                     @endforeach
                                 </select>
                             </div>

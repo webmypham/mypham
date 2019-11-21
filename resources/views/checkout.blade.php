@@ -223,7 +223,7 @@
                                     </div>
                                     <div class="form-group cart">
                                         <div class="col-sm-offset-3 col-sm-8">
-                                            <button type="submit" class="btn btn-success" id="checkout_button">Xác nhận đặt hàng <i class="fa fa-arrow-circle-o-right"></i></button>
+                                            <button type="submit" class="btn btn-success" id="checkout_button">Thanh toán <i class="fa fa-arrow-circle-o-right"></i></button>
                                             &nbsp;
                                         </div>
                                     </div>

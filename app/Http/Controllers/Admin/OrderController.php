@@ -60,12 +60,42 @@ class OrderController extends Controller
         }
         // hàm config gọi tới thư mục config (/const)
         $order_status = config('const.order_status');
+        $disable = array_fill(0, 12, false);
+        if ($order->status == 1) {
+            $disable[0] = true;
+            $disable[2] = true;
+            $disable[5] = true;
+            $disable[10] = true;
+            $disable[11] = true;
+        } else if ($order->status == 2) {
+            $disable[0] = true;
+            $disable[1] = true;
+        } else if ($order->status == 10) {
+            $disable[0] = true;
+            $disable[1] = true;
+            $disable[2] = true;
+        } else if ($order->status == 5) {
+            $disable[0] = true;
+            $disable[1] = true;
+            $disable[2] = true;
+            $disable[5] = true;
+            $disable[10] = true;
+        } else if ($order->status == 11) {
+            $disable[0] = true;
+            $disable[1] = true;
+            $disable[2] = true;
+            $disable[5] = true;
+            $disable[10] = true;
+            $disable[11] = true;
+        }
+
+
         $order_details = DB::table('order_details')
             ->select('order_details.*', 'products.name as product_name', 'products.image as product_image')
             ->join('products', 'products.id', '=', 'order_details.id_product')
             ->where('id_order', $id)
             ->get();
-        return view('admin.order.show', compact(['order', 'order_details', 'order_status']));
+        return view('admin.order.show', compact(['order', 'order_details', 'order_status', 'disable']));
     }
 
     /**

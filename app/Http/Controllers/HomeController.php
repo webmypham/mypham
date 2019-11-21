@@ -291,8 +291,12 @@ class HomeController extends Controller
             return back()->withInput()->with('error', 'Mật khẩu và xác nhận mật khẩu không khớp');
         }
 
-        if (empty($request->name) || empty($request->phone) || empty($request->address)) {
+        if (empty($request->name)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
+        }
+
+        if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            return back()->withInput()->with('error', 'Email không đúng định dạng');
         }
 
         $existUser = User::where('email', $request->email)->first();
@@ -426,7 +430,17 @@ class HomeController extends Controller
         $data = [
             'status' => 1
         ];
-        Order::where('id', $request->id)->update($data);
+        $order = Order::where('id', $request->id);
+        $orderDetails = OrderDetail::where('id_order', $request->id)->get();
+        foreach ($orderDetails as $key => $detail) {
+            $quantity = $detail->quantity;
+            $product = Product::where('id', $detail->id_product)->first();
+            $productQuantity = $product->quantity;
+            $newQuantity = $productQuantity + $quantity;
+            $product->update(['quantity' => $newQuantity]);
+        }
+        $order->update($data);
+
         return redirect()->route('user.orders');
     }
 
