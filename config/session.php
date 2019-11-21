@@ -30,7 +30,7 @@ return [
     | to immediately expire on the browser closing, set that option.
     |
     */
-
+    // thời gian sống của session là 1200 phút (20h)
     'lifetime' => env('SESSION_LIFETIME', 1200),
 
     'expire_on_close' => false,

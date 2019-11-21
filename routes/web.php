@@ -32,17 +32,23 @@ Route::get là phương thức get Route::post là phương thức post, tham s�
 
 Route::get('/', 'HomeController@index');
 
+// Route của admin
 Route::group([
     'namespace' => 'Admin',
     'prefix' => 'admin'
 ], function () {
     // login
+    //khai báo urlurl
     Route::get('login','LoginController@getLogin')->name('getLogin');
 	Route::get('logout','LoginController@getLogout')->name('getLogout');
     Route::post('login','LoginController@postLogin')->name('postLogin');
 
+    //middleware là 1 lớp bao ngoài controller, sẽ được thực thi trước controller
     Route::middleware(['check.loginAdmin'])->group(function () {
         // products
+        /**Khai báo định tuyến duy nhất này tạo ra nhiều định tuyến để xử lý đa dạng các loại hành động RESTful
+         * cho tài nguyên "photo".Tương tự như vậy, controller được tạo ra sẽ có sẵn vài method gốc rễ cho từng hành động,
+         * bao gồm cả ghi chú thông báo cho bạn những URI và những HTTP method (POST, GET, PUT, PATCH, DELETE) nào chúng xử lý. */
         Route::resource('products', 'ProductController');
 
         // categories
@@ -72,6 +78,7 @@ Route::group([
     });
 });
 
+// route của khách hàng
 Route::get('news', 'HomeController@news')->name('user.news');
 Route::get('news/{id}', 'HomeController@newsDetail')->name('user.newsDetail');
 

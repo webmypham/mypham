@@ -28,9 +28,6 @@ class Product extends Model
     }
 
     public static function getItemByCategory($id) {
-        $query = DB::table('products')
-                ->select('products.*', 'sale.value as sale_value', 'sale_type_id')
-                ->orderBy('products.id', 'DESC');
         $category = Category::find($id);
         if ($category->is_parent) {
             $categories = Category::getCategoryChild($id);
@@ -40,12 +37,14 @@ class Product extends Model
         } else {
             $idCategories[] = $id;
         }
-        $query
-            ->leftJoin('sale', function($join) {
-                $join->on('sale.id', '=', 'products.sale_id');
-            })
-            ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
-            ->whereIn('id_category', $idCategories);
+        $query = DB::table('products')
+                ->select('products.*', 'sale.value as sale_value', 'sale_type_id')
+                ->leftJoin('sale', function($join) {
+                    $join->on('sale.id', '=', 'products.sale_id');
+                })
+                ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
+               ->whereIn('id_category', $idCategories)
+               ->orderBy('products.id', 'DESC');
         $products = $query->paginate(16);
         foreach($products as $key => $value) {
             switch ($value->sale_type_id) {

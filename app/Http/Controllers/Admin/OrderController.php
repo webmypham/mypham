@@ -58,6 +58,7 @@ class OrderController extends Controller
         if (!$order) {
             // abort(404);
         }
+        // hàm config gọi tới thư mục config (/const)
         $order_status = config('const.order_status');
         $order_details = DB::table('order_details')
             ->select('order_details.*', 'products.name as product_name', 'products.image as product_image')

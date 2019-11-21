@@ -10,11 +10,12 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request; //xử lý yêu cầu từ phía ng dùng gửi lên
+use Illuminate\Support\Carbon; //thư viện xử lý ngày tháng
+use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\Hash; //mã hoá mk và giải mã mk
+//config/Session.php
+use Illuminate\Support\Facades\Session; //phiên làm việc (khoảng thời gian)
 
 class HomeController extends Controller
 {
