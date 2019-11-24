@@ -76,9 +76,10 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <div class="col-md-3 col-md-offset-3">
+                            <div class="col-md-6">
                                 @if($order->status !== '1' && $order->status !== '11')
-                                    <button type="submit" class="btn-submit btn btn-primary col-md-12">Update</button>
+                                    <button type="submit" class="btn-submit btn btn-primary">Lưu thay đổi</button>
+                                    <a href="{{ route('printBill', ['id' => $order->id]) }}" class="btn-submit btn btn-primary" style="margin-left: 10px">In hóa đơn</a>
                                 @endif
                             </div>
         

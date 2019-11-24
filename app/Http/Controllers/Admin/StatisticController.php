@@ -22,33 +22,37 @@ class StatisticController extends Controller
 //        $revenues = Order::getRevenue();
 
         $now = Carbon::now();
-        $month = $request->month;
-        $year = $request->year;
+        $from_date = $request->from_date;
+        $to_date = $request->to_date;
 
-        if (empty($month)) {
-            $month = $now->month;
+        if (empty($from_date)) {
+            $from_date = $now->format('Y-m-d');
+        } else {
+            $from_date = \Carbon\Carbon::createFromFormat('d/m/Y', $request->from_date)->format('Y-m-d');
         }
-        if (empty($year)) {
-            $year = $now->year;
+        if (empty($to_date)) {
+            $to_date = $now->format('Y-m-d');
+        } else {
+            $to_date = \Carbon\Carbon::createFromFormat('d/m/Y', $request->to_date)->format('Y-m-d');
         }
 
         $revenues = 0;
         $orderAmount = DB::table('orders')
-            ->whereMonth('created_at', '=', $month)
-            ->whereYear('created_at', '=', $year)
+            ->whereDate('created_at', '>=', $from_date)
+            ->whereDate('created_at', '<=', $to_date)
             ->whereNotIn('status', [1, 11])
             ->sum('amount');
         if ($orderAmount) {
             $revenues = $orderAmount;
         }
         $sale = DB::table('orders')
-            ->whereMonth('created_at', '=', $month)
-            ->whereYear('created_at', '=', $year)
+            ->whereDate('created_at', '>=', $from_date)
+            ->whereDate('created_at', '<=', $to_date)
             ->whereNotIn('status', [1, 11])
             ->count();
         $return = DB::table('orders')
-            ->whereMonth('created_at', '=', $month)
-            ->whereYear('created_at', '=', $year)
+            ->whereDate('created_at', '>=', $from_date)
+            ->whereDate('created_at', '<=', $to_date)
             ->where('status', 11)
             ->count();
         $saleData = DB::table('orders')
@@ -56,8 +60,8 @@ class StatisticController extends Controller
             ->leftJoin('order_details', 'orders.id', 'order_details.id_order')
             ->leftJoin('users', 'orders.id_user', 'users.id')
             ->groupBy('order_details.id_order')
-            ->whereMonth('orders.created_at', '=', $month)
-            ->whereYear('orders.created_at', '=', $year)
+            ->whereDate('orders.created_at', '>=', $from_date)
+            ->whereDate('orders.created_at', '<=', $to_date)
             ->whereNotIn('orders.status', [1, 11])
             ->paginate(10);
         $returnData = DB::table('orders')
@@ -65,11 +69,14 @@ class StatisticController extends Controller
             ->leftJoin('order_details', 'orders.id', 'order_details.id_order')
             ->leftJoin('users', 'orders.id_user', 'users.id')
             ->groupBy('order_details.id_order')
-            ->whereMonth('orders.created_at', '=', $month)
-            ->whereYear('orders.created_at', '=', $year)
+            ->whereDate('orders.created_at', '>=', $from_date)
+            ->whereDate('orders.created_at', '<=', $to_date)
             ->where('status', 11)
             ->paginate(10);
-        return view('admin.statistic.index', compact('return', 'sale', 'revenues', 'saleData', 'returnData', 'month', 'year'));
+
+        $from_date = Carbon::parse($from_date)->format('d/m/Y');
+        $to_date = Carbon::parse($to_date)->format('d/m/Y');
+        return view('admin.statistic.index', compact('return', 'sale', 'revenues', 'saleData', 'returnData', 'from_date', 'to_date'));
     }
 
     public function bestSeller(Request $request)

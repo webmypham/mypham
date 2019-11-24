@@ -47,7 +47,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if (empty($request->sku) || empty($request->name) || empty($request->id_category) || empty($request->description) || empty($request->price) || empty($request->detail)) {
+        if (empty($request->sku) || empty($request->name) || empty($request->id_category) || empty($request->description) || empty($request->detail)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
         }
         $newProduct = [
@@ -58,6 +58,7 @@ class ProductController extends Controller
             'quantity' => 0,
             'price' => $request->price,
             'detail' => $request->detail,
+            'sale_id' => $request->sale_id,
         ];
         $file = $request->file('image');
         $image = null;
@@ -66,6 +67,7 @@ class ProductController extends Controller
         }
         $newProduct['image'] = $image;
         Product::create($newProduct);
+
         return redirect()->route('products.index')->with('success','Thêm mới sản phẩm thành công');
     }
 
@@ -79,7 +81,8 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $categories = Category::all();
-        return view('admin.product.show', compact('product', 'categories'));
+        $sales = Sale::all();
+        return view('admin.product.show', compact('product', 'categories', 'sales'));
     }
 
     /**
@@ -105,7 +108,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (empty($request->name) || empty($request->id_category) || empty($request->description) || empty($request->price) || empty($request->detail)) {
+        if (empty($request->name) || empty($request->id_category) || empty($request->description) || empty($request->price) || empty($request->detail) || empty($request->cost)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
         }
         $newProduct = [
@@ -115,6 +118,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'detail' => $request->detail,
             'sale_id' => $request->sale_id,
+            'cost' => $request->cost
         ];
         $file = $request->file('image');
         $image = null;

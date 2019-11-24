@@ -59,8 +59,8 @@ class ReceiptController extends Controller
             'supplier' => $request->supplier,
             'total_amount' => $request->total_amount
         ];
-        Receipt::create($newProduct);
 
+        Receipt::create($newProduct);
         $product = Product::find($request->product_id);
         $oldQuantity = $product->quantity;
         if ($request->type == 'in') {
@@ -72,7 +72,10 @@ class ReceiptController extends Controller
             $newQuantity = 0;
         }
 
-        $product->update(['quantity' => $newQuantity]);
+
+        $input_price = strval($request->input_price);
+        $price = strval($request->input_price) + (strval($request->input_price) * 10 / 100);
+        $product->update(['quantity' => $newQuantity, 'input_price' => $input_price, 'price' => $price, 'status' => 1]);
         return redirect()->route('receipts.index')->with('success','Tạo phiếu thành công');
     }
 
@@ -140,7 +143,9 @@ class ReceiptController extends Controller
         }
 
         $receipt->update($newReceipt);
-        $product->update(['quantity' => $newQuantity]);
+        $input_price = strval($request->input_price);
+        $price = strval($request->input_price) + (strval($request->input_price) * 10 / 100);
+        $product->update(['quantity' => $newQuantity, 'input_price' => $input_price, 'price' => $price, 'status' => 1]);
         return redirect()->route('receipts.index')->with('success','Cập nhật phiếu thành công');
     }
 

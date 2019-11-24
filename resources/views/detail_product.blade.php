@@ -72,9 +72,15 @@
 													<td colspan="2">
 														<div class="input-group">
 															<input type="number" value="1" min="1" max="{{ $product->quantity }}" class="product-quantity form-control" style="width: 70px; z-index: auto; height: 36px" name="quantity" id="quantity">
-															<a href="#" class="btn btn-success cart-add-button" product="1363" onclick="addToCart({{ $product->id }})" variant="">
-																<i class="fa fa-shopping-cart"></i>&nbsp; Thêm vào giỏ hàng
-															</a>&nbsp;
+                                                            @if($product->status == 1)
+                                                            <button class="btn btn-success cart-add-button" onclick="addToCart({{ $product->id }})" variant="">
+                                                                <i class="fa fa-shopping-cart"></i>&nbsp; Thêm vào giỏ hàng
+                                                            </button>
+                                                            @else
+                                                                <button class="btn btn-info cart-add-button">
+                                                                    <i class="fa fa-shopping-cart"></i>&nbsp; Sản phẩm sắp ra mắt
+                                                                </button>
+                                                            @endif
 														</div>
 													</td>
 												</tr>
@@ -315,7 +321,25 @@
             </div>
         </div>
 
+        <div class="container">
+            <div class="modal fade" id="myModal" role="dialog" style="background-color: #333; opacity: 0.9; padding-top: 100px">
+                <div class="modal-dialog ">
 
+                    <!-- Modal content-->
+                    <div class="modal-conten col-md-6 col-md-offset-3">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 style="color:red;">Bạn phải đăng ký hoặc đăng nhập để thực hiện đặt hàng</h4>
+                        </div>
+
+                        <div class="modal-footer" style="text-align: center">
+                            <a href="{{ route('user.register') }}" class="btn btn-default btn-warning"><span class="glyphicon glyphicon-lock"></span> Đăng ký</a>
+                            <a href="{{ route('user.login') }}" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 @endsection
@@ -341,6 +365,7 @@
                         quantity: quantity
                     },
                     success: function(data) {
+                        console.log('data', data);
                         $('#list-cart').html(data);
                         $.ajax({
                             url: "{{ route('cartCount') }}",
@@ -361,6 +386,9 @@
             $('#Carousel').carousel({
                 interval: 5000
             })
+            $("#show-modal-btn").click(function(){
+                $("#myModal").modal();
+            });
         });
 	</script>
 @endsection

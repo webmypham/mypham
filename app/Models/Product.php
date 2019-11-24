@@ -11,7 +11,7 @@ class Product extends Model
     protected $table = 'products';
     protected $perPage = 20;
     protected $dates = ['created_at', 'created_at'];
-    protected $fillable = ['sku', 'name', 'id_category', 'description', 'price', 'detail', 'image', 'quantity', 'sale_id'];
+    protected $fillable = ['sku', 'name', 'id_category', 'description', 'price', 'detail', 'image', 'quantity', 'sale_id', 'input_price', 'status'];
 
     public static function getProducts($searchData) {
         $query = DB::table('products')
@@ -43,8 +43,8 @@ class Product extends Model
                     $join->on('sale.id', '=', 'products.sale_id');
                 })
                 ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
-               ->whereIn('id_category', $idCategories)
-               ->orderBy('products.id', 'DESC');
+                ->whereIn('id_category', $idCategories)
+                ->orderBy('products.id', 'DESC');
         $products = $query->paginate(16);
         foreach($products as $key => $value) {
             switch ($value->sale_type_id) {

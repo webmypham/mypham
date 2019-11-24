@@ -17,7 +17,7 @@
                     @endif
                     {{-- <h1>Xác nhận đặt hàng</h1> --}}
 						<div class="inner-main account cart">
-							@if (Session::get('cart'))
+							@if (count($carts) > 0)
 							<div class="inner-main cart">
 								<h2>Sản phẩm</h2>
 								<div class="table-responsive1 a-table">
@@ -38,37 +38,37 @@
 											$total = 0
 											@endphp
 												
-											@foreach (Session::get('cart') as $key => $item)
+											@foreach ($carts as $key => $item)
 											@php
-											$total += $item['product']->price * $item['quantity']
+											$total += $item->product->price * $item->quantity
 											@endphp
 											<tr>
 												<td>{{ $loop->iteration }}</td>
 												<td>
-													<a href="{{ route('product', ['slug' => str_slug(trim($item['product']->name), '-'), 'id' => $item['product']->id ]) }}">
-														<img class="img-responsive item" src="{{ asset('storage/'.$item['product']->image) }}" alt="{{ $item['product']->name }}">
+													<a href="{{ route('product', ['slug' => str_slug(trim($item->product->name), '-'), 'id' => $item->product->id ]) }}">
+														<img class="img-responsive item" src="{{ asset('storage/'.$item->product->image) }}" alt="{{ $item->product->name }}">
 													</a>
 												</td>
 												<td style="max-width: 400px">
-													<a href="{{ route('product', ['slug' => str_slug(trim($item['product']->name), '-'), 'id' => $item['product']->id ]) }}">{{ $item['product']->name }}</a>
+													<a href="{{ route('product', ['slug' => str_slug(trim($item->product->name), '-'), 'id' => $item->product->id ]) }}">{{ $item->product->name }}</a>
 												</td>
 												<!-- Product image -->
 												<!-- Quantity with refresh and remove button -->
 												<td class="item-input">
 													<div class="input-group">
-														<input class="form-control" type="number" min="0" max="2147483647" value="{{ $item['quantity'] }}" readonly>
+														<input class="form-control" type="number" min="0" max="2147483647" value="{{ $item->quantity }}" readonly>
 														<div class="input-group-btn">
-															<a class="btn btn-danger" href="#" onclick="cart_remove({{ $item['product']->id }}); event.preventDefault();">
+															<a class="btn btn-danger" href="#" onclick="cart_remove({{ $item->product->id }}); event.preventDefault();">
 																<i class="fa fa-times"></i>
 															</a>
 														</div>
 													</div>
 												</td>
 												<td>
-													{{ number_format($item['product']->price, 0) }} đ
+													{{ number_format($item->product->price, 0) }} đ
 												</td>
 												<td>
-													{{ number_format($item['product']->price * $item['quantity'], 0) }} đ
+													{{ number_format($item->product->price * $item->quantity, 0) }} đ
 												</td>
 											</tr>
 											@endforeach

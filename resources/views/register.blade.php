@@ -26,9 +26,9 @@
                 <input name="confirm_password" type="password" class="form-control" placeholder="Xác nhận mật khẩu">
                 <span>Tên hiển thị <span style="color: red">*</span></span>
                 <input type="text" name="name" placeholder="Tên hiển thị" value="{{ old('name') }}"/>
-                <span>Số điện thoại</span>
+                <span>Số điện thoại <span style="color: red">*</span></span>
                 <input type="text" name="phone" placeholder="Số điện thoại" value="{{ old('phone') }}"/>
-                <span>Địa chỉ</span>
+                <span>Địa chỉ <span style="color: red">*</span></span>
                 <input type="text" name="address" placeholder="Địa chỉ" value="{{ old('address') }}"/>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Đăng ký</button>
             </form><!-- /form -->

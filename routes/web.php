@@ -31,7 +31,9 @@ Route::get là phương thức get Route::post là phương thức post, tham s�
  */
 
 Route::get('/', 'HomeController@index');
-
+Route::get('/home', function () {
+   return redirect('/admin/products');
+});
 // Route của admin
 Route::group([
     'namespace' => 'Admin',
@@ -75,6 +77,7 @@ Route::group([
         Route::resource('slides', 'SlideController');
 
         Route::get('bestseller', 'StatisticController@bestSeller')->name('admin.bestseller');
+        Route::get('print-bill', 'OrderController@printBill')->name('printBill');
     });
 });
 

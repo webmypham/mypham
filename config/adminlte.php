@@ -225,7 +225,7 @@ return [
             'url'     => 'admin/slides'
         ],
         [
-            'text'    => 'Báo cáo bán hàng',
+            'text'    => 'Báo cáo thống kê bán hàng',
             'icon'    => 'fa fa-table ',
             'url'     => 'admin/statistic'
         ],

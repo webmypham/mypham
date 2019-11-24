@@ -47,24 +47,14 @@
                             <label for="input_description">Mô tả</label>
                             <input type="text" class="form-control" id="input_description" name="description" placeholder="Mô tả" value="{{ old('description') }}">
                         </div>
-                        <div class="row">
-                            <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="input_price">Giá</label>
-                                <input type="number" class="form-control" id="input_price" name="price" value="{{ old('price') }}">
-                            </div>
-                            {{--<div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">--}}
-                                {{--<label for="input_quantity">Số lượng</label>--}}
-                                {{--<input type="number" class="form-control" id="input_quantity" name="quantity" value="{{ old('price') }}">--}}
-                            {{--</div>--}}
-                        </div>
                         <div class="form-group">
                             <label for="input_detail">Chi tiết</label>
                             <textarea class="form-control" id="input_detail" name="detail" placeholder="" rows="10" cols="80">{{ old('detail') }}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="input_sale_id">Chọn khuyến mãi</label>
+                            <label for="input_sale_id">Chọn chương trình khuyến mãi</label>
                             <select name="sale_id" class="form-control" id="input_sale_id">
-                                <option value="">Chọn</option>
+                                <option value="0">Chọn</option>
                                 @foreach ($sales as $each)
                                     <option value="{{ $each->id }}">{{ $each->name }}</option>
                                 @endforeach

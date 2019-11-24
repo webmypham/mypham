@@ -12,7 +12,7 @@
 					<form action="/cart/update" id="cart_quantity" method="post">
 						<input id="redirect" name="redirect" type="hidden" value="/cart">
 						<div class="inner-content">
-							@if (Session::get('cart'))
+							@if (count($carts) > 0)
 							<div class="inner-main cart">
 								<h2>GIỎ HÀNG</h2>
                                 <div class="alert alert-danger alert-block hidden" style="background-color: #da1313; color: #fff; margin-top: 20px" id="message-error">
@@ -36,38 +36,38 @@
 											$total = 0
 											@endphp
 												
-											@foreach (Session::get('cart') as $key => $item)
+											@foreach ($carts as $key => $item)
 											@php
-											$total += $item['product']->price * $item['quantity']
+											$total += $item->product->price * $item->quantity
 											@endphp
 											<tr>
 												<td>{{ $loop->iteration }}</td>
 												<td>
-													<a href="{{ route('product', ['slug' => str_slug(trim($item['product']->name), '-'), 'id' => $item['product']->id ]) }}">
-														<img class="img-responsive item" src="{{ asset('storage/'.$item['product']->image) }}" alt="{{ $item['product']->name }}">
+													<a href="{{ route('product', ['slug' => str_slug(trim($item->product->name), '-'), 'id' => $item->product->id ]) }}">
+														<img class="img-responsive item" src="{{ asset('storage/'.$item->product->image) }}" alt="{{ $item->product->name }}">
 													</a>
 												</td>
 												<td style="max-width: 400px">
-													<a href="{{ route('product', ['slug' => str_slug(trim($item['product']->name), '-'), 'id' => $item['product']->id ]) }}">{{ $item['product']->name }}</a>
+													<a href="{{ route('product', ['slug' => str_slug(trim($item->product->name), '-'), 'id' => $item->product->id ]) }}">{{ $item->product->name }}</a>
 												</td>
 												<!-- Product image -->
 												<!-- Quantity with refresh and remove button -->
 												<td class="item-input">
 													<div class="input-group">
-														<input class="form-control cart_quantity" type="number" min="0" max="{{ $item['product']->quantity }}" data-id="{{ $item['product']->id }}"  value="{{ $item['quantity'] }}" name="cart_quantity">
+														<input class="form-control cart_quantity" type="number" min="0" max="{{ $item->product->quantity }}" data-id="{{ $item->product->id }}"  value="{{ $item->quantity }}" name="cart_quantity">
 														<div class="input-group-btn">
-															<a class="btn btn-danger" href="#" onclick="cart_remove({{ $item['product']->id }}); event.preventDefault();">
+															<a class="btn btn-danger" href="#" onclick="cart_remove({{ $item->product->id }}); event.preventDefault();">
 																<i class="fa fa-times"></i>
 															</a>
 														</div>
 													</div>
-                                                    <label>Còn {{ $item['product']->quantity }} sản phẩm</label>
+                                                    <label>Còn {{ $item->product->quantity }} sản phẩm</label>
 												</td>
 												<td>
-													{{ number_format($item['product']->price, 0) }} đ
+													{{ number_format($item->product->price, 0) }} đ
 												</td>
 												<td>
-													{{ number_format($item['product']->price * $item['quantity'], 0) }} đ
+													{{ number_format($item->product->price * $item->quantity, 0) }} đ
 												</td>
 											</tr>
 											@endforeach
@@ -164,10 +164,12 @@
                         id: product.attr('data-id'),
                         quantity: product.val()
                     });
-                    if (product.val() > product.attr('max')) {
+                    console.log(parseInt(product.val()), product.attr('max'))
+                    if (parseInt(product.val()) > parseInt(product.attr('max'))) {
                         error = true;
                     }
                 });
+
                 if (error == true) {
                     $('#message-error').removeClass('hidden');
                 } else {

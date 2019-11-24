@@ -48,6 +48,13 @@
 
                                 </div>
                                 <div class="login">
+                                    <a class="my-account" href="{{ route('user.updateProfileView') }}">
+                                        Cập nhật thông tin
+                                    </a>
+
+                                </div>
+
+                                <div class="login">
                                     Xin chào <b>{{ Session::get('user_info')->name }}</b>
                                 </div>
                             </div>
@@ -147,8 +154,8 @@
                                 <div class="item-menu">
                                     <a href="{{ route('cart') }}">
                                         <span class="cart-counter simpleCart_quantity" id="cart-count">
-                                            @if (Session::get('cart'))
-                                            {{ count(Session::get('cart')) }}
+                                            @if ($carts)
+                                            {{ count($carts) }}
                                             @else
                                             0
                                             @endif
@@ -160,8 +167,8 @@
                                             <div class="block-subtitle">
                                                 <i aria-hidden="true" class="fa fa-check"></i>
                                                 <span class="cart-counter-list simpleCart_quantity">
-                                                    @if (Session::get('cart'))
-                                                    {{ count(Session::get('cart')) }}
+                                                    @if ($carts)
+                                                    {{ count($carts) }}
                                                     @endif
                                                 </span> Sản phẩm trong giỏ hàng
                                             </div>

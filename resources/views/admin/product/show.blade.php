@@ -37,13 +37,23 @@
                         <input type="text" class="form-control" id="input_description" name="description" placeholder="Mô tả" value="{{ $product->description }}" readonly>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <label for="input_price">Giá</label>
-                            <input type="number" class="form-control" id="input_price" name="price" value="{{ $product->price }}" readonly>
-                        </div>
-                        <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group col-sm-12">
                             <label for="input_quantity">Số lượng</label>
                             <input type="number" class="form-control" id="input_quantity" name="quantity" value="{{ $product->quantity }}" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="input_description">Giá nhập</label>
+                            <input type="number" class="form-control"  name="input_price" id="input_price" placeholder="Giá nhập" value="{{ $product->input_price }}" readonly>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="input_description">Chi phí khác (%) + 10% (VAT)</label>
+                            <input type="text" class="form-control"  id="vat" name="cost" placeholder="Chi phí khác" value="{{ $product->cost }}" readonly>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="input_quantity">Giá bán</label>
+                            <input type="number" id="price" class="form-control"  name="price" value="{{ $product->price }}" readonly readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -51,13 +61,21 @@
                         <textarea class="form-control" id="input_detail" name="detail" placeholder="" rows="10" cols="80" readonly>{{ $product->detail }}</textarea>
                     </div>
                     <div class="form-group">
+                        <label for="input_sale_id">Chương trình huyến mãi</label>
+                        <select name="sale_id" class="form-control" id="input_sale_id" disabled>
+                            @foreach ($sales as $each)
+                                <option value="{{ $each->id }}" {{ $product->sale_id == $each->id ? 'selected' : '' }}>{{ $each->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="input_image">Hình ảnh</label><br />
                         @if (Storage::disk()->exists($product->image))
                         <img src="{{ asset('storage/'.$product->image) }}" style="width: 100%;max-width: 250px;">
                         @endif
                     </div>
-                    <a href="{{ route('products.edit', ['product' => $product->id]) }}"><button type="button" class="btn btn-primary">Edit</button></a>
-                    <a href="{{ url()->previous() }}"><button type="button" class="btn">Back</button></a>
+                    <a href="{{ route('products.edit', ['product' => $product->id]) }}"><button type="button" class="btn btn-primary">Chỉnh sửa</button></a>
+                    <a href="{{ url()->previous() }}"><button type="button" class="btn">Quay lại</button></a>
                 </div>
             </div>
         </div>

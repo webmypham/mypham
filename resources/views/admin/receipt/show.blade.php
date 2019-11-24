@@ -27,19 +27,23 @@
                         <label for="input_description">Người tạo</label>
                         <input type="text" class="form-control" id="input_description" name="description" value="{{ $receipt->user->name }}" readonly>
                     </div>
+                    <div class="form-group">
+                        <label for="input_price">Sản phẩm</label>
+                        <input type="text" class="form-control" id="input_price" name="price" value="{{ $receipt->product->name }}" readonly>
+                    </div>
                     <div class="row">
                         <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <label for="input_price">Sản phẩm</label>
-                            <input type="text" class="form-control" id="input_price" name="price" value="{{ $receipt->product->name }}" readonly>
+                            <label for="input_price">Số lượng</label>
+                            <input type="number" class="form-control" id="input_price" name="price" value="{{ $receipt->quantity }}" readonly>
                         </div>
                         <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <label for="input_quantity">Số lượng</label>
-                            <input type="text" class="form-control" id="input_quantity" name="quantity" value="{{ $receipt->quantity }}" readonly>
+                            <label for="input_quantity">Giá</label>
+                            <input type="text" class="form-control" id="input_quantity" name="input_price" value="{{ number_format($receipt->product->input_price, 0) }}" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="input_description">Tổng tiền</label>
-                        <input type="text" class="form-control" id="input_description" name="description" value="{{ $receipt->total_amount }}" readonly>
+                        <input type="text" class="form-control" id="input_description" name="description" value="{{ number_format($receipt->total_amount, 0) }}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="input_description">Nhà cung cấp</label>
@@ -63,17 +67,4 @@
 
 @section('js')
     <script src="/ckeditor/ckeditor.js"></script>
-    <script>
-        $(function () {
-            CKEDITOR.replace('input_detail',
-            {
-                filebrowserBrowseUrl : '/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl : '/ckfinder/ckfinder.html?type=Images',
-                filebrowserFlashBrowseUrl : '/ckfinder/ckfinder.html?type=Flash',
-                filebrowserUploadUrl : '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl : '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFlashUploadUrl : '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-            });
-        })
-    </script>
 @stop
