@@ -925,7 +925,7 @@ class HomeController extends Controller
     }
 
 
-    Xử lý hủy đơn hàng
+    //Xử lý hủy đơn hàng
     public function cancelOrder(Request $request) {
         $data = [
             'status' => 1

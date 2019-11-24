@@ -78,6 +78,7 @@ Route::group([
 
         Route::get('bestseller', 'StatisticController@bestSeller')->name('admin.bestseller');
         Route::get('print-bill', 'OrderController@printBill')->name('printBill');
+        Route::get('print-receipt', 'ReceiptController@printReceipt')->name('printReceipt');
     });
 });
 

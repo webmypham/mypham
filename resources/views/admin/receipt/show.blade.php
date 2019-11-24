@@ -15,6 +15,10 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title"> Xem chi tiết phiếu </h3>
+                    <a href="{{ route('printReceipt', ['id' => $receipt->id]) }}" class="btn btn-primary" style="float: right">
+                        <i class="fa fa-print"></i>
+                        In phiếu
+                    </a>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -53,8 +57,8 @@
                         <label for="input_description">Ngày tạo</label>
                         <input type="text" class="form-control" id="input_description" name="description" value="{{ date('d/m/Y: H:i', strtotime($receipt->created_at)) }}" readonly>
                     </div>
-                    <a href="{{ route('receipts.edit', ['receipt' => $receipt->id]) }}"><button type="button" class="btn btn-primary">Edit</button></a>
-                    <a href="{{ url()->previous() }}"><button type="button" class="btn">Back</button></a>
+                    <a href="{{ route('receipts.edit', ['receipt' => $receipt->id]) }}"><button type="button" class="btn btn-primary">Sửa</button></a>
+                    <a href="{{ url()->previous() }}"><button type="button" class="btn">Quay lại</button></a>
                 </div>
             </div>
         </div>

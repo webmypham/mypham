@@ -9,9 +9,11 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class OrderController extends Controller
 {
@@ -182,6 +184,7 @@ class OrderController extends Controller
             ->join('users', 'users.id', '=', 'orders.id_user')
             ->where('id_order', $id)
             ->get()->toArray();
+        $details = [];
         foreach($order_details as $key => $order) {
             $order_details[$key]->status_text = Order::getStatusNameAttribute($order->status);
             $order_details[$key]->status_class = Order::getStatusClassNameAttribute($order->status);
@@ -198,152 +201,52 @@ class OrderController extends Controller
                 default:
                     break;
             }
+            $details[] = [
+                'stt' => $key,
+                'image' =>  public_path('storage/' . $order->product_image ),
+                'product_name' => $order->product_name,
+                'quantity' => $order->quantity,
+                'price' => $order->price
+            ];
         }
         $order = Order::find($id);
         $order->status_text = Order::getStatusNameAttribute($order->status);
-//        $data = compact('order', 'order_details');
-        $content = "
-<html>
-<head>
-<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>
-<link href=\"https://fonts.googleapis.com/css?family=Open+Sans&display=swap\" rel=\"stylesheet\" />
- <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-        }
-        
-        .panel-body {
-            padding: 15px;
-        }
-        
-        .table {
-            width: 100%;
-            display: table;
-            margin: 0;
-        }
-        .table-bordered {
-            border: 1px solid #ddd;
-        }
-        .table {
-            width: 100%;
-            max-width: 100%;
-            margin-bottom: 20px;
-        }
-        
-        table {
-            background-color: transparent;
-        }
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-        .table-striped>tbody>tr:nth-of-type(odd) {
-            background-color: #f9f9f9;
-        }
-        
-        th {
-            font-weight: bold;
-        }
+        $templateProcessor = new TemplateProcessor(public_path('/template/template_order.docx'));
+        $templateProcessor->setValue('order_id', $order->id);
+        $templateProcessor->setValue('created_at', Carbon::parse($order->created_at)->format('d/m/Y'));
+        $templateProcessor->setValue('status', $order_details[0]->status_text ?? '');
+        $templateProcessor->setValue('total_amount', $order->amount);
+        $templateProcessor->setValue('user_name', $order_details[0]->user_name ?? '');
+        $templateProcessor->setValue('address', $order_details[0]->user_address ?? '');
+        $templateProcessor->setValue('phone', $order_details[0]->user_phone ?? '');
+        $templateProcessor->setValue('payment', $order_details[0]->payment ?? '');
+        $templateProcessor->setValue('note', $order->note);
 
-        tr {
-            display: table-row;
-            vertical-align: inherit;
-            border-color: inherit;
+        $templateProcessor->setImageValue('comLogo', public_path('/images/logo.png'));
+
+        $templateProcessor->cloneRow('stt', count($details));
+        foreach ($details as $key => $value) {
+            $key += 1;
+            $templateProcessor->setValue("stt#$key", $value['stt']);
+            $templateProcessor->setValue("product_name#$key", $value['product_name']);
+            $templateProcessor->setValue("quantity#$key", $value['quantity']);
+            $templateProcessor->setValue("price#$key", $value['price']);
+
+            $templateProcessor->setImageValue("image#$key", $value['image']);
         }
-        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-            padding: 8px;
-            line-height: 1.42857143;
-            vertical-align: top;
-            border-top: 1px solid #ddd;
-        }
-        
-    </style>
-    </head>
-    <body>
-<div class=\"container\">
-    <div class=\"row\">
-        <div class=\"col-md-12\">
-            <div style=\"text-align: center\">
-               <img src=\"". public_path('/images/logo.png') . "\">
-                <h1 style=\"color: black; margin-top: 20px\">Hóa đơn bán hàng</h1>
-            </div>
-
-            <div style=\"padding: 15px\">
-                <p class=\"name mt-30\">Mã đơn hàng:  $order->id</p>
-
-                <p class=\"name\">Ngày đặt: " . Carbon::parse($order->created_order_at)->format('d/m/Y') ."</p>
-                <p class=\"name\">Trạng thái: <b style=\"font-size: 20px\">$order->status_text</b></p>
-                <div>
-                    <h4 class=\"mt-30\">Danh sách sản phẩm:</h4>
-                    <div class=\"panel-body table-responsive\">
-                        <!-- Table -->
-                        <table class=\"table table-striped table-bordered\" >
-                            <tr style='font-weight: 700'>
-                                <th>STT</th>
-                                <th>Hình ảnh</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Số lượng</th>
-                                <th>Giá</th>
-                            </tr>
-                            <tbody>";
-                            foreach ($order_details as $key => $value) {
-                                if ($value->product_name) {
-                                    $content .= "<tr>
-                                        <td>
-                                            $key + 1
-                                        </td>
-                                        <td>";
-                                            if (Storage::disk()->exists($value->product_image)) {
-                                                 $content .= "<img class=\"img-circle avatar\" src = \"" . public_path('storage/'.$value->product_image). "\" width = \"50px;\" />";
-                                            }
-                                        $content .= "</td>
-                                        <td>
-                                            $value->product_name
-                                        </td>
-                                        <td>
-                                            $value->quantity
-                                        </td>
-                                        <td>" . number_format($value->price, 0)
-                                        . "</td>
-                                    </tr>";
-                                }
-                            }
-        $content .= "</tbody>
-                        </table>
-                       <h4 class=\"text-right\" style=\"color: red\">Tổng cộng:" . number_format($order_details[0]->amount, 0) . "</h4>
-                <hr />
-                <div class=\"address-1 mt-30\">
-                    <h3>Thông tin nhận hàng</h3>
-                    <div class=\"mt-20\">
-                        <p class=\"name\"><span>Người nhận: </span>" .$order_details[0]->user_name . "</p>
-
-                        <p><span>Địa chỉ: </span>" . $order_details[0]->user_address . "</p>
-
-                        <p><span>Điện thoại:</span>" . $order_details[0]->user_phone . "</p>
-
-                        <p><span>Hình thức thanh toán: </span>" . $order_details[0]->payment. "</p>
-
-                        <p><span>Ghi chú: </span>" . $order_details[0]->note ."</p>
-                    </div>
-                </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</body></html>
-";
-
-    $header = "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css\">
-<link href=\"" . asset('/css/style.css') . "\" rel=\"stylesheet\">";
-        $data = [
-            'header' => $header,
-            'content' => $content
-        ];
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML($content)->save('bill.pdf');
-        return $pdf->download('bill.pdf');
-       // return view('pdf_bill', compact('order', 'order_details'));
+        $fileName = 'tempDoc' . Auth::user()->id . '.docx';
+        $templateProcessor->saveAs($fileName);
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename='.$fileName);
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($fileName));
+        flush();
+        readfile($fileName);
+        unlink($fileName);
+        // return view('pdf_bill', compact('order', 'order_details'));
     }
 }
