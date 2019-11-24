@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Session; //phiên làm việc (khoảng thời gi
 
 class HomeController extends Controller
 {
+    // Trang chủ
     public function index() {
         $menus = Category::getParent();
         $listProduct = [];
@@ -97,6 +98,7 @@ class HomeController extends Controller
         ]);
     }
 
+    // trang xem sản phẩm theo danh mục
     public function category($slug, $id) {
         $category = Category::find($id);
         $products = Product::getItemByCategory($id);
@@ -137,6 +139,7 @@ class HomeController extends Controller
         return view('category', compact('carts', 'products', 'category', 'categories'));
     }
 
+    // Trang chi tiết sản phẩm
     public function product($slug, $id) {
         $product = DB::table('products')
             ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
@@ -157,7 +160,6 @@ class HomeController extends Controller
             default:
                 break;
         }
-//        dd($product);
         $products = Product::where('id_category', $product->id_category)->get()->toArray();
         $similarProducts = array_chunk($products, 6);
         $comments = Comment::where('id_product', $product->id)->get();
@@ -198,6 +200,7 @@ class HomeController extends Controller
         return view('detail_product', compact('product', 'similarProducts', 'comments', 'categories', 'carts'));
     }
 
+    // Thêm sản phẩm vào giỏ hàng
     public function addProductToCart(Request $request) {
         $user = Session::get('user_info');
         $product = Product::find($request->id);
@@ -228,6 +231,7 @@ class HomeController extends Controller
         return view('ajax.list_product_cart', compact('carts'));
     }
 
+    // Xóa sản phẩm khỏi giỏ hàng
     public function removeProductFromCart(Request $request) {
         $user = Session::get('user_info');
         $userId = -1;
@@ -241,6 +245,7 @@ class HomeController extends Controller
         return 'true';
     }
 
+    // Cập nhật giỏ hàng
     public function updateCart(Request $request)
     {
         $user = Session::get('user_info');
@@ -259,6 +264,7 @@ class HomeController extends Controller
         return response()->json(['status' => true], 200);
     }
 
+    // Trang giỏ hàng
     public function cart() {
         $categories = Category::getParent();
         foreach ($categories as $menu) {
@@ -298,6 +304,7 @@ class HomeController extends Controller
         return view('cart', compact('carts', 'categories'));
     }
 
+    // Trang đặt hàng
     public function checkout() {
         $categories = Category::getParent();
         foreach ($categories as $menu) {
@@ -335,6 +342,7 @@ class HomeController extends Controller
         return view('checkout', compact('categories', 'user', 'carts'));
     }
 
+    // Tạo đơn hàng -> khi nhấn nút thanh toán
     public function createOrder(Request $request) {
         $user = Session::get('user_info');
         $cart = Cart::where('user_id', $user->id)->get();
@@ -406,6 +414,7 @@ class HomeController extends Controller
         return redirect(route('order', ['id' =>  $od->id]))->with('success', 'Đặt hàng thành công');;
     }
 
+    // Trang đặt hàng thành công
     public function order($id) {
         $order = Order::getOrderById($id);
         $order_status = config('const.order_status');
@@ -451,6 +460,8 @@ class HomeController extends Controller
         return view('order', compact(['order', 'order_details', 'order_status', 'categories'], 'user', 'carts'));
     }
 
+
+    // Đếm số lượng sản phẩm trong giỏ hàng
     public function getCartCount() {
         $user = Session::get('user_info');
         $count = 0;
@@ -462,6 +473,7 @@ class HomeController extends Controller
         return $count;
     }
 
+    // Trang đăng nhập
     public function login()
     {
         $user = Session::get('user_info');
@@ -499,6 +511,7 @@ class HomeController extends Controller
         return view('login', compact('carts'));
     }
 
+    // Kiểm tra đăng nhập -> Khi nhấn nút đăng nhâp
     public function checkLogin(Request $request)
     {
         if (empty($request->email) || empty($request->password)) {
@@ -525,6 +538,7 @@ class HomeController extends Controller
         }
     }
 
+    // Trang đăng ký
     public function registerView()
     {
         $user = Session::get('user_info');
@@ -562,6 +576,7 @@ class HomeController extends Controller
         return view('register', compact('carts'));
     }
 
+    // Xử lý đăng ký, khi nhấn nút đăng ký
     public function register(Request $request)
     {
         if (empty($request->email) || empty($request->password)) {
@@ -599,6 +614,7 @@ class HomeController extends Controller
         return redirect('/');
     }
 
+    // Trang cập nhật thông tin cá nhân
     public function updateProfileView()
     {
         $user = Session::get('user_info', null);
@@ -633,6 +649,7 @@ class HomeController extends Controller
         return view('update_profile', compact('user', 'carts'));
     }
 
+    // Cập nhật thông tin cá nhân -> khi nhận nút cập nhật thông tin
     public function updateProfile(Request $request)
     {
         if (empty($request->email)) {
@@ -679,12 +696,14 @@ class HomeController extends Controller
     }
 
 
+    // Xử lý đăng xuất
     public function logout() {
         Session::put('user_logged', false);
         Session::put('user_info', null);
         return redirect('/');
     }
 
+    // Tạo bình luận -> khi nhấn nút gửi đi
     public function comment(Request $request)
     {
         if (empty($request->comment)) {
@@ -699,6 +718,7 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+    // Trang tin tức
     public function news()
     {
         $news = News::paginate(4);
@@ -740,6 +760,7 @@ class HomeController extends Controller
         return view('news', compact('news','categories', 'carts'));
     }
 
+    // Trang chi tiết tin tức
     public function newsDetail(Request $request, $id)
     {
         $news = News::find($id);
@@ -780,6 +801,7 @@ class HomeController extends Controller
         return view('newsDetail', compact('news', 'categories', 'carts'));
     }
 
+    // Trang Danh sách đơn hàng
     public function orders()
     {
         if (Session::get('user_logged') !== true) {
@@ -823,6 +845,8 @@ class HomeController extends Controller
         return view('orders', compact('orders', 'categories', 'carts'));
     }
 
+
+    // Trang chi tiết đơn hàng
     public function orderDetail(Request $request, $id)
     {
         if (Session::get('user_logged') !== true) {
@@ -900,6 +924,8 @@ class HomeController extends Controller
         return view('order_detail', compact('order_details', 'order_id', 'categories', 'carts'));
     }
 
+
+    Xử lý hủy đơn hàng
     public function cancelOrder(Request $request) {
         $data = [
             'status' => 1
@@ -918,6 +944,7 @@ class HomeController extends Controller
         return redirect()->route('user.orders');
     }
 
+    // Trang tìm kiếm
     public function search(Request $request) {
         $keyword = $request->keyword;
         $products = Product::where('name', 'like', "%$keyword%")->get();
@@ -958,6 +985,7 @@ class HomeController extends Controller
         return view('search', compact('products', 'categories', 'keyword', 'carts'));
     }
 
+    // Trang hướng dẫn mua hàng
     public function guide(Request $request)
     {
         $user = Session::get('user_info');
@@ -993,6 +1021,7 @@ class HomeController extends Controller
         return view('guide', compact('carts'));
     }
 
+    // Trang sản phẩm bán chạy
     public function bestseller(Request $request)
     {
 
