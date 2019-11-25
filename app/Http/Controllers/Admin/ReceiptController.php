@@ -7,11 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
-use DateTime;
-use Faker\Provider\Image;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\TemplateProcessor;
+use Carbon\Carbon;
 
 class ReceiptController extends Controller
 {
@@ -179,5 +177,36 @@ class ReceiptController extends Controller
         } else {
             return redirect()->back()->withErrors( 'Xóa phiếu thất bại' );
         }
+    }
+
+    public function printReceipt(Request $request) {
+        $id = $request->id;
+        $receipt = Receipt::find($id);
+        $templateProcessor = new TemplateProcessor(public_path('/template/template_receipt.docx'));
+        $templateProcessor->setValue('title', $receipt->type == 'in' ? 'Phiếu nhập hàng': 'Phiếu xuất hàng');
+        $templateProcessor->setValue('receipt_id', $receipt->id);
+        $templateProcessor->setValue('created_by', $receipt->user->name ?? '');
+        $templateProcessor->setValue('created_at', Carbon::parse($receipt->created_at)->format('d/m/Y'));
+        $templateProcessor->setValue('product_name', $receipt->product->name ?? '');
+        $templateProcessor->setValue('quantity', $receipt->quantity);
+        $templateProcessor->setValue('price', number_format($receipt->product->input_price, 0));
+        $templateProcessor->setValue('total_amount', number_format($receipt->total_amount, 0));
+        $templateProcessor->setValue('supplier', $receipt->product->name ?? '');
+
+        $templateProcessor->setImageValue('comLogo', public_path('/images/logo.png'));
+
+        $fileName = 'receipt_' . $receipt->id . '_' . Auth::user()->id . '.docx';
+        $templateProcessor->saveAs($fileName);
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename='.$fileName);
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($fileName));
+        flush();
+        readfile($fileName);
+        unlink($fileName);
     }
 }
