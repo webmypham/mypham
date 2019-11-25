@@ -30,24 +30,15 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Loại phiếu</label>
-                            <select name="type" id="type" class="form-control">
-                                <option value="">Chọn</option>
-                                <option value="in" {{ $receipt->type == 'in' ? 'selected' : '' }}>Phiếu nhập</option>
-                                <option value="out" {{ $receipt->type == 'out' ? 'selected' : '' }}>Phiếu xuất</option>
-                            </select>
+                            <input type="text" class="form-control" value="{{ $receipt->type == 'in' ? 'Phiếu nhập' : 'Phiếu xuất' }}" readonly />
                         </div>
                         <div class="form-group">
                             <label>Sản phẩm</label>
-                            <select name="product_id" class="form-control" id="product">
-                                <option value="">Chọn</option>
-                                @foreach ($products as $product)
-                                    <option value="{{ $product->id }}" data-price="{{ $product->input_price }}" {{ $receipt->product_id == $product->id ? 'selected' : '' }}>{{ $product->name }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" id="product_id" data-quantity="{{ $receipt->product->quantity ?? '' }}" value="{{ $receipt->product->name ?? ''}}" readonly />
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="input_price">Số lượng</label>
+                                <label for="input_price">Số lượng <span id="quantity-remain"></span></label>
                                 <input type="text" class="form-control" id="quantity" name="quantity" value="{{ $receipt->quantity }}">
                             </div>
                             <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -67,7 +58,7 @@
                             </div>
                             <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <label for="input_quantity">Tổng tiền</label>
-                                <input type="number" class="form-control" id="total_amount" name="total_amount" value="{{ $receipt->total_amount }}">
+                                <input type="number" class="form-control" id="total_amount" name="total_amount" value="{{ $receipt->total_amount }}" readonly>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Lưu</button>
@@ -87,12 +78,12 @@
     <script>
         $(function () {
             $('#input_price').on('input', function() {
-                var amount = (parseInt($(this).val()) + (parseInt($(this).val()) * 10 / 100)) * parseInt($('#quantity').val());
+                var amount = (parseInt($(this).val()) + (Math.round(parseInt($(this).val()) * 10 / 100))) * parseInt($('#quantity').val());
                 $('#total_amount').val(amount);
             });
 
             $('#quantity').on('input', function() {
-                var amount = (parseInt($('#input_price').val()) + (parseInt($('#input_price').val()) * 10 / 100)) * parseInt($(this).val());
+                var amount = (parseInt($('#input_price').val()) + (Math.round(parseInt($('#input_price').val()) * 10 / 100))) * parseInt($(this).val());
                 $('#total_amount').val(amount);
 
             });
@@ -106,15 +97,30 @@
                     $('#input_price').attr('readonly', 'true');
                     $('#total_amount').attr('readonly', 'true');
                 }
-            })
+            });
+
+            @if ($receipt->type =='out')
+                $('#input_price').attr('readonly', 'true');
+                $('#total_amount').attr('readonly', 'true');
+            @endif
 
             $('#product').on('change', function () {
-                console.log('change', $(this).children("option:selected").data('price'));
                 $('#input_price').val($(this).children("option:selected").data('price'));
-                var amount = (parseInt($('#input_price').val()) + (parseInt($('#input_price').val()) * 10 / 100)) * parseInt($('#quantity').val());
+                var amount = (parseInt($('#input_price').val()) + (Math.round(parseInt($('#input_price').val()) * 10 / 100))) * parseInt($('#quantity').val());
                 $('#total_amount').val(amount);
 
+                if (parseInt($(this).children("option:selected").data('quantity')) >= 0 ) {
+                    $('#quantity-remain').text('( Số lượng còn lại: ' + parseInt($(this).children("option:selected").data('quantity')) + ' )');
+                } else {
+                    $('#quantity-remain').text('');
+                }
             })
+
+            if (parseInt($('#product_id').data('quantity')) >= 0 ) {
+                $('#quantity-remain').text('( Số lượng còn lại: ' + parseInt($('#product_id').data('quantity')) + ' )');
+            } else {
+                $('#quantity-remain').text('');
+            }
         })
     </script>
 @stop

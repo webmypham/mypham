@@ -712,6 +712,7 @@ class HomeController extends Controller
         $comment = new Comment();
         $comment->id_product = $request->product_id;
         $comment->id_user = $request->user_id;
+        $comment->user_name = $request->user_name;
         $comment->content = $request->comment;
         $comment->save();
 

@@ -36,13 +36,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Sản phẩm</label>
-                            <select name="id_user" class="form-control">
-                                <option value="">Chọn</option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
+                            <label>Người đăng</label>
+                            <input type="text" class="form-control" name="user_name" />
                         </div>
 
                         <div class="form-group">

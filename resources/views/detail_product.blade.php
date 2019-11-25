@@ -32,6 +32,7 @@
 				                                        HONECO
 													</td>
 												</tr>
+                                                @if($product->status == 1)
 												<tr>
 													<th>Giá:</th>
 													<td>
@@ -67,12 +68,13 @@
                                                         @endif
 													</td>
 												</tr>
+                                                @endif
                                                 @if($product->quantity > 0)
 												<tr>
 													<td colspan="2">
 														<div class="input-group">
-															<input type="number" value="1" min="1" max="{{ $product->quantity }}" class="product-quantity form-control" style="width: 70px; z-index: auto; height: 36px" name="quantity" id="quantity">
                                                             @if($product->status == 1)
+															<input type="number" value="1" min="1" max="{{ $product->quantity }}" class="product-quantity form-control" style="width: 70px; z-index: auto; height: 36px" name="quantity" id="quantity">
                                                             <button class="btn btn-success cart-add-button" onclick="addToCart({{ $product->id }})" variant="">
                                                                 <i class="fa fa-shopping-cart"></i>&nbsp; Thêm vào giỏ hàng
                                                             </button>
@@ -167,7 +169,7 @@
 
 
                                                         <p class="meta">
-                                                            <strong class="woocommerce-review__author">{{ $comment->user->name ?? '' }}</strong>
+                                                            <strong class="woocommerce-review__author">{{ $comment->user_name ?? '' }}</strong>
                                                             <span class="woocommerce-review__dash">–</span> <time class="woocommerce-review__published-date" datetime="2017-03-10T22:13:51+07:00">{{ Carbon\Carbon::parse($comment->created_at)->format('d/m/y') }}</time>
                                                         </p>
 
@@ -193,10 +195,12 @@
                                                         <textarea id="comment" name="comment" cols="45" rows="8" required="" class="form-control"></textarea>
 
                                                         <p class="form-submit mt-20">
+
                                                             <input name="submit" type="submit" id="submit" class="btn btn-primary" value="Gửi đi">
                                                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                             @if (Session::get('user_logged') === true)
                                                                 <input type="hidden" name="user_id" value="{{ Session::get('user_info')->id }}">
+                                                                <input type="hidden" name="user_name" value="{{ Session::get('user_info')->name }}">
                                                             @endif
                                                         </p>
                                                     </form>

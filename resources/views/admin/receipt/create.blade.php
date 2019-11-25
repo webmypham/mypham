@@ -37,15 +37,15 @@
                         <div class="form-group">
                             <label>Sản phẩm</label>
                             <select name="product_id" class="form-control" id="product">
-                                <option value="">Chọn</option>
+                                <option>Chọn</option>
                                 @foreach ($products as $product)
-                                    <option value="{{ $product->id }}" data-price="{{ $product->input_price }}">{{ $product->name }}</option>
+                                    <option value="{{ $product->id }}" data-quantity="{{ $product->quantity }}" data-price="{{ $product->input_price }}" {{ $product->id == old('product_id')  ? 'selected' : ''}}>{{ $product->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="input_quantity">Số lượng</label>
+                                <label for="input_quantity">Số lượng <span id="quantity-remain"></span></label>
                                 <input type="number" id="quantity" class="form-control"  name="quantity" value="{{ old('quantity') }}">
                             </div>
                             <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -64,7 +64,7 @@
                             </div>
                             <div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <label for="input_quantity">Tổng tiền hàng</label>
-                                <input type="number" id="total_amount" class="form-control"  name="total_amount" value="{{ old('total_amount') }}">
+                                <input type="number" id="total_amount" class="form-control"  name="total_amount" value="{{ old('total_amount') }}" readonly>
                             </div>
                         </div>
 
@@ -86,14 +86,14 @@
     <script>
         $(function () {
             $('#input_price').on('input', function() {
-                var amount = (parseInt($(this).val()) + (parseInt($(this).val()) * 10 / 100)) * parseInt($('#quantity').val());
+                var amount = (parseInt($(this).val()) + (Math.round(parseInt($(this).val()) * 10 / 100))) * parseInt($('#quantity').val());
                 if (!isNaN(amount)) {
                     $('#total_amount').val(amount);
                 }
             });
 
             $('#quantity').on('input', function() {
-                var amount = (parseInt($('#input_price').val()) + (parseInt($('#input_price').val()) * 10 / 100)) * parseInt($(this).val());
+                var amount = (parseInt($('#input_price').val()) + (Math.round(parseInt($('#input_price').val()) * 10 / 100))) * parseInt($(this).val());
                 if (!isNaN(amount)) {
                     $('#total_amount').val(amount);
                 }
@@ -104,24 +104,37 @@
                 console.log('type', $(this).val());
                 if ($(this).val() == 'in') {
                     $('#input_price').attr('readonly', false);
-                    $('#total_amount').attr('readonly', false);
                 } else if ($(this).val() == 'out') {
                     $('#input_price').attr('readonly', 'true');
                     $('#total_amount').attr('readonly', 'true');
                 }
-            })
+            });
             
             $('#product').on('change', function () {
                 console.log('change', $(this).children("option:selected").data('price'));
-                if ($(this).children("option:selected").data('price') > 0) {
+                if (parseInt($(this).children("option:selected").data('price')) > 0) {
                     $('#input_price').val($(this).children("option:selected").data('price'));
-                    var amount = (parseInt($('#input_price').val()) + (parseInt($('#input_price').val()) * 10 / 100)) * parseInt($('#quantity').val());
+                    var amount = (parseInt($('#input_price').val()) + (Math.round(parseInt($('#input_price').val()) * 10 / 100))) * parseInt($('#quantity').val());
                     if (!isNaN(amount)) {
                         $('#total_amount').val(amount);
                     }
+                } else {
+                    $('#input_price').val('');
+                    $('#total_amount').val('');
                 }
 
+                if (parseInt($(this).children("option:selected").data('quantity')) >= 0 ) {
+                    $('#quantity-remain').text('( Số lượng còn lại: ' + parseInt($(this).children("option:selected").data('quantity')) + ' )');
+                } else {
+                    $('#quantity-remain').text('');
+                }
             })
+
+            if (parseInt($('#product').children("option:selected").data('quantity')) >= 0 ) {
+                $('#quantity-remain').text('( Số lượng còn lại: ' + parseInt($('#product').children("option:selected").data('quantity')) + ' )');
+            } else {
+                $('#quantity-remain').text('');
+            }
         })
     </script>
 @stop

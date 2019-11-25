@@ -25,13 +25,18 @@
                     </div>
                     <div class="form-group">
                         <label for="input_description">Người đăng</label>
-                        <input type="text" class="form-control" id="input_description" name="description" placeholder="Mô tả" value="{{ $comment->user->name ?? ''}}" readonly>
+                        <input type="text" class="form-control" id="input_description" name="description" placeholder="Người đăng" value="{{ $comment->user_name ?? ''}}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="input_detail">Nội dung</label>
                         <textarea class="form-control" id="input_detail" name="content" placeholder="" rows="10" cols="80" readonly>{{ $comment->content }}</textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="input_detail">Trả lời</label>
+                        <textarea class="form-control"  name="reply" placeholder="" rows="10" cols="80" readonly>{{ $comment->reply }}</textarea>
+                    </div>
                     <a href="{{ route('comments.edit', ['news' => $comment->id]) }}"><button type="button" class="btn btn-primary">Chỉnh sửa</button></a>
+                    <a href="{{ route('comments.index') }}"><button type="button" class="btn">Quay lại</button></a>
                 </div>
             </div>
         </div>

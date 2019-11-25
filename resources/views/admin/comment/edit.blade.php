@@ -30,7 +30,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Sản phẩm</label>
-                            <select name="id_product" class="form-control">
+                            <select name="id_product" class="form-control" readonly>
                                 <option value="">Chọn</option>
                                 @foreach ($products as $product)
                                     <option value="{{ $product->id }}" {{ $comment->id_product == $product->id ? "selected" : '' }}>{{ $product->name }}</option>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-group">
                             <label>Sản phẩm</label>
-                            <select name="id_user" class="form-control">
+                            <select name="id_user" class="form-control" readonly>
                                 <option value="">Chọn</option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}" {{ $comment->id_user == $user->id ? "selected" : '' }}>{{ $user->name }}</option>
@@ -49,9 +49,14 @@
 
                         <div class="form-group">
                             <label for="input_detail">Nội dung</label>
-                            <textarea class="form-control" name="content" placeholder="" rows="10" cols="80">{{ $comment->content }}</textarea>
+                            <textarea class="form-control" name="content" placeholder="" rows="10" cols="80" readonly>{{ $comment->content }}</textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Lưu</button>
+
+                        <div class="form-group">
+                            <label for="input_detail">Trả lời</label>
+                            <textarea class="form-control" name="reply" placeholder="" rows="10" cols="80">{{ $comment->reply }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Trả lời</button>
                         <a href="{{ url()->previous() }}"><button type="button" class="btn">Quay lại</button></a>
                     </div>
                 </form>
@@ -67,16 +72,6 @@
 @section('js')
     <script src="/ckeditor/ckeditor.js"></script>
     <script>
-        $(function () {
-            CKEDITOR.replace('input_detail',
-            {
-                filebrowserBrowseUrl : '/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl : '/ckfinder/ckfinder.html?type=Images',
-                filebrowserFlashBrowseUrl : '/ckfinder/ckfinder.html?type=Flash',
-                filebrowserUploadUrl : '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl : '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFlashUploadUrl : '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-            });
-        })
+
     </script>
 @stop

@@ -9,7 +9,7 @@ class Comment extends Model
 {
     protected $table = 'comments';
 
-    protected $fillable = ['id_product', 'id_user', 'content'];
+    protected $fillable = ['id_product', 'id_user', 'content', 'user_name', 'reply'];
 
     public function user() {
         return $this->belongsTo('App\Models\User', 'id_user', 'id');
@@ -22,7 +22,7 @@ class Comment extends Model
 
     public static function getComment($searchData) {
         $query = DB::table('comments')
-            ->select('comments.*', 'products.name', 'users.name as user_name')
+            ->select('comments.*', 'products.name', 'users.email as user_mail')
             ->leftJoin('products', 'products.id', '=','comments.id_product')
             ->leftJoin('users', 'users.id', '=','comments.id_user')
             ->orderBy('comments.id', 'DESC');

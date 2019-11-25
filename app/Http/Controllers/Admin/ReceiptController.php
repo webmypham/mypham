@@ -58,9 +58,13 @@ class ReceiptController extends Controller
             'total_amount' => $request->total_amount
         ];
 
-        Receipt::create($newProduct);
         $product = Product::find($request->product_id);
         $oldQuantity = $product->quantity;
+        if ($request->type == 'out' && strval($request->quantity) > $oldQuantity) {
+            return back()->withInput()->with('error', 'Số lương sản phẩm còn lại không đủ để xuất hàng');
+        }
+
+        Receipt::create($newProduct);
         if ($request->type == 'in') {
             $newQuantity = $oldQuantity + $request->quantity;
         } else {
@@ -111,27 +115,32 @@ class ReceiptController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (empty($request->type) || empty($request->product_id) || empty($request->quantity) || empty($request->total_amount) || empty($request->supplier)) {
+        if (empty($request->quantity) || empty($request->total_amount) || empty($request->supplier)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
         }
         $newReceipt = [
-            'type' => $request->type,
-            'product_id' => $request->product_id,
             'quantity' => $request->quantity,
             'user_id' => Auth::user()->id,
             'supplier' => $request->supplier,
             'total_amount' => $request->total_amount
         ];
-        $receipt = Receipt::find($id);
 
+
+        $receipt = Receipt::find($id);
         $product = Product::find($receipt->product_id);
         $oldQuantity = $product->quantity;
+
+
         $oldType = $receipt->type;
 
         if ($oldType == 'in') {
             $newQuantity = $oldQuantity - $receipt->quantity;
         } else {
             $newQuantity = $oldQuantity + $receipt->quantity;
+        }
+
+        if ($receipt->type == 'out' && strval($request->quantity) > $newQuantity) {
+            return back()->withInput()->with('error', 'Số lương sản phẩm còn lại không đủ để xuất hàng');
         }
 
         if ($request->type == 'in') {

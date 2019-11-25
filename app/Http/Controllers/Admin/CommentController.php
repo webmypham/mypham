@@ -48,12 +48,12 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        if (empty($request->id_product) || empty($request->id_user) || empty($request->content)) {
+        if (empty($request->id_product) || empty($request->user_name) || empty($request->content)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
         }
         $newComment = [
             'id_product' => $request->id_product,
-            'id_user' => $request->id_user,
+            'user_name' => $request->user_name,
             'content' => $request->content
         ];
         Comment::create($newComment);
@@ -95,16 +95,14 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (empty($request->id_product) || empty($request->id_user) || empty($request->content)) {
+        if (empty($request->reply)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
         }
         $comment = [
-            'id_product' => $request->id_product,
-            'id_user' => $request->id_user,
-            'content' => $request->content
+            'reply' => $request->reply,
         ];
         Comment::where('id', $id)->update($comment);
-        return redirect()->route('comments.index')->with('success','Cập nhật sản phẩm thành công');
+        return redirect()->route('comments.index')->with('success','Trả lời bình luận thành công');
     }
 
     /**

@@ -56,6 +56,7 @@
                         <th>No</th>
                         <th>Sản phẩm</th>
                         <th>Người đăng</th>
+                        <th>Email</th>
                         <th>Nội dung</th>
                         <th>Ngày đăng</th>
                         <th width="15%" align="center">Chức năng</th>
@@ -66,11 +67,12 @@
                             <td>{{ (($comments->currentPage() - 1 ) * $comments->perPage() ) + $loop->iteration }}</td>
                             <td>{{ Str::limit($value->name, 50) }}</td>
                             <td>{{ Str::limit($value->user_name, 50) }}</td>
+                            <td>{{ $value->user_mail ?? '' }}</td>
                             <td>{{ Str::limit($value->content, 50) }}</td>
 
                             <td>{{ date('d/m/Y: H:i', strtotime($value->created_at)) }}</td>
                             <td>
-                                <a class="btn btn-small btn-info" href="{{ route('comments.edit', ['comments' => $value->id]) }}"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-small btn-info" href="{{ route('comments.edit', ['comments' => $value->id]) }}"><i class="fa fa-comments"></i></a>
                                 <a class="btn btn-small btn-info" href="{{ route('comments.show', ['comments' => $value->id]) }}"><i class="fa fa-eye"></i></a>
                                 <button class="btn btn-small btn-danger remove" data-postid="{{ $value->id }}" data-toggle="modal" data-target="#confirmModal" data-url="{{ route('comments.destroy', ['comment' => $value->id]) }}"><i class="fa fa-trash"></i></button>
                             </td>
