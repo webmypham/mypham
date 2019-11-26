@@ -161,7 +161,8 @@
 
                                         <ol class="commentlist">
                                             @foreach ($comments as $comment)
-                                            <li class="comment byuser comment-author-phansang even thread-even depth-1" id="li-comment-7865">
+                                            <div style="border-bottom: 1px solid #bbb">
+                                            <li class="comment byuser comment-author-phansang even thread-even depth-1" style="margin-bottom: 0">
                                                 <div id="comment-7865" class="comment_container">
 
                                                     <img alt="" src="https://secure.gravatar.com/avatar/c94587dd5453c16fa9ea5e6280882c95?s=60&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c94587dd5453c16fa9ea5e6280882c95?s=120&amp;d=mm&amp;r=g 2x" class="avatar avatar-60 photo" height="60" width="60">
@@ -178,6 +179,26 @@
                                                     </div>
                                                 </div>
                                             </li><!-- #comment-## -->
+                                            @if($comment->reply)
+                                                    <li class="comment byuser comment-author-phansang even thread-even depth-1" style="margin-left: 40px; margin-top: 0">
+                                                        <div id="comment-7865" class="comment_container">
+
+                                                            <img alt="" src="https://secure.gravatar.com/avatar/c94587dd5453c16fa9ea5e6280882c95?s=60&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c94587dd5453c16fa9ea5e6280882c95?s=120&amp;d=mm&amp;r=g 2x" class="avatar avatar-60 photo" height="60" width="60">
+                                                            <div class="comment-text">
+
+
+                                                                <p class="meta">
+                                                                    <strong class="woocommerce-review__author">Mỹ phẩm cosmetic</strong>
+                                                                    <span class="woocommerce-review__dash">–</span> <time class="woocommerce-review__published-date" datetime="2017-03-10T22:13:51+07:00">{{ Carbon\Carbon::parse($comment->created_at)->format('d/m/y') }}</time>
+                                                                </p>
+
+                                                                <div class="description"><p>{!! $comment->reply !!}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li><!-- #comment-## -->
+                                            @endif
+                                            </div>
                                             @endforeach
                                         </ol>
 
