@@ -15,11 +15,9 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title"> Chi tiết đơn hàng </h3>
-                    @if($order->status !== '1' && $order->status !== '11')
                     <div class="pull-right">
                         <a href="{{ route('printBill', ['id' => $order->id]) }}" class="btn-submit btn btn-primary" style="margin-left: 10px">In hóa đơn</a>
                     </div>
-                    @endif
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->

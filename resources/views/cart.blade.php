@@ -13,7 +13,7 @@
 						<input id="redirect" name="redirect" type="hidden" value="/cart">
 						<div class="inner-content">
 							@if (count($carts) > 0)
-							<div class="inner-main cart">
+							<div class="inner-main cart" style="width: 100%">
 								<h2>GIỎ HÀNG</h2>
                                 <div class="alert alert-danger alert-block hidden" style="background-color: #da1313; color: #fff; margin-top: 20px" id="message-error">
                                     <strong id="message-error-content">Không đủ hàng</strong>

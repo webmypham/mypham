@@ -115,7 +115,7 @@
 
         <div class="row">
 
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
 
                 <div class="box-part"
                      style="background-color: #059AE3; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
@@ -131,7 +131,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
 
                 <div class="box-part"
                      style="background-color: #8AC24A; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
@@ -147,7 +147,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
 
                 <div class="box-part"
                      style="background-color: #D32D2F; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
@@ -158,6 +158,21 @@
 
                     <div class="title">
                         <h4 style="font-size: 30px;">Trả hàng</h4>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
+
+                <div class="box-part"
+                     style="background-color: #FF8800; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
+
+                    <div class="title">
+                        <h4 style="font-size: 30px;">{{ number_format($cancel, 0) }}</h4>
+                    </div>
+
+                    <div class="title">
+                        <h4 style="font-size: 30px;">Hủy</h4>
                     </div>
 
                 </div>
@@ -173,6 +188,10 @@
 
                 <li>
                     <a href="#shipping" data-toggle="tab">Trả hàng
+                    </a>
+                </li>
+                <li>
+                    <a href="#cancel" data-toggle="tab">Đơn hàng hủy
                     </a>
                 </li>
             </ul>
@@ -240,6 +259,39 @@
                         </div>
                         <div class="panel-footer clearfix">
                             {{ $returnData->links() }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="cancel">
+                    <div class="panel panel-default">
+
+                        <div class="panel-body table-responsive">
+                            <!-- Table -->
+                            <table class="table table-striped table-bordered">
+                                <tr>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Ngày tạo đơn hàng</th>
+                                    <th>Khách hàng</th>
+                                    <th>Số lượng</th>
+                                    <th>Tiền trả hàng</th>
+                                </tr>
+                                <tbody>
+                                @foreach($cancelData as $key=>$value)
+                                    <tr>
+                                        <td>{{ $value->id }}
+                                        </td>
+                                        <td>{{ date('d/m/Y: H:i', strtotime($value->created_at)) }}</td>
+                                        <td>{{ $value->customer ?? '' }}</td>
+                                        <td>{{ number_format($value->quantity, 0) ?? '' }}</td>
+                                        <td>{{ number_format($value->amount, 0) ?? '' }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer clearfix">
+                            {{ $cancelData->links() }}
                         </div>
                     </div>
                 </div>

@@ -86,6 +86,16 @@
 														</div>
 													</td>
 												</tr>
+                                                @elseif($product->status != 1)
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <div class="input-group">
+                                                                <button class="btn btn-info cart-add-button">
+                                                                    <i class="fa fa-shopping-cart"></i>&nbsp; Sản phẩm sắp ra mắt
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 @endif
                                                 <tr id="message-error" class="hidden">
                                                     <td colspan="2">
