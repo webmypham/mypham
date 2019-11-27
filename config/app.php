@@ -38,8 +38,8 @@ return [
     | application. If disabled, a simple generic error page is shown.
     |
     */
-
-    'debug' => env('APP_DEBUG', false),
+    //false chuyển thành true để debug
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------

@@ -215,7 +215,7 @@
                     <div class="col1 col-md-4 col-sm-4 ">
                         <h4>Địa chỉ cửa hàng</h4>
                         <div class="">
-                            <p><i class="fa fa-map-marker"></i> 442 Đội Cấn - Ba Đình - Hà Nội</p>
+                            <p><i class="fa fa-map-marker"></i> 50/39 Lê Thị Hồng Phường 17 Quận Gò Vập</p>
                             <p><i class="fa fa-phone"></i> 0981 861 865</p>
                             <p><i class="fa fa-envelope"></i> thuthanh250@gmail.com</p>
                             <p><i class="fa fa-globe"></i>www.azatemplate.com</p>

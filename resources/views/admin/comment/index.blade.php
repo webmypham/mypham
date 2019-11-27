@@ -92,7 +92,7 @@
             <div class="modal-content">
                 <div class="modal-header header-modal-delete">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title" align="center">Confirmation</h2>
+                    <h2 class="modal-title" align="center">Thông báo</h2>
                 </div>
                     
                 <div class="modal-body">
