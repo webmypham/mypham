@@ -16,6 +16,12 @@
                 <div class="box-header with-border">
                     <h3 class="box-title"> Xem chi tiết sản phẩm </h3>
                 </div>
+                @if ($message = Session::get('error'))
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{{ $message }}</strong>
+                    </div>
+                @endif
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" action="{{ route('products.update', ['product' => $product->id]) }}" method="POST" enctype="multipart/form-data">

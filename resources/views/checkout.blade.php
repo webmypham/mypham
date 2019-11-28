@@ -85,7 +85,7 @@
 									</table>
 								</div>
                                 <!-- heading / Discount Coupon -->
-                                <form class="form-horizontal" action="{{ route('save_order') }}" id="cart_quantity" method="post">
+                                <form class="form-horizontal" action="{{ route('save_order') }}" id="cart-form" method="post">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <h2>Thông tin người nhận</h2>
                                     <div id="receiver-pane">
@@ -223,7 +223,7 @@
                                     </div>
                                     <div class="form-group cart">
                                         <div class="col-sm-offset-3 col-sm-8">
-                                            <button type="submit" class="btn btn-success" id="checkout_button">Thanh toán <i class="fa fa-arrow-circle-o-right"></i></button>
+                                            <button type="button" class="btn btn-success" id="checkout_button">Thanh toán <i class="fa fa-arrow-circle-o-right"></i></button>
                                             &nbsp;
                                         </div>
                                     </div>
@@ -251,12 +251,19 @@
                 data: {
                     id: id,
                 },
-                success: function(data) {
+                success: function (data) {
                     window.location.reload();
                 }
             });
-
-
         }
+        $(document).ready(function () {
+            $("#checkout_button").on('click', function (event) {
+                console.log('checkout');
+                event.preventDefault();
+                var el = $(this);
+                el.prop('disabled', true);
+                $('#cart-form').submit();
+            });
+        })
     </script>
  @endsection

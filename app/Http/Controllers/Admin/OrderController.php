@@ -106,10 +106,27 @@ class OrderController extends Controller
 
 
         $order_details = DB::table('order_details')
-            ->select('order_details.*', 'products.name as product_name', 'products.image as product_image')
+            ->select(
+                'order_details.*',
+                'products.name as product_name',
+                'products.image as product_image'
+            )
             ->join('products', 'products.id', '=', 'order_details.id_product')
             ->where('id_order', $id)
             ->get();
+        switch ($order->id_payment) {
+            case 1:
+                $order->payment = 'Nhận tiền khi giao hàng';
+                break;
+            case 2:
+                $order->payment = 'Chuyển khoản qua ngân hàng';
+                break;
+            case 3:
+                $order->payment = 'Thanh toán qua VTC Pay (pay.vtc.vn)';
+                break;
+            default:
+                break;
+        }
         return view('admin.order.show', compact(['order', 'order_details', 'order_status', 'disable']));
     }
 

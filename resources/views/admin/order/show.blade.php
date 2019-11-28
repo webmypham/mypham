@@ -61,8 +61,8 @@
                                                         <tr>
                                                             <td>{{ $key + 1 }}</td>
                                                             <td>
-                                                                @if (file_exists($value->product_image))
-                                                                <img src="{{ $value->product_image }}" style="width: 95px; height: 63px;">
+                                                                @if (Storage::disk()->exists($value->product_image))
+                                                                    <img class="img-circle avatar" src="{{ asset('storage/'.$value->product_image) }}" width="50px;">
                                                                 @endif
                                                             </td>
                                                             <td>{{ $value->product_name }}</td>
@@ -79,11 +79,12 @@
                             </div>
                             <div style="padding: 10">
                             <h4><b>Thông tin nhận hàng</b></h4>
-                            <p>	Người nhận: {{ $value->product_name }} </p>
-                            <p>	Địa chỉ: {{ $value->product_name }} </p>
-                            <p>	Số điện thoại: {{ $value->product_name }} </p>
-                            <p>	Hình thức thanh toán: {{ $value->product_name }} </p>
-                            <p>	Ghi chú: {{ $value->product_name }}</p>
+                            <p>	<i>Người nhận:</i> {{ $order->user_name }} </p>
+                            <p>	<i>Địa chỉ:</i> {{ $order->user_address }} </p>
+                            <p>	<i>Số điện thoại:</i> {{ $order->user_phone }} </p>
+                            <p>	<i>Email:</i> {{ $order->user_email }}</p>
+                            <p>	<i>Hình thức thanh toán:</i> {{ $order->payment }} </p>
+                            <p>	<i>Ghi chú:</i> {{ $order->note }}</p>
                             
                             </div>
                         </div> 

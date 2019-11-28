@@ -27,13 +27,9 @@ class StatisticController extends Controller
 
         if (empty($from_date)) {
             $from_date = $now->format('Y-m-d');
-        } else {
-            $from_date = \Carbon\Carbon::createFromFormat('d/m/Y', $request->from_date)->format('Y-m-d');
         }
         if (empty($to_date)) {
             $to_date = $now->format('Y-m-d');
-        } else {
-            $to_date = \Carbon\Carbon::createFromFormat('d/m/Y', $request->to_date)->format('Y-m-d');
         }
 
         $revenues = 0;
@@ -87,8 +83,6 @@ class StatisticController extends Controller
             ->whereDate('orders.created_at', '<=', $to_date)
             ->where('status', 1)
             ->paginate(10);
-        $from_date = Carbon::parse($from_date)->format('d/m/Y');
-        $to_date = Carbon::parse($to_date)->format('d/m/Y');
         return view('admin.statistic.index', compact('return', 'sale', 'revenues', 'saleData', 'returnData', 'cancel', 'cancelData', 'from_date', 'to_date'));
     }
 

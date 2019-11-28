@@ -86,21 +86,11 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label>Từ ngày</label>
-                            <div class='input-group date' id='datetimepicker1'>
-                                <input type='text' class="form-control" name="from_date" value="{{ $from_date }}"/>
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
+                            <input id="input_date_start" class="form-control" type="date" name="from_date" value="{{ $from_date }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label>Đến ngày</label>
-                            <div class='input-group date' id='datetimepicker2'>
-                                <input type='text' class="form-control" name="to_date" value="{{ $to_date }}"/>
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
+                            <input id="input_date_end" class="form-control" type="date" name="to_date" value="{{ $to_date }}">
                         </div>
                         <!-- /.col -->
                     </div>
@@ -337,5 +327,17 @@
                 //         var modal = $(this);
                 //         $("#deleteForm").attr("action",url)
                 //     });
+                $(document).ready(function () {
+                    $('#input_date_end').attr('min', $('#input_date_start').val());
+                    $('#input_date_start').attr('max', $('#input_date_end').val());
+                    $('#input_date_start').on('change', function () {
+                        $('#input_date_end').attr('min',  $(this).val())
+                    });
+
+                    $('#input_date_end').on('change', function () {
+                        console.log('max', $(this).val())
+                        $('#input_date_start').attr('max', $(this).val())
+                    })
+                })
             </script>
 @stop

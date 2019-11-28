@@ -47,8 +47,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $file = $request->file('image');
         if (empty($request->sku) || empty($request->name) || empty($request->id_category) || empty($request->description) || empty($request->detail)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
+        }
+        if (!$file) {
+            return back()->withInput()->with('error', 'Vui lòng chọn ảnh sản phẩm');
         }
         $newProduct = [
             'sku' => $request->sku,
@@ -60,7 +64,7 @@ class ProductController extends Controller
             'detail' => $request->detail,
             'sale_id' => $request->sale_id,
         ];
-        $file = $request->file('image');
+
         $image = null;
         if ($file) {
             $image = $file->store('uploads/product');
@@ -108,7 +112,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (empty($request->name) || empty($request->id_category) || empty($request->description) || empty($request->price) || empty($request->detail) || empty($request->cost)) {
+        if (empty($request->name) || empty($request->id_category) || empty($request->description) || empty($request->detail)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
         }
         $newProduct = [

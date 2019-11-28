@@ -45,15 +45,19 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
+        $file = $request->file('image');
         if (empty($request->title) || empty($request->description) || empty($request->content)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
+        }
+        if (!$file) {
+            return back()->withInput()->with('error', 'Vui lòng chọn ảnh');
         }
         $newProduct = [
             'title' => $request->title,
             'description' => $request->description,
             'content' => $request->content
         ];
-        $file = $request->file('image');
+
         $image = null;
         if ($file) {
             $image = $file->store('uploads/product');

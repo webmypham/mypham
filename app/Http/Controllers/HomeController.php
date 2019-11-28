@@ -24,6 +24,13 @@ class HomeController extends Controller
 {
     // Trang chủ
     public function index() {
+        DB::table('products')
+            ->select('products.*', 'sale.value as sale_value', 'sale_type_id')
+            ->join('sale', function($join) {
+                $join->on('sale.id', '=', 'products.sale_id');
+            })
+            ->whereDate('sale.date_end', '<', Carbon::now()->format('Y-m-d'))
+            ->delete();
         $menus = Category::getParent();
         $listProduct = [];
         foreach ($menus as $menu) {
@@ -947,8 +954,27 @@ class HomeController extends Controller
 
     // Trang tìm kiếm
     public function search(Request $request) {
+
         $keyword = $request->keyword;
-        $products = Product::where('name', 'like', "%$keyword%")->get();
+        $products = DB::table('products')
+            ->select('products.*', 'sale.value as sale_value', 'sale_type_id')
+            ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
+            ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
+            ->where('products.name', 'like', "%$keyword%")->get();
+        foreach($products as $key => $value) {
+            switch ($value->sale_type_id) {
+                case 1:
+                    $products[$key]->sale = $value->sale_value.'%';
+                    $products[$key]->sale_price = $products[$key]->price - $products[$key]->price * $value->sale_value / 100;
+                    break;
+                case 2:
+                    $products[$key]->sale = number_format($value->sale_value, 0).'đ';
+                    $products[$key]->sale_price = $products[$key]->price - $products[$key]->sale_value;
+                    break;
+                default:
+                    break;
+            }
+        }
         $categories = Category::getParent();
         foreach ($categories as $menu) {
             $menu->subCat = Category::getCategoryChild($menu->id);

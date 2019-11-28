@@ -59,7 +59,14 @@ class Order extends Model
 
     public static function getOrderById($id) {
         $query = DB::table('orders')
-            ->select('orders.*', 'users.name as customer_name')
+            ->select(
+                'orders.*',
+                'users.name as customer_name',
+                'users.name as user_name',
+                'users.email as user_email',
+                'users.phone as user_phone',
+                'users.address as user_address'
+                )
             ->join('users', 'users.id', '=', 'orders.id_user')
             ->where('orders.id', $id)
             ->first();
@@ -161,5 +168,10 @@ class Order extends Model
             ->orderBy('month', 'DESC')
             ->get();
         return $result;
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
@@ -28,6 +29,13 @@ class Product extends Model
     }
 
     public static function getItemByCategory($id) {
+        DB::table('products')
+            ->select('products.*', 'sale.value as sale_value', 'sale_type_id')
+            ->join('sale', function($join) {
+                $join->on('sale.id', '=', 'products.sale_id');
+            })
+            ->whereDate('sale.date_end', '<', Carbon::now()->format('Y-m-d'))
+            ->delete();
         $category = Category::find($id);
         if ($category->is_parent) {
             $categories = Category::getCategoryChild($id);

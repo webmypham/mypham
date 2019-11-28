@@ -164,7 +164,7 @@ class ReceiptController extends Controller
      */
     public function destroy($id)
     {
-        $result = Receipt::where('id', $id);
+        $result = Receipt::where('id', $id)->first();
 
         $product = Product::find($result->product_id);
         $oldQuantity = $product->quantity;

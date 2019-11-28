@@ -106,11 +106,14 @@ class SaleController extends Controller
         ];
         Sale::where('id', $id)->update($data);
         $products = $request->products;
-        foreach ($products as $value) {
-            $product = Product::find($value);
-            $product->sale_id = $id;
-            $product->save();
+        if ($products) {
+            foreach ($products as $value) {
+                $product = Product::find($value);
+                $product->sale_id = $id;
+                $product->save();
+            }
         }
+
         return redirect()->route('sale.index');
     }
 

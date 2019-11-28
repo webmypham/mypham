@@ -171,7 +171,6 @@
 
                                         <ol class="commentlist">
                                             @foreach ($comments as $comment)
-                                            <div style="border-bottom: 1px solid #bbb">
                                             <li class="comment byuser comment-author-phansang even thread-even depth-1" style="margin-bottom: 0">
                                                 <div id="comment-7865" class="comment_container">
 
@@ -208,7 +207,6 @@
                                                         </div>
                                                     </li><!-- #comment-## -->
                                             @endif
-                                            </div>
                                             @endforeach
                                         </ol>
 
