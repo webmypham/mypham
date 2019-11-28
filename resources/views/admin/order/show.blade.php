@@ -73,11 +73,14 @@
                                                 </tbody>
                                             </table>
                                             <h3>Tổng: {{ $order->amount }} VNĐ</h3>
-                                        </div>
-                                    </div>
+                                        </div> 
+                                    </div> 
                                 </div>
                             </div>
-                        </div>
+                            <div>
+                            <h3>Thông tin nhận hàng</h3>
+                            </div>
+                        </div> 
                         <div class="box-footer">
                             <div class="col-md-6">
                                 @if($order->status !== '1' && $order->status !== '11')

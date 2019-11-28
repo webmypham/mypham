@@ -205,7 +205,7 @@ class OrderController extends Controller
                     break;
             }
             $details[] = [
-                'stt' => $key,
+                'stt' => $key + 1,
                 'image' =>  public_path('storage/' . $order->product_image ),
                 'product_name' => $order->product_name,
                 'quantity' => $order->quantity,
