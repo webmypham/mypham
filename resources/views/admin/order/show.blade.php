@@ -77,8 +77,14 @@
                                     </div> 
                                 </div>
                             </div>
-                            <div>
-                            <h3>Thông tin nhận hàng</h3>
+                            <div style="padding: 10">
+                            <h4><b>Thông tin nhận hàng</b></h4>
+                            <p>	Người nhận: {{ $value->product_name }} </p>
+                            <p>	Địa chỉ: {{ $value->product_name }} </p>
+                            <p>	Số điện thoại: {{ $value->product_name }} </p>
+                            <p>	Hình thức thanh toán: {{ $value->product_name }} </p>
+                            <p>	Ghi chú: {{ $value->product_name }}</p>
+                            
                             </div>
                         </div> 
                         <div class="box-footer">
