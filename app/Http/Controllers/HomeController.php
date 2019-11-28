@@ -809,7 +809,7 @@ class HomeController extends Controller
             return redirect('/');
         }
         $user = Session::get('user_info');
-        $orders = Order::where('id_user', $user->id)->paginate(6);
+        $orders = Order::where('id_user', $user->id)->orderBy('created_at', 'DESC')->paginate(6);
         foreach($orders as $key => $order) {
             $orders[$key]->status_text = Order::getStatusNameAttribute($order->status);
             $orders[$key]->status_class = Order::getStatusClassNameAttribute($order->status);
@@ -1043,7 +1043,7 @@ class HomeController extends Controller
             ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
             ->whereMonth('order_details.created_at', '=', $month)
             ->whereYear('order_details.created_at', '=', $year)
-            ->groupBy('order_details.id_product')->orderByRaw('SUM(order_details.quantity) DESC')->limit(50)->get();
+            ->groupBy('order_details.id_product')->orderByRaw('SUM(order_details.quantity) DESC')->limit(48)->paginate(16);
         foreach($products as $key => $value) {
             switch ($value->sale_type_id) {
                 case 1:

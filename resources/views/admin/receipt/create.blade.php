@@ -2,10 +2,10 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Admin | Quản lý nhập xuất')
+@section('title', 'Admin | Quản lý nhập/xuất')
 
 @section('content_header')
-    <h1> Quản lý nhập xuất </h1>
+    <h1> Quản lý nhập/xuất </h1>
 @stop
 
 @section('content')

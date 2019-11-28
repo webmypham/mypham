@@ -191,7 +191,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#cancel" data-toggle="tab">Đơn hàng hủy
+                    <a href="#cancel" data-toggle="tab">Huỷ đơn hàng
                     </a>
                 </li>
             </ul>

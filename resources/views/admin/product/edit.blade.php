@@ -40,15 +40,19 @@
                             <input type="text" class="form-control" id="input_description" name="description" placeholder="Mô tả" value="{{ $product->description }}" >
                         </div>
                         <div class="row">
-                            <div class="form-group col-sm-4">
+                            <div class="form-group col-sm-3">
                                 <label for="input_description">Giá nhập</label>
                                 <input type="number" class="form-control"  name="input_price" id="input_price" placeholder="Giá nhập" value="{{ $product->input_price }}" readonly>
                             </div>
-                            <div class="form-group col-sm-4">
-                                <label for="input_description">Chi phí khác (%) + 10% (VAT)</label>
+                            <div class="form-group col-sm-3">
+                                <label for="input_description">Chi phí khác (%)</label>
                                 <input type="text" class="form-control"  id="vat" name="cost" placeholder="Chi phí khác" value="{{ $product->cost }}">
                             </div>
-                            <div class="form-group col-sm-4">
+                            <div class="form-group col-sm-3">
+                                <label for="input_description">VAT</label>
+                                <input type="text" class="form-control"  name="vat" placeholder="Vat" value="10%" readonly>
+                            </div>
+                            <div class="form-group col-sm-3">
                                 <label for="input_quantity">Giá bán</label>
                                 <input type="number" id="price" class="form-control"  name="price" value="{{ $product->price }}" readonly>
                             </div>
