@@ -15,6 +15,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 
+use App\Mail\OrderShipped;
+use Illuminate\Support\Facades\Mail;
+
 class OrderController extends Controller
 {
     /**
@@ -150,22 +153,39 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = [
-            'status' => $request->status
-        ];
-
-        if (strval($request->status) == 11) {
+        $order = Order::find($id);
+        if ($order->status != $request->status) {
+            $user = $order->users ?? '';
             $orderDetails = OrderDetail::where('id_order', $id)->get();
-            foreach ($orderDetails as $key => $detail) {
-                $quantity = $detail->quantity;
-                $product = Product::where('id', $detail->id_product)->first();
-                $productQuantity = $product->quantity;
-                $newQuantity = $productQuantity + $quantity;
-                $product->update(['quantity' => $newQuantity]);
+            $orderDetail = [];
+            foreach ($orderDetails as $key => $value) {
+                $orderDetail[] = [
+                    'id_product' => $value->id,
+                    'quantity'  => $value->quantity,
+                    'price' => $value->price
+                ];
             }
+            $mailData['user'] = $user;
+            $mailData['order'] = $order;
+            $mailData['details'] = $orderDetail;
+            Mail::to($user->email)->send(new OrderShipped($mailData));
+            $data = [
+                'status' => $request->status
+            ];
+
+            if (strval($request->status) == 11) {
+
+                foreach ($orderDetails as $key => $detail) {
+                    $quantity = $detail->quantity;
+                    $product = Product::where('id', $detail->id_product)->first();
+                    $productQuantity = $product->quantity;
+                    $newQuantity = $productQuantity + $quantity;
+                    $product->update(['quantity' => $newQuantity]);
+                }
+            }
+            Order::where('id', $id)->update($data);
         }
 
-        Order::where('id', $id)->update($data);
         return redirect()->route('orders.index')->with('success', 'Cập nhật đơn hàng thành công');
     }
 

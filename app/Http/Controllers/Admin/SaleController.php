@@ -43,6 +43,9 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
+        if (empty($request->name) || empty($request->sale_type_id) || empty($request->value) || empty($request->date_start) || empty($request->date_end)) {
+            return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
+        }
         $data = [
             'name' => $request->name,
             'sale_type_id' => $request->sale_type_id,
@@ -53,10 +56,12 @@ class SaleController extends Controller
         ];
         $sale = Sale::create($data);
         $products = $request->products;
-        foreach ($products as $value) {
-            $product = Product::find($value);
-            $product->sale_id = $sale->id;
-            $product->save();
+        if ($products) {
+            foreach ($products as $value) {
+                $product = Product::find($value);
+                $product->sale_id = $sale->id;
+                $product->save();
+            }
         }
         return redirect()->route('sale.index');
     }
@@ -96,6 +101,9 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (empty($request->name) || empty($request->sale_type_id) || empty($request->value) || empty($request->date_start) || empty($request->date_end)) {
+            return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
+        }
         $data = [
             'name' => $request->name,
             'sale_type_id' => $request->sale_type_id,

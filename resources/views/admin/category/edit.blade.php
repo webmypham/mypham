@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-group">
                             <label for="input_image">Hình ảnh</label>
-                            <input type="file" id="input_image" name="image">
+                            <input type="file" id="input_image" name="image" accept="image/x-png,image/gif,image/jpeg">
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                         <a href="{{ url()->previous() }}"><button type="button" class="btn">Back</button></a>

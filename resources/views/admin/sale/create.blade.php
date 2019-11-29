@@ -12,7 +12,18 @@
     <section class="content">
         <div class="row">
             <!-- general form elements -->
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
+            <div class="alert alert-success alert-block hidden" id="ms-pro-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Chọn sản phẩm khuyến mãi thành công</strong>
+            </div>
             <div class="box box-primary">
+
                 <div class="box-header with-border">
                     <h3 class="box-title">Thêm chương trình khuyến mãi</h3>
                 </div>
@@ -84,8 +95,7 @@
                         
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" id="select_categories">Chọn</button>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="select_categories" data-dismiss="modal">Chọn</button>
                                     </div>
                         
                                     </div>
@@ -135,6 +145,12 @@
             $('#input_date_end').on('change', function () {
                 console.log('max', $(this).val())
                 $('#input_date_start').attr('max', $(this).val())
+            })
+            $('#select_categories').on('click', function () {
+                $('#ms-pro-success').removeClass('hidden');
+                setTimeout(function () {
+                    $('#ms-pro-success').addClass('hidden');
+                }, 2000)
             })
         })
     </script>

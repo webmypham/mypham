@@ -35,7 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="input_image">Hình ảnh</label>
-                            <input type="file" name="image">
+                            <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg">
                         </div>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="POST">

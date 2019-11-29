@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group">
                                 <label for="input_image">Hình ảnh</label>
-                                <input type="file" id="input_image" name="thumbnail">
+                                <input type="file" id="input_image" name="thumbnail" accept="image/x-png,image/gif,image/jpeg">
                             </div>
                         <div class="form-group">
                             <label for="input_image">Hình ảnh cũ</label><br />

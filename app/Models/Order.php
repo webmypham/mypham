@@ -172,6 +172,6 @@ class Order extends Model
 
     public function users()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id');
+        return $this->belongsTo('App\Models\User', 'id_user', 'id');
     }
 }

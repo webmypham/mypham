@@ -30,7 +30,7 @@ class HomeController extends Controller
                 $join->on('sale.id', '=', 'products.sale_id');
             })
             ->whereDate('sale.date_end', '<', Carbon::now()->format('Y-m-d'))
-            ->delete();
+            ->update(['sale_id' => 0]);
         $menus = Category::getParent();
         $listProduct = [];
         foreach ($menus as $menu) {
@@ -938,7 +938,7 @@ class HomeController extends Controller
         $data = [
             'status' => 1
         ];
-        $order = Order::where('id', $request->id);
+        $order = Order::find($request->id);
         $orderDetails = OrderDetail::where('id_order', $request->id)->get();
         foreach ($orderDetails as $key => $detail) {
             $quantity = $detail->quantity;

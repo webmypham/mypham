@@ -11,6 +11,16 @@
 @section('content')
     <section class="content">
         <div class="row">
+            <div class="alert alert-success alert-block hidden" id="ms-pro-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Chọn sản phẩm khuyến mãi thành công</strong>
+            </div>
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
@@ -107,13 +117,33 @@
 
 @section('js')
     <script>
-        // $('#sale_apply').change(function() {
-        //     var sale_apply_type = $('#sale_apply').val();
-        //     $('#myModal').modal();
-        // });
+        $(document).ready(function () {
+            var dtToday = new Date();
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if(month < 10)
+                month = '0' + month.toString();
+            if(day < 10)
+                day = '0' + day.toString();
 
-        // $('#select_categories').click(function() {
+            var maxDate = year + '-' + month + '-' + day;
+            $('#input_date_start').attr('min', maxDate);
+            $('#input_date_end').attr('min', maxDate)
+            $('#input_date_start').on('change', function () {
+                $('#input_date_end').attr('min',  $(this).val())
+            })
 
-        // });
+            $('#input_date_end').on('change', function () {
+                console.log('max', $(this).val())
+                $('#input_date_start').attr('max', $(this).val())
+            })
+            $('#select_categories').on('click', function () {
+                $('#ms-pro-success').removeClass('hidden');
+                setTimeout(function () {
+                    $('#ms-pro-success').addClass('hidden');
+                }, 2000)
+            })
+        })
     </script>
 @stop

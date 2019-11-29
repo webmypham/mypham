@@ -1,10 +1,41 @@
 @component('mail::message')
-# Yêu cầu đặt hàng đã được tiếp nhận
-{{ $mailData['user']->name }} thân mến,<br>
-<p>Yêu cầu đặt hàng cho đơn hàng của bạn đã được tiếp nhận và đang chờ xử lý,<p>
-<p>Thời gian đặt hàng là <b>{{ $mailData['order']->created_at }}</b><p>
-<p>Chúng tôi sẽ tiếp tục cập nhật với bạn về trạng thái tiếp theo của đơn hàng.</p>
-
+@if ($order->status == 0)
+    # Yêu cầu đặt hàng đã được tiếp nhận
+    {{ $mailData['user']->name }} thân mến,<br>
+    <p>Yêu cầu đặt hàng cho đơn hàng của bạn đã được tiếp nhận và đang chờ xử lý,</p>
+    <p>Thời gian đặt hàng là <b>{{ $mailData['order']->created_at }}</b><p>
+    <p>Chúng tôi sẽ tiếp tục cập nhật với bạn về trạng thái tiếp theo của đơn hàng.</p>
+@elseif ($order->status == 2)
+    # Đã xác nhận đơn hàng
+    {{ $mailData['user']->name }} thân mến,<br>
+    <p>Đon hàng của bạn đã được xác nhận</p>
+    <p>Thời gian đặt hàng là <b>{{ $mailData['order']->created_at }}</b></p>
+    <p>Chúng tôi sẽ tiếp tục cập nhật với bạn về trạng thái tiếp theo của đơn hàng.</p>
+@elseif ($order->status == 1)
+    # Đã hủy đơn hàng
+    {{ $mailData['user']->name }} thân mến,<br>
+    <p>Đơn hàng của bạn đã bị hủy</p>
+    <p>Thời gian đặt hàng là <b>{{ $mailData['order']->created_at }}</b><p>
+    <p>Chúng tôi sẽ tiếp tục cập nhật với bạn về trạng thái tiếp theo của đơn hàng.</p>
+@elseif ($order->status == 10)
+    # Đơn hàng của bạn đã được giao cho đơn vị vận chuyển và sẽ sớm được giao đến bạn
+    {{ $mailData['user']->name }} thân mến,<br>
+    <p>Yêu cầu đặt hàng cho đơn hàng của bạn đã được tiếp nhận và đang chờ xử lý,</p>
+    <p>Thời gian đặt hàng là <b>{{ $mailData['order']->created_at }}</b><p>
+    <p>Chúng tôi sẽ tiếp tục cập nhật với bạn về trạng thái tiếp theo của đơn hàng.</p>
+@elseif ($order->status == 5)
+    # Giao hàng thành công
+    {{ $mailData['user']->name }} thân mến,<br>
+    <p>Đơn hàng của bạn đã được giao thành công</p>
+    <p>Thời gian đặt hàng là <b>{{ $mailData['order']->created_at }}</b><p>
+    <p>Chúng tôi sẽ tiếp tục cập nhật với bạn về trạng thái tiếp theo của đơn hàng.</p>
+@elseif ($order->status == 11)
+    # Trả hàng thành công
+    {{ $mailData['user']->name }} thân mến,<br>
+    <p>Đơn hàng của bạn đã trả hàng thành công</p>
+    <p>Thời gian đặt hàng là <b>{{ $mailData['order']->created_at }}</b><p>
+    <p>Chúng tôi sẽ tiếp tục cập nhật với bạn về trạng thái tiếp theo của đơn hàng.</p>
+@endif
 <hr>
 <h2>Sản phẩm</h2>
 @foreach($mailData['details'] as $key => $value)
