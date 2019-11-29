@@ -16,4 +16,8 @@ class Sale extends Model
         //     ->join('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
             
     }
+
+    public function saleType() {
+        return $this->belongsTo('App\Models\SaleType', 'sale_type_id', 'id');
+    }
 }

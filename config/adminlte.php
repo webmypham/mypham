@@ -200,7 +200,7 @@ return [
             'url'     => 'admin/bestseller'
         ],
         [
-            'text'    => 'Quản lý khách hàng',
+            'text'    => 'Quản lý người dùng',
             'icon'    => 'fa fa-book',
             'url'     => 'admin/users'
         ],

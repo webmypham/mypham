@@ -165,10 +165,7 @@ class OrderController extends Controller
                     'price' => $value->price
                 ];
             }
-            $mailData['user'] = $user;
-            $mailData['order'] = $order;
-            $mailData['details'] = $orderDetail;
-            Mail::to($user->email)->send(new OrderShipped($mailData));
+
             $data = [
                 'status' => $request->status
             ];
@@ -178,12 +175,22 @@ class OrderController extends Controller
                 foreach ($orderDetails as $key => $detail) {
                     $quantity = $detail->quantity;
                     $product = Product::where('id', $detail->id_product)->first();
-                    $productQuantity = $product->quantity;
-                    $newQuantity = $productQuantity + $quantity;
-                    $product->update(['quantity' => $newQuantity]);
+                    if ($product) {
+                        $productQuantity = $product->quantity;
+                        $newQuantity = $productQuantity + $quantity;
+                        $product->update(['quantity' => $newQuantity]);
+                    }
+
                 }
             }
             Order::where('id', $id)->update($data);
+            $order->status = $request->status;
+            $mailData['user'] = $user;
+            $mailData['order'] = $order;
+            $mailData['details'] = $orderDetail;
+            $mailData['type'] = 0;
+            Mail::to($user->email)->send(new OrderShipped($mailData));
+
         }
 
         return redirect()->route('orders.index')->with('success', 'Cập nhật đơn hàng thành công');

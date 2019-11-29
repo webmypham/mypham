@@ -28,7 +28,8 @@
                 <table class="table table-striped table-bordered" >
                     <tr>
                         <th width="50px">No</th>
-                        <th>Khuyến mãi</th>
+                        <th>Chương trình khuyến mãi</th>
+                        <th>Giá trị khuyến mãi</th>
                         <th>Trạng thái</th>
                         <th>Bắt đầu</th>
                         <th>Kết thúc</th>
@@ -39,6 +40,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
+                            <td>{{ $item->sale_type_id == 1 ? ($item->value . '%') : ($item->value . 'đ')}}</td>
                             <td><span class="{{ config('const.sale_status_class.'.$item->status) }}">{{ config('const.sale_status.'.$item->status) }}</span></td>
                             <td>{{ $item->date_start }}</td>
                             <td>{{ $item->date_end }}</td>

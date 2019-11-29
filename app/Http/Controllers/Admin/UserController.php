@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Product;
 use DateTime;
 use Faker\Provider\Image;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +36,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $user = Auth::user();
+        return view('admin.users.create', compact('user'));
     }
 
     /**
@@ -55,7 +57,7 @@ class UserController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'address' => $request->address,
-            'id_role' => 2
+            'id_role' => $request->role
         ];
 
         User::create($newUser);
@@ -83,7 +85,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.users.edit', compact('user'));
+        $userAdmin = Auth::user();
+        return view('admin.users.edit', compact('user', 'userAdmin'));
     }
 
     /**

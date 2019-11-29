@@ -70,8 +70,10 @@ class ReceiptController extends Controller
         } else {
             $newQuantity = $oldQuantity - $request->quantity;
         }
+
         if ($newQuantity < 0) {
             $newQuantity = 0;
+            return back()->withInput()->with('error', 'Số lương sản phẩm còn lại không đủ để xuất hàng');
         }
 
 
@@ -128,31 +130,38 @@ class ReceiptController extends Controller
 
         $receipt = Receipt::find($id);
         $product = Product::find($receipt->product_id);
-        $oldQuantity = $product->quantity;
+        if ($product) {
+            $oldQuantity = $product->quantity;
+            $oldType = $receipt->type;
 
+            if ($oldType == 'in') {
+                $newQuantity = $oldQuantity - $receipt->quantity;
+            } else {
+                $newQuantity = $oldQuantity + $receipt->quantity;
+            }
 
-        $oldType = $receipt->type;
+            if ($receipt->type == 'out' && strval($request->quantity) > $newQuantity) {
+                return back()->withInput()->with('error', 'Số lương sản phẩm còn lại không đủ để xuất hàng');
+            }
 
-        if ($oldType == 'in') {
-            $newQuantity = $oldQuantity - $receipt->quantity;
-        } else {
-            $newQuantity = $oldQuantity + $receipt->quantity;
+            if ($request->type == 'in') {
+                $newQuantity = $newQuantity + $request->quantity;
+            } else {
+                $newQuantity = $newQuantity - $request->quantity;
+
+            }
+
+            if ($newQuantity < 0) {
+                return back()->withInput()->with('error', 'Số lương sản phẩm còn lại không đủ');
+            }
+
+            $input_price = strval($request->input_price);
+            $price = strval($request->input_price) + (strval($request->input_price) * 10 / 100);
+            $product->update(['quantity' => $newQuantity, 'input_price' => $input_price, 'price' => $price, 'status' => 1]);
         }
 
-        if ($receipt->type == 'out' && strval($request->quantity) > $newQuantity) {
-            return back()->withInput()->with('error', 'Số lương sản phẩm còn lại không đủ để xuất hàng');
-        }
-
-        if ($request->type == 'in') {
-            $newQuantity = $newQuantity + $request->quantity;
-        } else {
-            $newQuantity = $newQuantity - $request->quantity;
-        }
 
         $receipt->update($newReceipt);
-        $input_price = strval($request->input_price);
-        $price = strval($request->input_price) + (strval($request->input_price) * 10 / 100);
-        $product->update(['quantity' => $newQuantity, 'input_price' => $input_price, 'price' => $price, 'status' => 1]);
         return redirect()->route('receipts.index')->with('success','Cập nhật phiếu thành công');
     }
 
@@ -165,22 +174,22 @@ class ReceiptController extends Controller
     public function destroy($id)
     {
         $result = Receipt::where('id', $id)->first();
-
         $product = Product::find($result->product_id);
-        $oldQuantity = $product->quantity;
-        if ($result->type == 'in') {
-            $newQuantity = $oldQuantity - $result->quantity;
-        } else {
-            $newQuantity = $oldQuantity + $result->quantity;
-        }
 
-        if ($newQuantity < 0) {
-            $newQuantity = 0;
-        }
+        if ($product) {
+            $oldQuantity = $product->quantity;
+            if ($result->type == 'in') {
+                $newQuantity = $oldQuantity - $result->quantity;
+            } else {
+                $newQuantity = $oldQuantity + $result->quantity;
+            }
 
+            if ($newQuantity < 0) {
+                $newQuantity = 0;
+            }
+            $product->update(['quantity' => $newQuantity]);
+        }
         $result->delete();
-        $product->update(['quantity' => $newQuantity]);
-
         if ($result) {
             return redirect()->back()->withSuccess( 'Xóa phiếu thành công' );
         } else {

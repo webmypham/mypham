@@ -28,6 +28,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="PATCH">
                     <div class="box-body">
+                        <input type="hidden" name="type"  value="{{ $receipt->type }}"/>
                         <div class="form-group">
                             <label>Loại phiếu</label>
                             <input type="text" class="form-control" value="{{ $receipt->type == 'in' ? 'Phiếu nhập' : 'Phiếu xuất' }}" readonly />

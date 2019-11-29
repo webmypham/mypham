@@ -28,6 +28,17 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="PATCH">
                     <div class="box-body">
+                        @if ($userAdmin->id_role == 0)
+                            <div class="form-group">
+                                <label for="input_name">Loại tài khoản</label>
+                                <select class="form-control" name="role">
+                                    <option value="2" {{ $user->id_role == 2 ?'selected' : '' }}>Khách hàng</option>
+                                    <option value="1" {{ $user->id_role == 1 ?'selected' : '' }}>Quản trị viên</option>
+                                </select>
+                            </div>
+                        @elseif ($userAdmin->id_role == 1)
+                            <input type="hidden" name="role" value="2" />
+                        @endif
                         <div class="form-group">
                             <label for="input_name">Email</label>
                             <input type="email" class="form-control" name="email" placeholder="Email" value="{{ $user->email }}">

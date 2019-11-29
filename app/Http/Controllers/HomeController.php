@@ -417,6 +417,7 @@ class HomeController extends Controller
         $mailData['user'] = $user;
         $mailData['order'] = $od;
         $mailData['details'] = $orderDetail;
+        $mailData['type'] = 1;
         Mail::to($user->email)->send(new OrderShipped($mailData));
         return redirect(route('order', ['id' =>  $od->id]))->with('success', 'Đặt hàng thành công');;
     }
@@ -672,18 +673,23 @@ class HomeController extends Controller
             return back()->withInput()->with('error', 'Email không đúng định dạng');
         }
 
-        if ($request->old_password && $request->password && $request->password != $request->confirm_password) {
-            return back()->withInput()->with('error', 'Mật khẩu và xác nhận mật khẩu không khớp');
-        }
-
         $user = User::where('email', $request->email)->first();
-        if ($request->old_password && Hash::check($request->old_password, $user->password)) {
-            return back()->withInput()->with('error', 'Mật khẩu cũ không chính xác');
+        if ($request->change_pass == 'on') {
+            if (!$request->old_password || !$request->password || ! $request->confirm_password) {
+                return back()->withInput()->with('error', 'Vui lòng điền mật khẩu');
+            }
+            if (!$request->old_password && $request->password && $request->password != $request->confirm_password) {
+                return back()->withInput()->with('error', 'Mật khẩu và xác nhận mật khẩu không khớp');
+            }
+
+            if ($request->old_password && !Hash::check($request->old_password, $user->password)) {
+                return back()->withInput()->with('error', 'Mật khẩu cũ không chính xác');
+            }
+            if ($request->old_password && $request->password) {
+                $user->password = Hash::make($request->password);
+            }
         }
 
-        if ($request->old_password && $request->password) {
-            $user->password = Hash::make($request->password);
-        }
 
         if ($request->name) {
             $user->name = $request->name;
@@ -946,8 +952,20 @@ class HomeController extends Controller
             $productQuantity = $product->quantity;
             $newQuantity = $productQuantity + $quantity;
             $product->update(['quantity' => $newQuantity]);
+            $orderDetail[] = [
+                'id_product' => $detail->id,
+                'quantity'  => $detail->quantity,
+                'price' => $detail->price
+            ];
         }
         $order->update($data);
+        $user = Session::get('user_info');
+        $order->status = 1;
+        $mailData['user'] = $user;
+        $mailData['order'] = $order;
+        $mailData['details'] = $orderDetail;
+        $mailData['type'] = 1;
+        Mail::to($user->email)->send(new OrderShipped($mailData));
 
         return redirect()->route('user.orders');
     }

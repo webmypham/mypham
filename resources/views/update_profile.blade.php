@@ -20,18 +20,21 @@
                 <span id="reauth-email" class="reauth-email"></span>
                 <span>Email <span style="color: red">*</span></span>
                 <input name="email" type="text" class="form-control" placeholder="Email" autofocus value="{{ $user->email ?? '' }}" autocomplete="off" readonly>
-                <span>Mật khẩu cũ<span style="color: red">*</span></span>
-                <input name="old_password" type="password" class="form-control" placeholder="Chỉ nhập khi muốn đổi mật khẩu" autocomplete="off">
-                <span>Mật khẩu mới<span style="color: red">*</span></span>
-                <input name="password" type="password" class="form-control" placeholder="Chỉ nhập khi muốn đổi mật khẩu">
-                <span>Xác nhận mật khẩu <span style="color: red">*</span></span>
-                <input name="confirm_password" type="password" class="form-control" placeholder="Chỉ nhập khi muốn đổi mật khẩu">
                 <span>Tên hiển thị <span style="color: red">*</span></span>
                 <input type="text" name="name" placeholder="Tên hiển thị" value="{{ $user->name ?? '' }}"/>
                 <span>Số điện thoại</span>
                 <input type="text" name="phone" placeholder="Số điện thoại" value="{{ $user->phone ?? '' }}"/>
                 <span>Địa chỉ</span>
                 <input type="text" name="address" placeholder="Địa chỉ" value="{{ $user->address ?? '' }}"/>
+                <p><input type="checkbox" name="change_pass" id="check-change-pass"/> Đổi mật khẩu</p>
+                <div id="change-pass" class="hidden">
+                <span>Mật khẩu cũ<span style="color: red">*</span></span>
+                    <input name="old_password" type="password" class="form-control" placeholder="Chỉ nhập khi muốn đổi mật khẩu" autocomplete="off">
+                    <span>Mật khẩu mới<span style="color: red">*</span></span>
+                    <input name="password" type="password" class="form-control" placeholder="Chỉ nhập khi muốn đổi mật khẩu">
+                    <span>Xác nhận mật khẩu <span style="color: red">*</span></span>
+                    <input name="confirm_password" type="password" class="form-control" placeholder="Chỉ nhập khi muốn đổi mật khẩu">
+                </div>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Cập nhật</button>
             </form><!-- /form -->
         </div><!-- /card-container -->
@@ -64,6 +67,15 @@
         $(document).ready(function() {
             $('#Carousel').carousel({
                 interval: 5000
+            });
+            $('#check-change-pass').on('change', function () {
+                console.log('change', $(this).is(":checked"));
+                if ($(this).is(":checked") == true) {
+                    $('#change-pass').removeClass('hidden')
+                } else {
+                    $('#change-pass').addClass('hidden')
+                }
+
             })
         });
     </script>

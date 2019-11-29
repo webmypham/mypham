@@ -18,7 +18,7 @@ class User extends Authenticatable
     public static function getUsers($searchData) {
         $query = DB::table('users')
             ->select('users.*')
-            ->where('id_role', '<>', 1)
+            ->where('id_role', '<>', 0)
             ->orderBy('users.id', 'DESC');
         if (isset($searchData['email'])) {
             $query->where('users.email', 'LIKE', '%'.$searchData['email'].'%');

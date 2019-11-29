@@ -26,6 +26,17 @@
                 <!-- form start -->
                 <form role="form" action="{{ route('users.store') }}" method="POST">
                     <div class="box-body">
+                        @if ($user->id_role == 0)
+                        <div class="form-group">
+                            <label for="input_name">Loại tài khoản</label>
+                            <select class="form-control" name="role">
+                                <option value="2">Khách hàng</option>
+                                <option value="1">Quản trị viên</option>
+                            </select>
+                        </div>
+                        @elseif ($user->id_role == 1)
+                        <input type="hidden" name="role" value="2" />
+                        @endif
                         <div class="form-group">
                             <label for="input_name">Email</label>
                             <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
