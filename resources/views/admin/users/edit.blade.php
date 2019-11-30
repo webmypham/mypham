@@ -2,10 +2,10 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Admin | Quản lý tin tức')
+@section('title', 'Admin | Quản lý người dùng')
 
 @section('content_header')
-    <h1> Quản lý khách hàng </h1>
+    <h1> Quản lý người dùng </h1>
 @stop
 
 @section('content')
@@ -20,7 +20,7 @@
             @endif
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"> Chỉnh sửa thông tin khách hàng </h3>
+                    <h3 class="box-title"> Chỉnh sửa thông tin tài khoản </h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->

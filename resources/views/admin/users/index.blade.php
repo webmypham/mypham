@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Quản lý tin tức')
+@section('title', 'Quản lý người dùng')
 
 @section('content_header')
 
-    <h1>Quản lý khách hàng</h1>
+    <h1>Quản lý người dùng</h1>
 
 @stop
 
@@ -46,7 +46,7 @@
         @endif
         <div class="panel panel-default">
             <div class="box-header">
-                <h3 class="box-title">Danh sách tin tức</h3>
+                <h3 class="box-title">Danh sách người dùng</h3>
                 <a href="{{ route('users.create') }}" class="btn btn-info" style="float: right;">Thêm</a>
             </div>
             <div class="panel-body table-responsive">
@@ -55,6 +55,7 @@
                     <tr>
                         <th>STT</th>
                         <th>Email</th>
+                        <th>Loại Tài khoản</th>
                         <th>Tên</th>
                         <th>Số điện thoại</th>
                         <th>Địa chỉ</th>
@@ -67,8 +68,8 @@
                             <td>
                                 <a href="/admin/users/{{$value->id}}">{{ $value->email }}</a>
                             </td>
+                            <td>{{ $value->id_role }}</td>
                             <td>{{ $value->name }}</td>
-
                             <td>{{ $value->phone }}</td>
                             <td>{{ $value->address }}</td>
                             <td>

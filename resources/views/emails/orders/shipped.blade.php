@@ -10,7 +10,7 @@
     @elseif ($mailData['order']->status == 2)
         #Đã xác nhận đơn hàng
         {{ $mailData['user']->name }} thân mến
-        Đon hàng của bạn đã được xác nhận
+        Đơn hàng của bạn đã được xác nhận
         Thời gian đặt hàng là {{ $mailData['order']->created_at }}
         Chúng tôi sẽ tiếp tục cập nhật với bạn về trạng thái tiếp theo của đơn hàng.
     @elseif ($mailData['order']->status == 1)
@@ -55,7 +55,7 @@
 <h2>Sản phẩm</h2>
 @foreach($mailData['details'] as $key => $value)
 <p style="background-color: #f0f0f0; padding: 10px 15px; margin-bottom: 15px">
-    Bộ dưỡng ẩm phục hồi da Graisset Repair Moisture<br>
+    Tên sản phẩm: <br>
     <span style="color: #dd3937;">VND {{ number_format($value['price'], 0) }}</span><br>
     Số lượng: {{ $value['quantity'] }}<br>
     Thành tiền: {{ number_format($value['price'] * $value['quantity'], 0) }}

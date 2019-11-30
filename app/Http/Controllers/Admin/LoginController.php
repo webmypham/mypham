@@ -29,7 +29,7 @@ class LoginController extends Controller
 
             $user = User::where('email', $request->email)->first();
             if ($user) {
-                if ($user->id_role != 1) {
+                if ($user->id_role != 0 && $user->id_role != 1) {
                     return back()->withInput()->with('error', 'Tài khoản không không có quyền truy cập');
                 }
             }
