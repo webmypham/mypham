@@ -384,7 +384,8 @@ class HomeController extends Controller
             $orderDetail[] = [
                 'id_product' => $value->product->id,
                 'quantity'  => $value->quantity,
-                'price' => $value->product->price
+                'price' => $value->product->price,
+                'name' => $value->product->name ?? ''
             ];
             $product = Product::find($value->product->id);
             $newQuantity = 0;
@@ -399,6 +400,11 @@ class HomeController extends Controller
         $user_id = 1;
         if (Session::get('user_logged') === true) {
             $user_id = Session::get('user_info')->id;
+        }
+        if (strval($request->transport_type) == 1) {
+            $amount += 15000;
+        } else if (strval($request->transport_type) == 1) {
+            $amount += 25000;
         }
         $order = [
             'id_user' => $user_id,
@@ -418,7 +424,7 @@ class HomeController extends Controller
         $mailData['order'] = $od;
         $mailData['details'] = $orderDetail;
         $mailData['type'] = 1;
-        Mail::to($user->email)->send(new OrderShipped($mailData));
+        Mail::to($user->email)->send(new OrderShipped($mailData, 'Đặt hàng thành công'));
         return redirect(route('order', ['id' =>  $od->id]))->with('success', 'Đặt hàng thành công');;
     }
 
@@ -955,7 +961,8 @@ class HomeController extends Controller
             $orderDetail[] = [
                 'id_product' => $detail->id,
                 'quantity'  => $detail->quantity,
-                'price' => $detail->price
+                'price' => $detail->price,
+                'name' => $detail->product->name ?? ''
             ];
         }
         $order->update($data);
@@ -965,7 +972,7 @@ class HomeController extends Controller
         $mailData['order'] = $order;
         $mailData['details'] = $orderDetail;
         $mailData['type'] = 1;
-        Mail::to($user->email)->send(new OrderShipped($mailData));
+        Mail::to($user->email)->send(new OrderShipped($mailData, 'Hủy đơn hàng thành công'));
 
         return redirect()->route('user.orders');
     }

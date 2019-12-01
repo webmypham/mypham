@@ -162,7 +162,8 @@ class OrderController extends Controller
                 $orderDetail[] = [
                     'id_product' => $value->id,
                     'quantity'  => $value->quantity,
-                    'price' => $value->price
+                    'price' => $value->price,
+                    'name' => $value->product->name ?? ''
                 ];
             }
 
@@ -170,7 +171,7 @@ class OrderController extends Controller
                 'status' => $request->status
             ];
 
-            if (strval($request->status) == 11) {
+            if (strval($request->status) == 11 || strval($request->status) == 1) {
 
                 foreach ($orderDetails as $key => $detail) {
                     $quantity = $detail->quantity;
@@ -189,10 +190,9 @@ class OrderController extends Controller
             $mailData['order'] = $order;
             $mailData['details'] = $orderDetail;
             $mailData['type'] = 0;
-            Mail::to($user->email)->send(new OrderShipped($mailData));
+            Mail::to($user->email)->send(new OrderShipped($mailData, 'Cập nhật tình trạng đơn hàng'));
 
         }
-
         return redirect()->route('orders.index')->with('success', 'Cập nhật đơn hàng thành công');
     }
 

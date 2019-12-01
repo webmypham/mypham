@@ -68,7 +68,7 @@
                             <td>
                                 <a href="/admin/users/{{$value->id}}">{{ $value->email }}</a>
                             </td>
-                            <td>{{ $value->id_role }}</td>
+                            <td>{{ $value->id_role == 1 ? 'Quản trị viên' : 'Khách hàng' }}</td>
                             <td>{{ $value->name }}</td>
                             <td>{{ $value->phone }}</td>
                             <td>{{ $value->address }}</td>

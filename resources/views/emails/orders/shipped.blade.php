@@ -51,11 +51,10 @@
         @endif
 
 @endif
-<hr>
 <h2>Sản phẩm</h2>
 @foreach($mailData['details'] as $key => $value)
 <p style="background-color: #f0f0f0; padding: 10px 15px; margin-bottom: 15px">
-    Tên sản phẩm: <br>
+    {{ $value['name'] }}<br>
     <span style="color: #dd3937;">VND {{ number_format($value['price'], 0) }}</span><br>
     Số lượng: {{ $value['quantity'] }}<br>
     Thành tiền: {{ number_format($value['price'] * $value['quantity'], 0) }}

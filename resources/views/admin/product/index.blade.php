@@ -86,7 +86,7 @@
                                 @endif
                             </td>
                             <td>{{ $value->quantity }}</td>
-                            <td>{{ $value->price }} VNĐ</td>
+                            <td>{{ $value->status == 1 ? number_format($value->price, 0) . 'VNĐ' : 'Sản phẩm sắp ra mắt' }}</td>
 
                             <td>{{ date('d/m/Y: H:i', strtotime($value->created_at)) }}</td>
                             <td>

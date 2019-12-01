@@ -12,14 +12,16 @@ class OrderShipped extends Mailable
     use Queueable, SerializesModels;
 
     protected $mailData;
+    public $subject;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($mailData)
+    public function __construct($mailData, $subject = 'Đặt hàng thành công')
     {
         $this->mailData = $mailData;
+        $this->subject = $subject;
     }
 
     /**
@@ -29,7 +31,7 @@ class OrderShipped extends Mailable
      */
     public function build()
     {
-        return $this->subject('Cosmetic. Đặt hàng thành công')->markdown('emails.orders.shipped')->with([
+        return $this->subject($this->subject)->markdown('emails.orders.shipped')->with([
             'mailData' => $this->mailData,
         ]);
     }

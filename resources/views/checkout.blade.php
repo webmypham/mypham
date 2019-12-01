@@ -192,8 +192,9 @@
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Phương thức giao hàng</label>
                                             <div class="col-sm-8">
-                                                <select id="shipping_methods" class="form-control">
-                                                    <option value="express">Chuyển phát nhanh (20000 đ)</option>
+                                                <select id="shipping_methods" class="form-control" name="transport_type">
+                                                    <option value="{{ $total >= 200000 ? -1 : 1 }}" {{ ($total >= 200000 && $total < 500000) ? 'selected' : ''}}>Giao hàng tiết kiệm {{ $total >= 200000 ? '(Miễn phí)' : '(15.000 đ)' }}</option>
+                                                    <option value="{{ $total >= 500000 ? -2 : 2 }}" {{ ($total >= 500000) ? 'selected' : ''}}>Giao hàng nhanh {{ $total >= 500000 ? '(Miễn phí)' : '(25.000 đ)' }}</option>
                                                 </select>
                                             </div>
                                         </div>
