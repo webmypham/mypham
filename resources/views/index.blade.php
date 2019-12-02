@@ -5,35 +5,6 @@
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="col-md-10 col-sm-9 col-xs-12 no-padding-left">
-                    {{--<div class="slide_index">--}}
-                        {{--<div class="owl-carousel owl-theme" id="owl-demo" style="opacity: 1; display: block;">--}}
-                            {{--<div class="owl-wrapper-outer">--}}
-                                {{--<div class="owl-wrapper" style="width: 3740px; left: 0px; display: block; transition: all 1000ms ease 0s; transform: translate3d(0px, 0px, 0px);">--}}
-                                    {{--<div class="owl-item" style="width: 935px;">--}}
-                                        {{--<div class="item">--}}
-                                            {{--<a href="#">--}}
-                                                {{--<img src="https://3.bp.blogspot.com/-0RQHhK5UtbA/WPm0o_lvSmI/AAAAAAAAHPU/2UfzfiXEGgAdSSV2rRmmyGQOMHs7T337gCLcB/s1600/banner-bg.jpg">--}}
-                                            {{--</a>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="owl-item" style="width: 935px;">--}}
-                                        {{--<div class="item">--}}
-                                            {{--<a href="#">--}}
-                                                {{--<img src="https://2.bp.blogspot.com/-ug9522gpq98/WPm1AsdlT8I/AAAAAAAAHPY/H2zLbV9I8VoAYnkZJCG2JT3k3smfgLocQCLcB/s1600/banner-bg2.jpg">--}}
-                                            {{--</a>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-
-                            {{--<div class="owl-controls clickable">--}}
-                                {{--<div class="owl-pagination">--}}
-                                    {{--<div class="owl-page active"><span class=""></span></div>--}}
-                                    {{--<div class="owl-page"><span class=""></span></div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
                     <div id="myCarousel" class="carousel slide" data-ride="carousel" style="padding: 0 !important;">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
@@ -49,8 +20,6 @@
                                     <img src="{{ asset('storage/'.$value->image) }}" alt="Los Angeles">
                                 </div>
                             @endforeach
-
-
                         </div>
 
                         <!-- Left and right controls -->
@@ -101,7 +70,6 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9 col-sm-12 col-xs-12">
-
                                     @for ($i = 0; $i < count($products['products']); $i+=4)
                                         <div class="row">
                                             @for ($j = $i; $j < $i + 4; $j++)
