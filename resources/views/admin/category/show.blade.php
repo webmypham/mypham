@@ -20,19 +20,19 @@
                 <!-- form start -->
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="input_name">Tên category</label>
-                        <input type="text" class="form-control" id="input_name" name="name" placeholder="tên" value="{{ $category->name }}">
+                        <label for="input_name">Tên danh mục</label>
+                        <input type="text" class="form-control" id="input_name" name="name" placeholder="tên" value="{{ $category->name }}" readonly>
                     </div>
                         <div class="form-group">
-                            <label>Category cha:</label>
-                            <select name="id_parent" class="form-control">
+                            <label>Danh much cha:</label>
+                            <select name="id_parent" class="form-control" readonly>
                                 <option value="">Chọn</option>
                                 @foreach ($categoriesParent as $each)
                                     <option value="{{ $each->id }}" {{ $category->id_parent == $each->id ? 'selected' : '' }}>{{ $each->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <a href="{{ route('categories.edit', ['category' => $category->id]) }}"><button type="button" class="btn btn-primary">Edit</button></a>
+                        <a href="{{ route('categories.edit', ['category' => $category->id]) }}"><button type="button" class="btn btn-primary">Chỉnh sửa</button></a>
                     </div>
             </div>
         </div>

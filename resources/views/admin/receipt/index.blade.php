@@ -62,7 +62,7 @@
         @endif
         <div class="panel panel-default">
             <div class="box-header">
-                <h3 class="box-title">Danh sách phiếu</h3>
+                <h3 class="box-title">Danh sách phiếu nhập/xuất</h3>
                 <a href="{{ route('receipts.create') }}" class="btn btn-info" style="float: right;">Thêm</a>
             </div>
             <div class="panel-body table-responsive">

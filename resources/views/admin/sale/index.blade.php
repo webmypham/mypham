@@ -41,7 +41,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->sale_type_id == 1 ? ($item->value . '%') : ($item->value . 'đ')}}</td>
-                            <td><span class="{{ config('const.sale_status_class.'.$item->status) }}">{{ config('const.sale_status.'.$item->status) }}</span></td>
+                            <td><span class="{{ config('const.sale_status_class.'.$item->isActive) }}">{{ config('const.sale_status.'.$item->isActive) }}</span></td>
                             <td>{{ $item->date_start }}</td>
                             <td>{{ $item->date_end }}</td>
                             <td>

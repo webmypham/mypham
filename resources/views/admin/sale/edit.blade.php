@@ -94,8 +94,7 @@
                         
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" id="select_categories">Chọn</button>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="select_categories"  data-dismiss="modal">Chọn</button>
                                     </div>
                         
                                     </div>

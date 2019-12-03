@@ -46,7 +46,7 @@
         @endif
         <div class="panel panel-default">
             <div class="box-header">
-                <h3 class="box-title">Danh sách tin tức</h3>
+                <h3 class="box-title">Danh sách bình luận</h3>
                 <a href="{{ route('comments.create') }}" class="btn btn-info" style="float: right;">Thêm</a>
             </div>
             <div class="panel-body table-responsive">

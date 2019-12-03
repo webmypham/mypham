@@ -4,7 +4,12 @@
 
 @section('content_header')
 
-    <h1>Báo cáo thống kê bán hàng từ ngày {{ $from_date }} đến ngày {{ $to_date }}</h1>
+    @if (\Carbon\Carbon::parse($from_date)->eq(\Carbon\Carbon::parse($to_date)))
+        <h1>Báo cáo thống kê bán hàng ngày {{ \Carbon\Carbon::parse($from_date)->format('d/m/Y') }}</h1>
+    @else
+        <h1>Báo cáo thống kê bán hàng từ ngày {{ \Carbon\Carbon::parse($from_date)->format('d/m/Y') }} đến ngày {{ \Carbon\Carbon::parse($to_date)->format('d/m/Y') }}</h1>
+    @endif
+
 
 @stop
 
@@ -86,7 +91,7 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label>Từ ngày</label>
-                            <input id="input_date_start" class="form-control" type="date" name="from_date" value="{{ $from_date }}">
+                            <input id="input_date_start" class="form-control" type="date" dateFormat="d/M/y" name="from_date" value="{{ $from_date }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label>Đến ngày</label>
@@ -335,7 +340,6 @@
                     });
 
                     $('#input_date_end').on('change', function () {
-                        console.log('max', $(this).val())
                         $('#input_date_start').attr('max', $(this).val())
                     })
                 })

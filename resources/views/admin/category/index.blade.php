@@ -21,10 +21,10 @@
                 <!-- Table -->
                 <table class="table table-striped table-bordered" >
                     <tr>
-                        <th width="50px">No</th>
+                        <th width="50px">STT</th>
                         <th>Tên</th>
                         <th>Ảnh</th>
-                        <th>Thuộc category</th>
+                        <th>Thuộc danh mục</th>
                         <th>Ngày tạo</th>
                         <th width="15%" align="center">Chức năng</th>
                     </tr>

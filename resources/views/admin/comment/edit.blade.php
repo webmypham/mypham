@@ -5,7 +5,7 @@
 @section('title', 'Admin | Quản lý tin tức')
 
 @section('content_header')
-    <h1> Quản lý tin tức </h1>
+    <h1> Quản lý bình luận </h1>
 @stop
 
 @section('content')
@@ -20,7 +20,7 @@
             @endif
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"> Xem chi tiết tin tức </h3>
+                    <h3 class="box-title"> Trả lời bình luận </h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -38,9 +38,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Sản phẩm</label>
+                            <label>Người đăng</label>
                             <select name="id_user" class="form-control" readonly>
-                                <option value="">Chọn</option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}" {{ $comment->id_user == $user->id ? "selected" : '' }}>{{ $user->name }}</option>
                                 @endforeach

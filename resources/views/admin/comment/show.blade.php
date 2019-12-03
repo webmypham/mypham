@@ -5,7 +5,7 @@
 @section('title', 'Admin | Quản lý tin tức')
 
 @section('content_header')
-    <h1> Quản lý tin tức </h1>
+    <h1> Quản lý bình luận </h1>
 @stop
 
 @section('content')
@@ -14,7 +14,7 @@
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"> Chỉnh sửa tin tức </h3>
+                    <h3 class="box-title"> Xem chi tiết bình luận </h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->

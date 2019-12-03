@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -19,6 +20,13 @@ class SaleController extends Controller
     public function index()
     {
         $sales = Sale::all();
+        foreach ($sales as $sale) {
+            if (Carbon::now()->between(Carbon::parse($sale->date_start), Carbon::parse($sale->date_end))) {
+                $sale->isActive = 0;
+            } else {
+                $sale->isActive = 1;
+            }
+        }
         return view('admin.sale.index', compact('sales'));
     }
 

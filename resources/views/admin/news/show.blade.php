@@ -14,7 +14,7 @@
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"> Chỉnh sửa tin tức </h3>
+                    <h3 class="box-title">Xem chi tiết tin tức </h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
