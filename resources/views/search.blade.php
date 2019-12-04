@@ -25,15 +25,19 @@
                                             <h4 class="product-name">
                                                 <a href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id ]) }}">{{ Str::limit($products[$j]->name, 40) }}</a>
                                             </h4>
-                                            @if ($products[$j]->sale_value)
-                                                <span class="product-price">
-                                                            <span class="old_price">{{ number_format($products[$j]->price, 0) }}₫</span>
-                                                            {{ number_format($products[$j]->sale_price  , 0) }}₫
-                                                        </span>
+                                            @if($products[$j]->status == 1)
+                                                @if ($products[$j]->sale_value)
+                                                    <span class="product-price">
+                                                                <span class="old_price">{{ number_format($products[$j]->price, 0) }}₫</span>
+                                                                {{ number_format($products[$j]->sale_price  , 0) }}₫
+                                                            </span>
+                                                @else
+                                                    <span class="product-price">
+                                                                {{ number_format($products[$j]->price, 0) }}₫
+                                                            </span>
+                                                @endif
                                             @else
-                                                <span class="product-price">
-                                                            {{ number_format($products[$j]->price, 0) }}₫
-                                                        </span>
+                                                <span class="product-price">Sắp ra mắt</span>
                                             @endif
                                         </div>
                                     </div>
