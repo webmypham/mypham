@@ -109,7 +109,8 @@
     line-height: 18px;
     font-weight: normal;">
         <p>Qúy khách có thể kiểm tra ngoại quan sản phẩm (nhãn hiệu, mẫu mã, màu sắc, số lượng, ...) trước khi thanh toán và có thể từ chối nhận hàng nếu không ưng ý.</p>
-        <p>Nếu sản phẩm có dấu hiệu hư hỏng/ bể vỡ hoặc không đúng với thông tin trên website, bạn vui lòng liên hệ với chúng tôi trong vòng 48 giờ kể từ thời điểm nhận hàng để được hỗ trợ. Số điện thoại liên hệ: <strong style="color:#099202">0981 861 865</strong></p>
+        <p>Nếu sản phẩm có dấu hiệu hư hỏng/ bể vỡ hoặc không đúng với thông tin trên website, bạn vui lòng liên hệ với chúng tôi trong vòng 48 giờ kể từ thời điểm nhận hàng để được hỗ trợ.</p>
+        <p>Số điện thoại liên hệ: <strong style="color:#099202">0981 861 865</strong></p>
     </div>
 </div>
 @endcomponent

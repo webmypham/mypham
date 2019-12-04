@@ -85,19 +85,47 @@
                                                         <h4 class="product-name"><a href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}">{{ Str::limit($products['products'][$j]->name, 40) }}</a></h4>
                                                         @if($products['products'][$j]->status == 1)
                                                             @if ($products['products'][$j]->sale_value)
-                                                            <span class="product-price">
-                                                                <span class="old_price">{{ number_format($products['products'][$j]->price, 0) }}₫</span>
-                                                                {{ number_format($products['products'][$j]->sale_price, 0) }}₫
-                                                            </span>
+                                                                <div style="height: 50px; overflow: hidden">
+                                                                    <div class="product-hover-sale">
+                                                                        <span class="product-price">
+                                                                                <span class="old_price">{{ number_format($products['products'][$j]->price, 0) }}₫</span>
+                                                                                {{ number_format($products['products'][$j]->sale_price, 0) }}₫
+                                                                            </span>
+                                                                        @if ($products['products'][$j]->quantity > 0)
+                                                                            <button class="btn btn-success" style="height: 30px; padding-top: 7px !important;" onclick="addToCart({{ $products['products'][$j]->id }})">Mua hàng</button>
+                                                                        @else
+                                                                            <a class="btn btn-success" style="height: 30px; padding-top: 7px !important;" href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}">Xem thêm</a>
+                                                                        @endif
+                                                                    </div>
+
+                                                                </div>
                                                             @else
-                                                            <span class="product-price">
-                                                                {{ number_format($products['products'][$j]->price, 0) }}₫
-                                                            </span>
+                                                                <div style="height: 30px; overflow: hidden">
+                                                                    <div class="product-hover">
+                                                                        <p class="product-price" style="text-align: center">
+                                                                            {{ number_format($products['products'][$j]->price, 0) }}₫
+                                                                        </p>
+                                                                        @if ($products['products'][$j]->quantity > 0)
+                                                                            <button class="btn btn-success" style="height: 30px; padding-top: 7px !important;" onclick="addToCart({{ $products['products'][$j]->id }})">Mua hàng</button>
+                                                                        @else
+                                                                            <a class="btn btn-success" style="height: 30px; padding-top: 7px !important;" href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}">Xem thêm</a>
+                                                                        @endif
+                                                                    </div>
+
+                                                                </div>
+
                                                             @endif
                                                         @else
-                                                            <span class="product-price">Sắp ra mắt</span>
+                                                            <div style="height: 30px; overflow: hidden">
+                                                                <div class="product-hover">
+                                                                    <p class="product-price" style="text-align: center">
+                                                                        <span class="product-price" style="color: #5bc0de">Sắp ra mắt</span>
+                                                                    </p>
+                                                                    <a class="btn btn-success" style="height: 30px; padding-top: 7px !important;" href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}">Xem thêm</a>
+                                                                </div>
+
+                                                            </div>
                                                         @endif
-                                                        
                                                     </div>
                                                 </div>
                                                 @endif
@@ -169,8 +197,79 @@
                             </div>
                         </div>
                     </div>
+                        <!--
+                        <div class="basel-cart-opened">
+                            <div class="cart-widget-side">
+                                <div class="widget-heading">
+                                    <h3 class="widget-title">Giỏ hàng</h3>
+                                    <a href="#" class="widget-close">đóng</a>
+                                </div>
+                                <div class="widget woocommerce widget_shopping_cart"><div class="widget_shopping_cart_content" style="opacity: 1;">
+
+
+                                        <ul class="woocommerce-mini-cart cart_list product_list_widget ">
+
+                                            <li class="woocommerce-mini-cart-item mini_cart_item">
+                                                <a href="https://nuty.vn/gio-hang?remove_item=019c27d366dfbc2701a652d15720434b&amp;_wpnonce=5ba11b677b" class="remove remove_from_cart_button" aria-label="Xóa sản phẩm này" data-product_id="139410" data-cart_item_key="019c27d366dfbc2701a652d15720434b" data-product_sku="634158774768">×</a>															<a href="https://nuty.vn/san-pham/bo-dau-goi-dau-xa-hairburst-shampoo-conditioner-for-longer-stronger-hair-2x350ml">
+                                                    <img width="300" height="300" src="https://nuty.vn/wp-content/uploads/2019/04/hairburst-shampoo-conditioner-for-longer-stronger-hair-300x300.jpg" class="lazy lazy-hidden" alt="" data-lazy-type="image" data-lazy-src="https://nuty.vn/wp-content/uploads/2019/04/hairburst-shampoo-conditioner-for-longer-stronger-hair-150x150.jpg" data-lazy-srcset="https://nuty.vn/wp-content/uploads/2019/04/hairburst-shampoo-conditioner-for-longer-stronger-hair-300x300.jpg 300w, https://nuty.vn/wp-content/uploads/2019/04/hairburst-shampoo-conditioner-for-longer-stronger-hair-150x150.jpg 150w, https://nuty.vn/wp-content/uploads/2019/04/hairburst-shampoo-conditioner-for-longer-stronger-hair-768x768.jpg 768w, https://nuty.vn/wp-content/uploads/2019/04/hairburst-shampoo-conditioner-for-longer-stronger-hair-600x600.jpg 600w, https://nuty.vn/wp-content/uploads/2019/04/hairburst-shampoo-conditioner-for-longer-stronger-hair-45x45.jpg 45w, https://nuty.vn/wp-content/uploads/2019/04/hairburst-shampoo-conditioner-for-longer-stronger-hair-100x100.jpg 100w, https://nuty.vn/wp-content/uploads/2019/04/hairburst-shampoo-conditioner-for-longer-stronger-hair.jpg 800w">Bộ Dầu Gội &amp; Dầu Xả Hairburst Shampoo &amp; Conditioner For Longer Stronger Hair (2x350ml)								</a>
+
+                                                <span class="quantity">1 × <span class="woocommerce-Price-amount amount">740,000<span class="woocommerce-Price-currencySymbol">₫</span></span></span>						</li>
+
+                                        </ul>
+
+
+
+
+                                        <p class="woocommerce-mini-cart__total total"><strong>Tổng thu:</strong> <span class="woocommerce-Price-amount amount">740,000<span class="woocommerce-Price-currencySymbol">₫</span></span></p>
+
+
+                                        <p class="woocommerce-mini-cart__buttons buttons"><a href="https://nuty.vn/gio-hang" class="button btn-cart wc-forward">Xem giỏ hàng</a><a href="https://nuty.vn/thanh-toan" class="button checkout wc-forward">Thanh toán</a></p>
+
+
+                                    </div></div>
+                            </div>
+                        -->
                 </section>
+                </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        function addToCart(id) {
+            var quantity = parseInt($('#quantity').val());
+            console.log(quantity);
+            $('#message-error').addClass('hidden');
+            $.ajax({
+                url: "{{ route('addToCart') }}",
+                type: 'GET',
+                data: {
+                    id: id,
+                    quantity: 1
+                },
+                success: function(data) {
+                    console.log('data', data);
+                    $('#list-cart').html(data);
+                    $.ajax({
+                        url: "{{ route('cartCount') }}",
+                        success: function( response ) {
+                            console.log(response);
+                            $('#cart-count').text(response);
+                            $('#message-success').removeClass('hidden');
+                            setTimeout(function () {
+                                $('#message-success').addClass('hidden');
+                            }, 2000)
+                        }
+                    });
+                }
+            });
+        }
+        $(document).ready(function() {
+            $("#show-modal-btn").click(function(){
+                $("#myModal").modal();
+            });
+        });
+    </script>
 @endsection

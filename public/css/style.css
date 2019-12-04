@@ -5451,3 +5451,278 @@ textarea {
 .modal-footer {
     background-color: #f9f9f9;
 }
+
+.product-hover {
+    cursor: pointer;
+}
+
+.product-hover:hover {
+    margin-top: -35px;
+    transition: all 0.3s ease-in;
+    cursor: pointer;
+ }
+
+.product-hover-sale:hover {
+    margin-top: -55px;
+    transition: all 0.3s ease-in;
+    cursor: pointer;
+}
+
+
+/**/
+
+.basel-cart-opened .cart-widget-side {
+    transform: none;
+    -webkit-transform: none;
+}
+.document-ready .cart-widget-side, .document-ready .login-form-side {
+    display: block;
+}
+.cart-widget-side, .login-form-side {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 340px;
+    overflow: auto;
+    background-color: #fff;
+    z-index: 500;
+    transform: translate3d(340px,0,0);
+    -webkit-transform: translate3d(340px,0,0);
+    -ms-transform: translate3d(340px,0,0);
+    -sand-transform: translate3d(340px,0,0);
+    -webkit-transition: transform .3s ease;
+    -moz-transition: transform .3s ease;
+    -o-transition: transform .3s ease;
+    transition: transform .3s ease;
+}
+
+.cart-widget-side .widget-heading, .login-form-side .widget-heading {
+    margin-bottom: 20px;
+    padding: 28px 20px;
+    background-color: #000;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    display: -webkit-flex;
+    -webkit-align-items: center;
+    -webkit-flex-wrap: wrap;
+    -webkit-flex-direction: row;
+    -webkit-justify-content: space-between;
+    display: -ms-flex;
+    -ms-align-items: center;
+    -ms-flex-wrap: wrap;
+    -ms-flex-direction: row;
+    -ms-justify-content: space-between;
+}
+
+.cart-widget-side .widget_shopping_cart {
+    padding: 0 20px 20px 20px;
+}
+
+.cart-widget-side .widget-heading .widget-title, .login-form-side .widget-heading .widget-title {
+    letter-spacing: .6px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-size: 24px;
+}
+.cart-widget-side .widget-heading .widget-close, .cart-widget-side .widget-heading .widget-title, .login-form-side .widget-heading .widget-close, .login-form-side .widget-heading .widget-title {
+    vertical-align: middle;
+    display: inline-block;
+    color: #fff;
+}
+.widgettitle, .widget-title {
+    font-family: 'Arial';
+    font-weight: normal;
+    font-style: normal;
+}
+.widget-title, .widgettitle {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #1B1919;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.cart-widget-side .widget-heading .widget-close, .login-form-side .widget-heading .widget-close {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: .6px;
+    line-height: 35px;
+    position: relative;
+    cursor: pointer;
+    padding-right: 21px;
+}
+.cart-widget-side .widget-heading .widget-close, .cart-widget-side .widget-heading .widget-title, .login-form-side .widget-heading .widget-close, .login-form-side .widget-heading .widget-title {
+    vertical-align: middle;
+    display: inline-block;
+    color: #fff;
+}
+
+.cart-widget-side .widget_shopping_cart .product_list_widget {
+    margin-bottom: 30px;
+}
+.widget_shopping_cart .product_list_widget {
+    position: relative;
+    margin-bottom: 0;
+    text-align: left;
+    transition: all .2s ease;
+    -webkit-transition: all .2s ease;
+}
+
+
+.widget_shopping_cart .product_list_widget li {
+    position: relative;
+}
+
+.product_list_widget li {
+    overflow: hidden;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(124,124,124,.15);
+}
+.widget li {
+    margin-bottom: 15px;
+}
+
+.widget_shopping_cart .product_list_widget li .quantity {
+    color: #bbb;
+    font-size: 12px;
+    display: block;
+    margin-top: 8px;
+}
+
+.widget_shopping_cart .product_list_widget li .quantity {
+    color: rgba(0,0,0,.7);
+}
+/*.quantity {*/
+    /*display: inline-flex;*/
+    /*display: -webkit-inline-flex;*/
+    /*display: -ms-inline-flexbox;*/
+    /*flex-direction: row;*/
+    /*-webkit-flex-direction: row;*/
+    /*-ms-flex-direction: row;*/
+    /*-webkit-align-items: stratch;*/
+    /*-ms-flex-align: stratcht;*/
+    /*align-items: stratch;*/
+    /*-webkit-justify-content: center;*/
+    /*-ms-justify-content: center;*/
+    /*justify-content: center;*/
+    /*white-space: nowrap;*/
+/*}*/
+
+.product_list_widget li img {
+    float: left;
+    margin-right: 12px;
+    max-width: 60px;
+    min-width: 60px;
+}
+
+.widget_shopping_cart .product_list_widget li .remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 0;
+    line-height: 14px;
+    font-size: 18px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,.6);
+}
+
+.widget_shopping_cart .product_list_widget li>a {
+    padding-right: 15px;
+    color: #1B1919;
+    text-decoration: none;
+}
+.product_list_widget li a {
+    font-size: 12px;
+    text-transform: none;
+}
+.product_list_widget li a {
+    margin-bottom: 8px;
+    display: block;
+    font-size: 12px;
+    letter-spacing: .3px;
+    text-transform: uppercase;
+}
+
+
+.cart-widget-side .widget_shopping_cart_content>p:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.widget_shopping_cart .total {
+    border-top: 1px solid rgba(124,124,124,.2);
+    border-bottom: 1px solid rgba(124,124,124,.2);
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    line-height: 24px;
+}
+
+.widget_shopping_cart .buttons {
+    display: block;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.btn.btn-color-primary, .button.btn-color-primary, button.btn-color-primary, .added_to_cart.btn-color-primary, input[type=submit].btn-color-primary, .btn.btn-color-primary:hover, .btn.btn-color-primary:focus, .button.btn-color-primary:hover, .button.btn-color-primary:focus, button.btn-color-primary:hover, button.btn-color-primary:focus, .added_to_cart.btn-color-primary:hover, .added_to_cart.btn-color-primary:focus, input[type=submit].btn-color-primary:hover, input[type=submit].btn-color-primary:focus, .btn.btn-color-primary.btn-style-bordered:hover, .btn.btn-color-primary.btn-style-bordered:focus, .button.btn-color-primary.btn-style-bordered:hover, .button.btn-color-primary.btn-style-bordered:focus, button.btn-color-primary.btn-style-bordered:hover, button.btn-color-primary.btn-style-bordered:focus, .widget_shopping_cart .widget_shopping_cart_content .buttons .checkout, .widget_shopping_cart .widget_shopping_cart_content .buttons .checkout:hover, .widget_shopping_cart .widget_shopping_cart_content .buttons .checkout:focus, .basel-search-dropdown .basel-search-wrapper .basel-search-inner form button, .basel-search-dropdown .basel-search-wrapper .basel-search-inner form button:hover, .basel-search-dropdown .basel-search-wrapper .basel-search-inner form button:focus, .comments-area .comment-respond input[type=submit], .comments-area .comment-respond input[type=submit]:hover, .comments-area .comment-respond input[type=submit]:focus, .sidebar-container .mc4wp-form input[type=submit], .sidebar-container .mc4wp-form input[type=submit]:hover, .sidebar-container .mc4wp-form input[type=submit]:focus, .footer-container .mc4wp-form input[type=submit], .footer-container .mc4wp-form input[type=submit]:hover, .footer-container .mc4wp-form input[type=submit]:focus, .filters-area .mc4wp-form input[type=submit], .filters-area .mc4wp-form input[type=submit]:hover, .filters-area .mc4wp-form input[type=submit]:focus, .woocommerce .cart-collaterals .cart_totals .wc-proceed-to-checkout > a.button, .woocommerce .cart-collaterals .cart_totals .wc-proceed-to-checkout > a.button:hover, .woocommerce .cart-collaterals .cart_totals .wc-proceed-to-checkout > a.button:focus, .woocommerce .checkout_coupon .button, .woocommerce .checkout_coupon .button:hover, .woocommerce .checkout_coupon .button:focus, .woocommerce .place-order button, .woocommerce .place-order button:hover, .woocommerce .place-order button:focus, .woocommerce-order-pay #order_review .button, .woocommerce-order-pay #order_review .button:hover, .woocommerce-order-pay #order_review .button:focus, .woocommerce input[name=track], .woocommerce input[name=track]:hover, .woocommerce input[name=track]:focus, .woocommerce input[name=save_account_details], .woocommerce input[name=save_address], .woocommerce-page input[name=save_account_details], .woocommerce-page input[name=save_address], .woocommerce input[name=save_account_details]:hover, .woocommerce input[name=save_account_details]:focus, .woocommerce input[name=save_address]:hover, .woocommerce input[name=save_address]:focus, .woocommerce-page input[name=save_account_details]:hover, .woocommerce-page input[name=save_account_details]:focus, .woocommerce-page input[name=save_address]:hover, .woocommerce-page input[name=save_address]:focus, .search-no-results .not-found .entry-content .searchform #searchsubmit, .search-no-results .not-found .entry-content .searchform #searchsubmit:hover, .search-no-results .not-found .entry-content .searchform #searchsubmit:focus, .error404 .page-content > .searchform #searchsubmit, .error404 .page-content > .searchform #searchsubmit:hover, .error404 .page-content > .searchform #searchsubmit:focus, .no-results .searchform #searchsubmit, .no-results .searchform #searchsubmit:hover, .no-results .searchform #searchsubmit:focus, .woocommerce .return-to-shop .button, .woocommerce .return-to-shop .button:hover, .woocommerce .return-to-shop .button:focus, .basel-hover-excerpt .btn-add a, .basel-hover-excerpt .btn-add a:hover, .basel-hover-excerpt .btn-add a:focus, .basel-hover-standard .btn-add > a, .basel-hover-standard .btn-add > a:hover, .basel-hover-standard .btn-add > a:focus, .basel-price-table .basel-plan-footer > a, .basel-price-table .basel-plan-footer > a:hover, .basel-price-table .basel-plan-footer > a:focus, .basel-info-box.box-style-border .info-btn-wrapper a, .basel-info-box.box-style-border .info-btn-wrapper a:hover, .basel-info-box.box-style-border .info-btn-wrapper a:focus, .basel-info-box2.box-style-border .info-btn-wrapper a, .basel-info-box2.box-style-border .info-btn-wrapper a:hover, .basel-info-box2.box-style-border .info-btn-wrapper a:focus, .basel-hover-quick .woocommerce-variation-add-to-cart .button, .basel-hover-quick .woocommerce-variation-add-to-cart .button:hover, .basel-hover-quick .woocommerce-variation-add-to-cart .button:focus, .product-list-item .product-list-buttons > a, .product-list-item .product-list-buttons > a:hover, .product-list-item .product-list-buttons > a:focus, .wpb_video_wrapper .button-play, .woocommerce-store-notice__dismiss-link:hover, .woocommerce-store-notice__dismiss-link:focus, .basel-dark .read-more-section .btn-read-more, .basel-dark .products-footer .basel-blog-load-more, .basel-dark .products-footer .basel-products-load-more, .basel-dark .products-footer .basel-portfolio-load-more, .basel-dark .blog-footer .basel-blog-load-more, .basel-dark .blog-footer .basel-products-load-more, .basel-dark .blog-footer .basel-portfolio-load-more, .basel-dark .portfolio-footer .basel-blog-load-more, .basel-dark .portfolio-footer .basel-products-load-more, .basel-dark .portfolio-footer .basel-portfolio-load-more, .basel-dark .products-footer .basel-blog-load-more:hover, .basel-dark .products-footer .basel-blog-load-more:focus, .basel-dark .products-footer .basel-products-load-more:hover, .basel-dark .products-footer .basel-products-load-more:focus, .basel-dark .products-footer .basel-portfolio-load-more:hover, .basel-dark .products-footer .basel-portfolio-load-more:focus, .basel-dark .blog-footer .basel-blog-load-more:hover, .basel-dark .blog-footer .basel-blog-load-more:focus, .basel-dark .blog-footer .basel-products-load-more:hover, .basel-dark .blog-footer .basel-products-load-more:focus, .basel-dark .blog-footer .basel-portfolio-load-more:hover, .basel-dark .blog-footer .basel-portfolio-load-more:focus, .basel-dark .portfolio-footer .basel-blog-load-more:hover, .basel-dark .portfolio-footer .basel-blog-load-more:focus, .basel-dark .portfolio-footer .basel-products-load-more:hover, .basel-dark .portfolio-footer .basel-products-load-more:focus, .basel-dark .portfolio-footer .basel-portfolio-load-more:hover, .basel-dark .portfolio-footer .basel-portfolio-load-more:focus, .basel-dark .products-footer .basel-blog-load-more:after, .basel-dark .products-footer .basel-products-load-more:after, .basel-dark .products-footer .basel-portfolio-load-more:after, .basel-dark .blog-footer .basel-blog-load-more:after, .basel-dark .blog-footer .basel-products-load-more:after, .basel-dark .blog-footer .basel-portfolio-load-more:after, .basel-dark .portfolio-footer .basel-blog-load-more:after, .basel-dark .portfolio-footer .basel-products-load-more:after, .basel-dark .portfolio-footer .basel-portfolio-load-more:after, .basel-dark .feedback-form .wpcf7-submit, .basel-dark .mc4wp-form input[type=submit], .basel-dark .single_add_to_cart_button, .basel-dark .basel-sticky-btn .basel-sticky-add-to-cart, .basel-dark .single-product-content .comment-form .form-submit input[type=submit], .basel-dark .basel-registration-page .basel-switch-to-register, .basel-dark .register .button, .basel-dark .login .button, .basel-dark .lost_reset_password .button, .basel-dark .wishlist_table tr td.product-add-to-cart > .add_to_cart.button, .basel-dark .woocommerce .cart-actions .coupon .button, .basel-dark .feedback-form .wpcf7-submit:hover, .basel-dark .mc4wp-form input[type=submit]:hover, .basel-dark .single_add_to_cart_button:hover, .basel-dark .basel-sticky-btn .basel-sticky-add-to-cart:hover, .basel-dark .single-product-content .comment-form .form-submit input[type=submit]:hover, .basel-dark .basel-registration-page .basel-switch-to-register:hover, .basel-dark .register .button:hover, .basel-dark .login .button:hover, .basel-dark .lost_reset_password .button:hover, .basel-dark .wishlist_table tr td.product-add-to-cart > .add_to_cart.button:hover, .basel-dark .woocommerce .cart-actions .coupon .button:hover, .basel-ext-primarybtn-dark:focus, .basel-dark .feedback-form .wpcf7-submit:focus, .basel-dark .mc4wp-form input[type=submit]:focus, .basel-dark .single_add_to_cart_button:focus, .basel-dark .basel-sticky-btn .basel-sticky-add-to-cart:focus, .basel-dark .single-product-content .comment-form .form-submit input[type=submit]:focus, .basel-dark .basel-registration-page .basel-switch-to-register:focus, .basel-dark .register .button:focus, .basel-dark .login .button:focus, .basel-dark .lost_reset_password .button:focus, .basel-dark .wishlist_table tr td.product-add-to-cart > .add_to_cart.button:focus, .basel-dark .woocommerce .cart-actions .coupon .button:focus, .cookies-buttons .cookies-accept-btn:hover, .cookies-buttons .cookies-accept-btn:focus, .blockOverlay:after, .basel-price-table:hover, .title-shop .nav-shop ul li a:after, .widget_tag_cloud .tagcloud a:hover, .widget_product_tag_cloud .tagcloud a:hover, div.bbp-submit-wrapper button, div.bbp-submit-wrapper button:hover, div.bbp-submit-wrapper button:focus, #bbpress-forums .bbp-search-form #bbp_search_submit, #bbpress-forums .bbp-search-form #bbp_search_submit:hover, #bbpress-forums .bbp-search-form #bbp_search_submit:focus, .basel-hover-link .swap-elements .btn-add a, .basel-hover-link .swap-elements .btn-add a:hover, .basel-hover-link .swap-elements .btn-add a:focus, .basel-hover-link .swap-elements .btn-add a.loading:after, .scrollToTop:hover, .scrollToTop:focus, .basel-sticky-filter-btn:hover, .basel-sticky-filter-btn:focus, blockquote {
+    border-color: #3C2665;
+}
+
+.right-column .wishlist-info-widget > a > span, .basel-cart-design-2 > a .basel-cart-number, .basel-cart-design-3 > a .basel-cart-number, .btn.btn-color-primary, .button.btn-color-primary, button.btn-color-primary, .added_to_cart.btn-color-primary, input[type=submit].btn-color-primary, .btn.btn-color-primary:hover, .btn.btn-color-primary:focus, .button.btn-color-primary:hover, .button.btn-color-primary:focus, button.btn-color-primary:hover, button.btn-color-primary:focus, .added_to_cart.btn-color-primary:hover, .added_to_cart.btn-color-primary:focus, input[type=submit].btn-color-primary:hover, input[type=submit].btn-color-primary:focus, .btn.btn-color-primary.btn-style-bordered:hover, .btn.btn-color-primary.btn-style-bordered:focus, .button.btn-color-primary.btn-style-bordered:hover, .button.btn-color-primary.btn-style-bordered:focus, button.btn-color-primary.btn-style-bordered:hover, button.btn-color-primary.btn-style-bordered:focus, .added_to_cart.btn-color-primary.btn-style-bordered:hover, .added_to_cart.btn-color-primary.btn-style-bordered:focus, input[type=submit].btn-color-primary.btn-style-bordered:hover, input[type=submit].btn-color-primary.btn-style-bordered:focus, .widget_shopping_cart .widget_shopping_cart_content .buttons .checkout, .widget_shopping_cart .widget_shopping_cart_content .buttons .checkout:hover, .widget_shopping_cart .widget_shopping_cart_content .buttons .checkout:focus, .basel-search-dropdown .basel-search-wrapper .basel-search-inner form button, .basel-search-dropdown .basel-search-wrapper .basel-search-inner form button:hover, .basel-search-dropdown .basel-search-wrapper .basel-search-inner form button:focus, .no-results .searchform #searchsubmit, .no-results .searchform #searchsubmit:hover, .no-results .searchform #searchsubmit:focus, .comments-area .comment-respond input[type=submit], .comments-area .comment-respond input[type=submit]:hover, .comments-area .comment-respond input[type=submit]:focus, .woocommerce .cart-collaterals .cart_totals .wc-proceed-to-checkout > a.button, .woocommerce .cart-collaterals .cart_totals .wc-proceed-to-checkout > a.button:hover, .woocommerce .cart-collaterals .cart_totals .wc-proceed-to-checkout > a.button:focus, .woocommerce .checkout_coupon .button, .woocommerce .checkout_coupon .button:hover, .woocommerce .checkout_coupon .button:focus, .woocommerce .place-order button, .woocommerce .place-order button:hover, .woocommerce .place-order button:focus, .woocommerce-order-pay #order_review .button, .woocommerce-order-pay #order_review .button:hover, .woocommerce-order-pay #order_review .button:focus, .woocommerce input[name=track], .woocommerce input[name=track]:hover, .woocommerce input[name=track]:focus, .woocommerce input[name=save_account_details], .woocommerce input[name=save_address], .woocommerce-page input[name=save_account_details], .woocommerce-page input[name=save_address], .woocommerce input[name=save_account_details]:hover, .woocommerce input[name=save_account_details]:focus, .woocommerce input[name=save_address]:hover, .woocommerce input[name=save_address]:focus, .woocommerce-page input[name=save_account_details]:hover, .woocommerce-page input[name=save_account_details]:focus, .woocommerce-page input[name=save_address]:hover, .woocommerce-page input[name=save_address]:focus, .search-no-results .not-found .entry-content .searchform #searchsubmit, .search-no-results .not-found .entry-content .searchform #searchsubmit:hover, .search-no-results .not-found .entry-content .searchform #searchsubmit:focus, .error404 .page-content > .searchform #searchsubmit, .error404 .page-content > .searchform #searchsubmit:hover, .error404 .page-content > .searchform #searchsubmit:focus, .woocommerce .return-to-shop .button, .woocommerce .return-to-shop .button:hover, .woocommerce .return-to-shop .button:focus, .basel-hover-excerpt .btn-add a, .basel-hover-excerpt .btn-add a:hover, .basel-hover-excerpt .btn-add a:focus, .basel-hover-standard .btn-add > a, .basel-hover-standard .btn-add > a:hover, .basel-hover-standard .btn-add > a:focus, .basel-price-table .basel-plan-footer > a, .basel-price-table .basel-plan-footer > a:hover, .basel-price-table .basel-plan-footer > a:focus, .basel-info-box.box-style-border .info-btn-wrapper a, .basel-info-box.box-style-border .info-btn-wrapper a:hover, .basel-info-box.box-style-border .info-btn-wrapper a:focus, .basel-info-box2.box-style-border .info-btn-wrapper a, .basel-info-box2.box-style-border .info-btn-wrapper a:hover, .basel-info-box2.box-style-border .info-btn-wrapper a:focus, .basel-hover-quick .woocommerce-variation-add-to-cart .button, .basel-hover-quick .woocommerce-variation-add-to-cart .button:hover, .basel-hover-quick .woocommerce-variation-add-to-cart .button:focus, .product-list-item .product-list-buttons > a, .product-list-item .product-list-buttons > a:hover, .product-list-item .product-list-buttons > a:focus, .wpb_video_wrapper .button-play, .basel-navigation .menu > li.callto-btn > a, .basel-navigation .menu > li.callto-btn > a:hover, .basel-navigation .menu > li.callto-btn > a:focus, .basel-dark .products-footer .basel-blog-load-more:hover, .basel-dark .products-footer .basel-blog-load-more:focus, .basel-dark .products-footer .basel-products-load-more:hover, .basel-dark .products-footer .basel-products-load-more:focus, .basel-dark .products-footer .basel-portfolio-load-more:hover, .basel-dark .products-footer .basel-portfolio-load-more:focus, .basel-dark .blog-footer .basel-blog-load-more:hover, .basel-dark .blog-footer .basel-blog-load-more:focus, .basel-dark .blog-footer .basel-products-load-more:hover, .basel-dark .blog-footer .basel-products-load-more:focus, .basel-dark .blog-footer .basel-portfolio-load-more:hover, .basel-dark .blog-footer .basel-portfolio-load-more:focus, .basel-dark .portfolio-footer .basel-blog-load-more:hover, .basel-dark .portfolio-footer .basel-blog-load-more:focus, .basel-dark .portfolio-footer .basel-products-load-more:hover, .basel-dark .portfolio-footer .basel-products-load-more:focus, .basel-dark .portfolio-footer .basel-portfolio-load-more:hover, .basel-dark .portfolio-footer .basel-portfolio-load-more:focus, .basel-dark .feedback-form .wpcf7-submit, .basel-dark .mc4wp-form input[type=submit], .basel-dark .single_add_to_cart_button, .basel-dark .basel-sticky-btn .basel-sticky-add-to-cart, .basel-dark .single-product-content .comment-form .form-submit input[type=submit], .basel-dark .basel-registration-page .basel-switch-to-register, .basel-dark .register .button, .basel-dark .login .button, .basel-dark .lost_reset_password .button, .basel-dark .wishlist_table tr td.product-add-to-cart > .add_to_cart.button, .basel-dark .woocommerce .cart-actions .coupon .button, .basel-dark .feedback-form .wpcf7-submit:hover, .basel-dark .mc4wp-form input[type=submit]:hover, .basel-dark .single_add_to_cart_button:hover, .basel-dark .basel-sticky-btn .basel-sticky-add-to-cart:hover, .basel-dark .single-product-content .comment-form .form-submit input[type=submit]:hover, .basel-dark .basel-registration-page .basel-switch-to-register:hover, .basel-dark .register .button:hover, .basel-dark .login .button:hover, .basel-dark .lost_reset_password .button:hover, .basel-dark .wishlist_table tr td.product-add-to-cart > .add_to_cart.button:hover, .basel-dark .woocommerce .cart-actions .coupon .button:hover, .basel-ext-primarybtn-dark:focus, .basel-dark .feedback-form .wpcf7-submit:focus, .basel-dark .mc4wp-form input[type=submit]:focus, .basel-dark .single_add_to_cart_button:focus, .basel-dark .basel-sticky-btn .basel-sticky-add-to-cart:focus, .basel-dark .single-product-content .comment-form .form-submit input[type=submit]:focus, .basel-dark .basel-registration-page .basel-switch-to-register:focus, .basel-dark .register .button:focus, .basel-dark .login .button:focus, .basel-dark .lost_reset_password .button:focus, .basel-dark .wishlist_table tr td.product-add-to-cart > .add_to_cart.button:focus, .basel-dark .woocommerce .cart-actions .coupon .button:focus, .widget_price_filter .ui-slider .ui-slider-handle, .widget_price_filter .ui-slider .ui-slider-range, .widget_tag_cloud .tagcloud a:hover, .widget_product_tag_cloud .tagcloud a:hover, div.bbp-submit-wrapper button, div.bbp-submit-wrapper button:hover, div.bbp-submit-wrapper button:focus, #bbpress-forums .bbp-search-form #bbp_search_submit, #bbpress-forums .bbp-search-form #bbp_search_submit:hover, #bbpress-forums .bbp-search-form #bbp_search_submit:focus, .select2-container--default .select2-results__option--highlighted[aria-selected], .product-video-button a:hover:before, .product-360-button a:hover:before, .mobile-nav ul li .up-icon, .scrollToTop:hover, .scrollToTop:focus, .basel-sticky-filter-btn:hover, .basel-sticky-filter-btn:focus, .categories-opened li a:active, .basel-price-table .basel-plan-price, .header-categories .secondary-header .mega-navigation, .widget_nav_mega_menu, .meta-post-categories, .slider-title:before, .title-wrapper.basel-title-style-simple .title:after, .menu-label-new, .product-label.onsale, .color-scheme-light .vc_tta-tabs.vc_tta-tabs-position-top.vc_tta-style-classic .vc_tta-tab.vc_active > a span:after, .wpb-js-composer .vc_tta.vc_general.vc_tta-style-classic .vc_tta-tab.vc_active > a span:after, .portfolio-with-bg-alt .portfolio-entry:hover .entry-header > .portfolio-info {
+    background-color: #3C2665;
+}
+.widget_shopping_cart .buttons .checkout {
+    background-color: #1aada3;
+    color: #fff;
+    border-color: #1aada3;
+}
+.widget_shopping_cart .buttons a {
+    width: 100%;
+    color: #2D2D2D;
+}
+
+.widget_shopping_cart .buttons a:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.widget_shopping_cart .buttons a {
+    width: 100%;
+    color: #2D2D2D;
+}
+/*.button, button, input[type=submit], .yith-woocompare-widget a.button.compare, .basel-dark .basel-registration-page .basel-switch-to-register, .basel-dark .login .button, .basel-dark .register .button, .basel-dark .widget_shopping_cart .buttons a, .basel-dark .yith-woocompare-widget a.button.compare, .basel-dark .widget_price_filter .price_slider_amount .button, .basel-dark .woocommerce .cart-actions input[name="update_cart"] {*/
+    /*border-color: #ECECEC;*/
+/*}*/
+/*.button, button, input[type=submit], .yith-woocompare-widget a.button.compare, .basel-dark .basel-registration-page .basel-switch-to-register, .basel-dark .login .button, .basel-dark .register .button, .basel-dark .widget_shopping_cart .buttons a, .basel-dark .yith-woocompare-widget a.button.compare, .basel-dark .widget_price_filter .price_slider_amount .button, .basel-dark .woocommerce .cart-actions input[name="update_cart"] {*/
+    /*background-color: #ECECEC;*/
+/*}*/
+/*.added_to_cart, .btn, .button, button, input[type=submit] {*/
+    /*display: inline-block;*/
+    /*text-align: center;*/
+    /*font-size: 14px;*/
+    /*padding-top: 10px;*/
+    /*padding-bottom: 10px;*/
+    /*padding-left: 20px;*/
+    /*padding-right: 20px;*/
+    /*line-height: 18px;*/
+    /*text-transform: uppercase;*/
+    /*letter-spacing: .3px;*/
+    /*border-radius: 0;*/
+    /*border: 1px solid;*/
+    /*-webkit-transition: all .25s ease-in-out;*/
+    /*-moz-transition: all .25s ease-in-out;*/
+    /*-o-transition: all .25s ease-in-out;*/
+    /*transition: all .25s ease-in-out;*/
+    /*background-color: #ECECEC;*/
+    /*color: #3E3E3E;*/
+    /*border-color: #ECECEC;*/
+/*}*/

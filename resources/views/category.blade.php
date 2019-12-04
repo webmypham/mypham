@@ -34,17 +34,46 @@
                                             </h4>
                                             @if($products[$j]->status == 1)
                                                 @if ($products[$j]->sale_value)
-                                                    <span class="product-price">
-                                                        <span class="old_price">{{ number_format($products[$j]->price, 0) }}₫</span>
-                                                        {{ number_format($products[$j]->sale_price  , 0) }}₫
-                                                    </span>
+                                                    <div style="height: 50px; overflow: hidden">
+                                                        <div class="product-hover-sale">
+                                                                        <span class="product-price">
+                                                                                <span class="old_price">{{ number_format($products[$j]->price, 0) }}₫</span>
+                                                                                {{ number_format($products[$j]->sale_price, 0) }}₫
+                                                                            </span>
+                                                            @if ($products[$j]->quantity > 0)
+                                                                <button class="btn btn-success" style="height: 30px; padding-top: 7px !important;" onclick="addToCart({{ $products[$j]->id }})">Mua hàng</button>
+                                                            @else
+                                                                <a class="btn btn-success" style="height: 30px; padding-top: 7px !important;" href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id ]) }}">Xem thêm</a>
+                                                            @endif
+                                                        </div>
+
+                                                    </div>
                                                 @else
-                                                    <span class="product-price">
-                                                        {{ number_format($products[$j]->price, 0) }}₫
-                                                    </span>
+                                                    <div style="height: 30px; overflow: hidden">
+                                                        <div class="product-hover">
+                                                            <p class="product-price" style="text-align: center">
+                                                                {{ number_format($products[$j]->price, 0) }}₫
+                                                            </p>
+                                                            @if ($products[$j]->quantity > 0)
+                                                                <button class="btn btn-success" style="height: 30px; padding-top: 7px !important;" onclick="addToCart({{ $products[$j]->id }})">Mua hàng</button>
+                                                            @else
+                                                                <a class="btn btn-success" style="height: 30px; padding-top: 7px !important;" href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id ]) }}">Xem thêm</a>
+                                                            @endif
+                                                        </div>
+
+                                                    </div>
+
                                                 @endif
                                             @else
-                                                <span class="product-price">Sắp ra mắt</span>
+                                                <div style="height: 30px; overflow: hidden">
+                                                    <div class="product-hover">
+                                                        <p class="product-price" style="text-align: center">
+                                                            <span class="product-price" style="color: #5bc0de">Sắp ra mắt</span>
+                                                        </p>
+                                                        <a class="btn btn-success" style="height: 30px; padding-top: 7px !important;" href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id ]) }}">Xem thêm</a>
+                                                    </div>
+
+                                                </div>
                                             @endif
                                         </div>
                                     </div>
@@ -59,3 +88,42 @@
     </div>
 </section>
 @endsection
+
+@section('script')
+    <script>
+        function addToCart(id) {
+            var quantity = parseInt($('#quantity').val());
+            console.log(quantity);
+            $('#message-error').addClass('hidden');
+            $.ajax({
+                url: "{{ route('addToCart') }}",
+                type: 'GET',
+                data: {
+                    id: id,
+                    quantity: 1
+                },
+                success: function(data) {
+                    console.log('data', data);
+                    $('#list-cart').html(data);
+                    $.ajax({
+                        url: "{{ route('cartCount') }}",
+                        success: function( response ) {
+                            console.log(response);
+                            $('#cart-count').text(response);
+                            $('#message-success').removeClass('hidden');
+                            setTimeout(function () {
+                                $('#message-success').addClass('hidden');
+                            }, 2000)
+                        }
+                    });
+                }
+            });
+        }
+        $(document).ready(function() {
+            $("#show-modal-btn").click(function(){
+                $("#myModal").modal();
+            });
+        });
+    </script>
+@endsection
+
