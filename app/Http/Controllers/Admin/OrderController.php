@@ -262,7 +262,9 @@ class OrderController extends Controller
         $templateProcessor->setValue('order_id', $order->id);
         $templateProcessor->setValue('created_at', Carbon::parse($order->created_at)->format('d/m/Y'));
         $templateProcessor->setValue('status', $order_details[0]->status_text ?? '');
-        $templateProcessor->setValue('total_amount', $order->amount);
+        $templateProcessor->setValue('total', number_format($order->total, 0));
+        $templateProcessor->setValue('shipping', number_format($order->delivery_cost, 0));
+        $templateProcessor->setValue('total_amount', number_format($order->amount, 0));
         $templateProcessor->setValue('user_name', $order_details[0]->user_name ?? '');
         $templateProcessor->setValue('address', $order_details[0]->user_address ?? '');
         $templateProcessor->setValue('phone', $order_details[0]->user_phone ?? '');
@@ -277,11 +279,11 @@ class OrderController extends Controller
             $templateProcessor->setValue("stt#$key", $value['stt']);
             $templateProcessor->setValue("product_name#$key", $value['product_name']);
             $templateProcessor->setValue("quantity#$key", $value['quantity']);
-            $templateProcessor->setValue("price#$key", $value['price']);
+            $templateProcessor->setValue("price#$key", number_format($value['price'], 0));
 
             $templateProcessor->setImageValue("image#$key", $value['image']);
         }
-        $fileName = 'tempDoc' . Auth::user()->id . '.docx';
+        $fileName = 'Đơn hàng' . Auth::user()->id . '.docx';
         $templateProcessor->saveAs($fileName);
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
