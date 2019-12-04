@@ -15,6 +15,9 @@
 							@if (count($carts) > 0)
 							<div class="inner-main cart" style="width: 100%">
 								<h2>GIỎ HÀNG</h2>
+                                <div class="alert alert-danger alert-block hidden" style="background-color: #da1313; color: #fff; margin-top: 20px" id="message-error0">
+                                    <strong id="message-error-content">Só lượng phải lớn hơn 0</strong>
+                                </div>
                                 <div class="alert alert-danger alert-block hidden" style="background-color: #da1313; color: #fff; margin-top: 20px" id="message-error">
                                     <strong id="message-error-content">Không đủ hàng</strong>
                                 </div>
@@ -157,6 +160,7 @@
 
             function updateCart(isCheckout = false) {
                 var error = false;
+                var error0 = false;
                 var cart = [];
                 $('.cart_quantity').map(function () {
                     var product = $(this);
@@ -165,12 +169,17 @@
                         quantity: product.val()
                     });
                     console.log(parseInt(product.val()), product.attr('max'))
+
+                    if ((parseInt(product.val()) < 1)) {
+                        error0 = true;
+                    }
                     if (parseInt(product.val()) > parseInt(product.attr('max'))) {
                         error = true;
                     }
                 });
-
-                if (error == true) {
+                if (error0 == true) {
+                    $('#message-error0').removeClass('hidden');
+                } else if (error == true) {
                     $('#message-error').removeClass('hidden');
                 } else {
                     $('#message-error').addClass('hidden');
