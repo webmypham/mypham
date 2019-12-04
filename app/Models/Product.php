@@ -35,7 +35,7 @@ class Product extends Model
                 $join->on('sale.id', '=', 'products.sale_id');
             })
             ->whereDate('sale.date_end', '<', Carbon::now()->format('Y-m-d'))
-            ->delete();
+            ->update(['sale_id' => 0]);
         $category = Category::find($id);
         if ($category->is_parent) {
             $categories = Category::getCategoryChild($id);
