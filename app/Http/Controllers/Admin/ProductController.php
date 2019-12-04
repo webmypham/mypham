@@ -56,6 +56,10 @@ class ProductController extends Controller
         if (!$file) {
             return back()->withInput()->with('error', 'Vui lòng chọn ảnh sản phẩm');
         }
+        $oldProduct = Product::where('sku', $request->sku)->first();
+        if ($oldProduct) {
+            return back()->withInput()->with('error', 'Mã sản phẩm đã tồn tại');
+        }
         $newProduct = [
             'sku' => $request->sku,
             'name' => $request->name,
