@@ -52,8 +52,8 @@
                                                     <th scope="col">STT</th>
                                                     <th scope="col">Hình ảnh</th>
                                                     <th scope="col">Tên sản phẩm</th>
-                                                    <th scope="col">Số lượng</th>
-                                                    <th scope="col">Giá</th>
+                                                    <th align="right" style="text-align: right !important;">Số lượng</th>
+                                                    <th align="right" style="text-align: right !important;">Giá</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -66,14 +66,26 @@
                                                                 @endif
                                                             </td>
                                                             <td>{{ $value->product_name }}</td>
-                                                            <td>{{ $value->quantity }}</td>
-                                                            <td>{{ $value->price }} VNĐ</td>
+                                                            <td align="right">{{ $value->quantity }}</td>
+                                                            <td align="right">{{ $value->price }} VNĐ</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
+                                                <tfoot style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">											<tr>
+                                                    <td align="right" colspan="4" style="padding:5px 9px">Tạm tính</td>
+                                                    <td align="right" style="padding:5px 9px"><span>{{ number_format($order->total, 0) }}đ</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right" colspan="4" style="padding:5px 9px">Phí vận chuyển</td>
+                                                    <td align="right" style="padding:5px 9px"><span>{{ $order->delivery_cost == 0 ? 'Miễn phí' : (number_format($order->delivery_cost, 0) . 'đ') }}</span></td>
+                                                </tr>
+                                                <tr bgcolor="#eee">
+                                                    <td align="right" colspan="4" style="padding:7px 9px"><strong><big>Tổng giá trị đơn hàng</big> </strong></td>
+                                                    <td align="right" style="padding:7px 9px"><strong><big><span>{{ number_format($order->amount, 0) }}đ</span> </big> </strong></td>
+                                                </tr>
+                                                </tfoot>
                                             </table>
-                                            <h3>Tổng: {{ $order->amount }} VNĐ</h3>
-                                        </div> 
+                                        </div>
                                     </div> 
                                 </div>
                             </div>

@@ -401,10 +401,14 @@ class HomeController extends Controller
         if (Session::get('user_logged') === true) {
             $user_id = Session::get('user_info')->id;
         }
+        $delivery_cost = 0;
+        $total = $amount;
         if (strval($request->transport_type) == 1) {
             $amount += 15000;
-        } else if (strval($request->transport_type) == 1) {
+            $delivery_cost = 15000;
+        } else if (strval($request->transport_type) == 2) {
             $amount += 25000;
+            $delivery_cost = 25000;
         }
         $order = [
             'id_user' => $user_id,
@@ -412,7 +416,9 @@ class HomeController extends Controller
             'status' => 0,
             'status_payment' => 0,
             'amount' => $amount,
-            'note' => $request->note
+            'note' => $request->note,
+            'delivery_cost' => $delivery_cost,
+            'total' => $total
         ];
         $od = Order::create($order);
         foreach($orderDetail as $key => $value) {
