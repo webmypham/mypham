@@ -39,6 +39,7 @@
                                 Tư vấn miễn phí 24/7 - Giao hàng nhanh chóng
                             </p>
                         </div>
+                        <!-- Kiểm tra nếu user đã đăng nhập thì hiển thị nút đăng xuất, nút cập nhật thông tin và tên user-->
                         @if (Session::get('user_logged') === true)
                             <div class="col-md-6 col-sm-6" id="open_shopping_cart">
                                 <div class="login">
@@ -58,6 +59,7 @@
                                     Xin chào <b>{{ Session::get('user_info')->name }}</b>
                                 </div>
                             </div>
+                            <!-- Ngược lại hiển thị nút đăng nhập và đăng ký -->
                          @else
                             <div class="col-md-6 col-sm-6" id="open_shopping_cart">
                                 <div class="login">
@@ -116,14 +118,17 @@
                                         <li class="">
                                             <a href="/">Trang chủ</a>
                                         </li>
+                                        <!-- lấy tất cả danh mục cha và duyệt mảng danh mục vừa lấy dc -->
                                         @foreach (get_menu_prent() as $menu)
                                             <li class="dropdown">
                                                 <a class="dropdown-toggle" href="{{ route('category', ['slug' => str_slug(trim($menu->name), '-'), 'id' => $menu->id ]) }}">
-                                                    {{ $menu->name }} 
+                                                    {{ $menu->name }}
+                                                    <!-- Nếu có danh mục con thì hiển icon mũi tên xuống -->
                                                     @if (count(get_menu_child($menu->id)) > 0)
                                                     <i class="fa fa-angle-down"></i>
                                                     @endif 
                                                 </a>
+                                                <!-- Nếu có danh mục con thì hiển thị danh mục con khi rê chuột vào -->
                                                 @if (count(get_menu_child($menu->id)) > 0)
                                                 <ul class="dropdown-menu" role="menu">
                                                     @foreach (get_menu_child($menu->id) as $menuChilds)
@@ -140,6 +145,7 @@
                                             <i class="fa fa-angle-down"></i>
                                             </a>
                                             <ul class="dropdown-menu" role="menu">
+                                                <!--  Kiểm tra nếu user đã đăng nhập thì hiển menu đơn hàng -->
                                                 @if (Session::get('user_logged') === true)
                                                     <li><a href="{{ url('/orders') }}">Đơn hàng</a></li>
                                                 @endif
@@ -154,6 +160,7 @@
                                 <div class="item-menu">
                                     <a href="{{ route('cart') }}">
                                         <span class="cart-counter simpleCart_quantity" id="cart-count">
+                                             <!-- hiển thị số lượng trong giỏ hàng -->
                                             @if ($carts)
                                             {{ count($carts) }}
                                             @else
@@ -167,6 +174,7 @@
                                             <div class="block-subtitle">
                                                 <i aria-hidden="true" class="fa fa-check"></i>
                                                 <span class="cart-counter-list simpleCart_quantity">
+                                                     <!-- hiển thị số lượng trong giỏ hàng -->
                                                     @if ($carts)
                                                     {{ count($carts) }}
                                                     @endif
@@ -191,6 +199,7 @@
         </header>
 
         <section id="main">
+            <!-- include trang con -->
             @yield('content')
         </section>
 
