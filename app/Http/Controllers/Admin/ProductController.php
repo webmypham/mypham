@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -35,7 +36,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $sales = Sale::all();
+        $sales = Sale::whereDate('sale.date_start', '<=', Carbon::now()->format('Y-m-d'))
+            ->whereDate('sale.date_end', '>=', Carbon::now()->format('Y-m-d'))->get();
         return view('admin.product.create', compact('categories', 'sales'));
     }
 
@@ -99,7 +101,8 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $categories = Category::all();
-        $sales = Sale::all();
+        $sales = Sale::whereDate('sale.date_start', '<=', Carbon::now()->format('Y-m-d'))
+            ->whereDate('sale.date_end', '>=', Carbon::now()->format('Y-m-d'))->get();
         return view('admin.product.edit', compact('product', 'categories', 'sales'));
     }
 
