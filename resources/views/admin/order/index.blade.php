@@ -74,7 +74,7 @@
                                 {{ $value->customer_name }}
                             </td>
                             <td>
-                                {{ $value->amount }} VNĐ
+                                {{ $value->amount }} đ
                             </td>
                             <td>
                                 {{ $value->created_at }}

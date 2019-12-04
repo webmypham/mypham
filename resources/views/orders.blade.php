@@ -23,7 +23,7 @@
                                         {{ $key + 1 }}
                                     </td>
                                     <td>
-                                        {{ $value->amount }} VNĐ
+                                        {{ $value->amount }} đ
                                     </td>
                                     <td>
                                         {{ Carbon\Carbon::parse($value->created_at)->format('d/m/Y') }}

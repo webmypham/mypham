@@ -29,8 +29,8 @@
 												<th style="width: 100px">Ảnh</th>
 												<th style="max-width: 400px">Tên sản phẩm</th>
 												<th>Số lượng</th>
-												<th>Đơn giá</th>
-												<th>Tổng</th>
+												<th style="text-align: right">Đơn giá</th>
+												<th style="text-align: right">Tổng</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -64,22 +64,37 @@
 														</div>
 													</div>
 												</td>
-												<td>
+												<td style="text-align: right">
 													{{ number_format($item->product->price, 0) }} đ
 												</td>
-												<td>
+												<td style="text-align: right">
 													{{ number_format($item->product->price * $item->quantity, 0) }} đ
 												</td>
 											</tr>
 											@endforeach
-											
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th style="color: #333; min-width: 100px; text-align: right">Tạm tính</th>
+                                                <th style="color: #333; min-width: 100px; text-align: right">{{ number_format($total, 0) }} đ</th>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th style="color: #333; text-align: right">Phí giao hàng</th>
+                                                <th style="color: #333; text-align: right" id="shipping-cost">{{ $total >= 200000 ? 'Miễn phí' : '15.000 đ' }}</th>
+                                            </tr>
 											<tr>
 												<th></th>
 												<th></th>
 												<th></th>
 												<th></th>
-												<th style="color: red">Tổng</th>
-												<th style="color: red">{{ number_format($total, 0) }} đ</th>
+												<th style="color: red; text-align: right">Tổng</th>
+												<th style="color: red; text-align: right" id="total-amount">{{ number_format($total + (($total >= 200000) ? 0 : 15000), 0) }} đ</th>
 											</tr>
 										</tbody>
 									</table>
@@ -205,9 +220,8 @@
                                             <label class="col-sm-3 control-label">Phương thức thanh toán</label>
                                             <div class="col-sm-8">
                                                 <select id="payment_methods" class="form-control" name="id_payment">
-                                                    <option value="1">Nhận tiền khi giao hàng (miễn phí)</option>
-                                                    <option value="2" selected="">Chuyển khoản qua ngân hàng (miễn phí)</option>
-                                                    <option value="3">Thanh toán qua VTC Pay (pay.vtc.vn) (miễn phí)</option>
+                                                    <option value="1" selected>Thanh toán khi nhận hàng</option>
+                                                    <option value="2">Chuyển khoản qua ngân hàng</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -265,6 +279,20 @@
                 el.prop('disabled', true);
                 $('#cart-form').submit();
             });
+            $('#shipping_methods').on('change', function (e) {
+                var method = $(this).val();
+                console.log(method);
+                if (method == 1) {
+                    $('#shipping-cost').text('15.000 đ');
+                    $('#total-amount').text('{{ number_format(($total + 15000), 0) }}');
+                } else if (method == 2) {
+                    $('#shipping-cost').text('25.000 đ');
+                    $('#total-amount').text('{{ number_format(($total + 25000), 0) }}');
+                } else {
+                    $('#shipping-cost').text('Miễn phí');
+                    $('#total-amount').text('{{ number_format($total, 0) }}');
+                }
+            })
         })
     </script>
  @endsection

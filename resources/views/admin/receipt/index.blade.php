@@ -87,7 +87,7 @@
                             <td>{{ $value->user_name ?? '' }}</td>
                             <td>{{ $value->product_name ?? '' }}</td>
                             <td>{{ $value->quantity }}</td>
-                            <td>{{ $value->total_amount }} VNĐ</td>
+                            <td>{{ $value->total_amount }} đ</td>
                             <td>{{ $value->supplier }}</td>
 
                             <td>{{ date('d/m/Y: H:i', strtotime($value->created_at)) }}</td>
