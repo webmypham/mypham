@@ -34,6 +34,9 @@
             </form><!-- /form -->
         </div><!-- /card-container -->
     </div><!-- /container -->
+    <div id="cart-right" class="hidden">
+        @include('ajax.cart_right')
+    </div>
 @endsection
 
 @section('script')

@@ -167,7 +167,7 @@ class HomeController extends Controller
             default:
                 break;
         }
-        $products = Product::where('id_category', $product->id_category)->get()->toArray();
+        $products = Product::where('id_category', $product->id_category)->where('status', 1)->get()->toArray();
         $similarProducts = array_chunk($products, 6);
         $comments = Comment::where('id_product', $product->id)->get();
         $categories = Category::getParent();
@@ -221,7 +221,6 @@ class HomeController extends Controller
                 $cart->quantity = $cart->quantity + $request->quantity;
                 $cart->save();
             } else {
-
                 $newCart = new Cart();
                 $newCart->user_id = $userId;
                 $newCart->product_id = $request->id;
@@ -235,7 +234,16 @@ class HomeController extends Controller
             $carts = Cart::where('user_id', -1)->get();
         }
 
-        return view('ajax.list_product_cart', compact('carts'));
+        $data = [
+            'cart' => view('ajax.list_product_cart', compact('carts'))->render(),
+            'cart_right' => view('ajax.cart_right', compact('carts'))->render()
+        ];
+        return $data;
+    }
+
+    public function getCartSidebar()
+    {
+
     }
 
     // Xóa sản phẩm khỏi giỏ hàng
@@ -246,10 +254,12 @@ class HomeController extends Controller
             $userId = $user->id;
         }
         $cart = Cart::where('user_id', $userId)->where('product_id', $request->id)->first();
+        $cartId = '';
         if ($cart) {
+            $cartId = $cart->id;
             $cart->delete();
         }
-        return 'true';
+        return $cartId;
     }
 
     // Cập nhật giỏ hàng

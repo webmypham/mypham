@@ -28,6 +28,8 @@
             //<![CDATA[
             $(document).ready(function(){function c(){var b=this.currentItem;$("#sync2").find(".owl-item").removeClass("synced").eq(b).addClass("synced"),void 0!==$("#sync2").data("owlCarousel")&&d(b)}function d(a){var c=b.data("owlCarousel").owl.visibleItems,d=a,e=!1;for(var f in c)if(d===c[f])var e=!0;e===!1?d>c[c.length-1]?b.trigger("owl.goTo",d-c.length+2):(d-1===-1&&(d=0),b.trigger("owl.goTo",d)):d===c[c.length-1]?b.trigger("owl.goTo",c[1]):d===c[0]&&b.trigger("owl.goTo",d-1)}$(window).scroll(function(){$(this).scrollTop()>1?$("#nav").addClass("sticky"):$("#nav").removeClass("sticky")}),$(".fa-plus").on("click",function(a){a.preventDefault();var b=$(this);return b.parents(".dropdown").find(".dropdown-menu").stop().slideToggle(),!1}),$(".fa-plus").on("click",function(a){a.preventDefault();var b=$(this);return b.parents(".level0").find(".dropdown-menu").stop().slideToggle(),!1}),$(".mobile-but").on("click",function(a){a.preventDefault();var b=$(this);return b.parents("#cate-mobile").find(".submenu").stop().slideToggle(),!1}),$(".navbar-toggle").on("click",function(a){a.preventDefault();var b=$(this);return b.parents(".mobile").find(".navbar-nav").stop().slideToggle(),!1}),$("#owl-demo").owlCarousel({autoPlay:4e3,navigation:!0,slideSpeed:300,paginationSpeed:400,singleItem:!0,navigation:!1}),$("#owl-demo2").owlCarousel({autoPlay:1e4,items:3,navigation:!0,pagination:!1,itemsDesktop:[1199,3],itemsDesktopSmall:[979,3]}),$("#owl-demo3").owlCarousel({autoPlay:1e4,items:3,navigation:!0,pagination:!1,itemsDesktop:[1199,3],itemsDesktopSmall:[979,3]}),$("#product-list").owlCarousel({autoPlay:1e4,items:3,autoPlay:!0,slideSpeed:300,navigation:!1,pagination:!1,itemsDesktop:[768,2],itemsDesktopSmall:[460,1]}),$("#product-list-2").owlCarousel({autoPlay:1e4,items:3,autoPlay:!0,slideSpeed:300,navigation:!1,pagination:!1,itemsDesktop:[768,2],itemsDesktopSmall:[460,1]}),$("#product-list-3").owlCarousel({autoPlay:1e4,items:3,autoPlay:!0,slideSpeed:300,navigation:!1,pagination:!1,itemsDesktop:[768,2],itemsDesktopSmall:[460,1]}),$("#product-list-4").owlCarousel({autoPlay:1e4,items:3,autoPlay:!0,slideSpeed:300,navigation:!1,pagination:!1,itemsDesktop:[768,2],itemsDesktopSmall:[460,1]});var a=$("#sync1"),b=$("#sync2");a.owlCarousel({singleItem:!0,slideSpeed:1e3,navigation:!0,pagination:!1,afterAction:c,responsiveRefreshRate:200}),b.owlCarousel({items:5,itemsDesktop:[1199,10],itemsDesktopSmall:[979,10],itemsTablet:[768,8],itemsMobile:[479,4],pagination:!1,responsiveRefreshRate:100,afterInit:function(a){a.find(".owl-item").eq(0).addClass("synced")}}),$("#sync2").on("click",".owl-item",function(b){b.preventDefault();var c=$(this).data("owlItem");a.trigger("owl.goTo",c)})});
         //]]></script>
+        <script src="{{ asset('/js/bootstrap-notify.js') }}"></script>
+
     </head>
     <body class='cms-index-index cms-home-page' id='cosmetic'>
         <header>
@@ -158,7 +160,7 @@
                             </div>
                             <div class="col-md-1 col-sm-1 col-xs-12 ">
                                 <div class="item-menu">
-                                    <a href="{{ route('cart') }}">
+                                    <a href="#" id="cart-btn-show">
                                         <span class="cart-counter simpleCart_quantity" id="cart-count">
                                              <!-- hiển thị số lượng trong giỏ hàng -->
                                             @if ($carts)
@@ -169,22 +171,22 @@
                                         </span>
                                         <img id="icon-cart" src="https://1.bp.blogspot.com/-BEJFhm2rQ8o/WPm0OKSRqXI/AAAAAAAAHPQ/CaExJP4W-wYVTHM1iK62SsNka7-1nckawCLcB/s1600/cart.png">
                                     </a>
-                                    <div class="cart-droplist hidden-xs">
-                                        <div class="top-cart-content arrow_box dd-menu" style="display: none;">
-                                            <div class="block-subtitle">
-                                                <i aria-hidden="true" class="fa fa-check"></i>
-                                                <span class="cart-counter-list simpleCart_quantity">
-                                                     <!-- hiển thị số lượng trong giỏ hàng -->
-                                                    @if ($carts)
-                                                    {{ count($carts) }}
-                                                    @endif
-                                                </span> Sản phẩm trong giỏ hàng
-                                            </div>
-                                           <div id="list-cart">
-                                               @include('ajax.list_product_cart')
-                                           </div>
-                                        </div>
-                                    </div>
+                                    {{--<div class="cart-droplist hidden-xs">--}}
+                                        {{--<div class="top-cart-content arrow_box dd-menu" style="display: none;">--}}
+                                            {{--<div class="block-subtitle">--}}
+                                                {{--<i aria-hidden="true" class="fa fa-check"></i>--}}
+                                                {{--<span class="cart-counter-list simpleCart_quantity">--}}
+                                                     {{--<!-- hiển thị số lượng trong giỏ hàng -->--}}
+                                                    {{--@if ($carts)--}}
+                                                    {{--{{ count($carts) }}--}}
+                                                    {{--@endif--}}
+                                                {{--</span> Sản phẩm trong giỏ hàng--}}
+                                            {{--</div>--}}
+                                           {{--<div id="list-cart">--}}
+                                               {{--@include('ajax.list_product_cart')--}}
+                                           {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
                                 </div>
                             </div>
                             <!-- end navbar-collapse -->
@@ -263,6 +265,9 @@
         <script type="text/javascript">
         // Back to top
             $(document).ready(function(e){
+                $('#cart-btn-show').on('click', function () {
+                    $('#cart-right').removeClass('hidden');
+                })
                 var t=e("#backtotop");
                 e(window).scroll(function(){
                     e(this).scrollTop()>=800?t.show(10).animate({opacity:"1"},10):t.animate({opacity:"0"},10)});

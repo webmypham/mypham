@@ -128,6 +128,9 @@
         </div>
         </div>
 	</div>
+    <div id="cart-right" class="hidden">
+        @include('ajax.cart_right')
+    </div>
 </section>
 @endsection
 
@@ -146,8 +149,6 @@
                     window.location.reload();
                 }
             });
-
-
         }
         $(document).ready(function() {
             $('#Carousel').carousel({
