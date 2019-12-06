@@ -299,15 +299,15 @@
 
             <link rel="stylesheet" href="/css/admin_custom.css">
             <link rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css">
+                  href="{{ asset('/js/bootstrap-datepicker3.css') }}">
         @stop
 
         @section('js')
-            <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
             <script type="text/javascript"
-                    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+                    src="{{ asset('bootstrap-datepicker.min.js') }}"></script>
             <script type="text/javascript"
-                    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
+                    src="{{ asset('bootstrap-datepicker.es.min.js') }}"></script>
             <script>
                 $(function () {
                     $('#datetimepicker1').datepicker({
