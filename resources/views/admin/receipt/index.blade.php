@@ -92,7 +92,9 @@
 
                             <td>{{ date('d/m/Y: H:i', strtotime($value->created_at)) }}</td>
                             <td>
+                                @if(Auth::user()->id_role == 0)
                                 <a class="btn btn-small btn-info" href="{{ route('receipts.edit', ['receipt' => $value->id]) }}"><i class="fa fa-edit"></i></a>
+                                @endif
                                 <a class="btn btn-small btn-info" href="{{ route('receipts.show', ['receipt' => $value->id]) }}"><i class="fa fa-eye"></i></a>
                                 <button class="btn btn-small btn-danger remove" data-postid="{{ $value->id }}" data-toggle="modal" data-target="#confirmModal" data-url="{{ route('receipts.destroy', ['blog' => $value->id]) }}"><i class="fa fa-trash"></i></button>
                             </td>

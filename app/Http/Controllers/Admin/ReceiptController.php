@@ -103,6 +103,9 @@ class ReceiptController extends Controller
      */
     public function edit($id)
     {
+        if (Auth::user()->id_role != 0) {
+            return redirect()->back();
+        }
         $receipt = Receipt::find($id);
         $products = Product::all();
         return view('admin.receipt.edit', compact('receipt', 'products'));
