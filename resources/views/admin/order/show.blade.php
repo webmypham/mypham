@@ -27,12 +27,12 @@
                         <input type="hidden" name="_method" value="PATCH">
                         <div class="box-body">
                             <div class="form-group">
-                                <label>Customer: </label>
+                                <label>Khách hàng: </label>
                                 <input type="text" class="form-control" disabled="" value="{{ $order->customer_name }}">
                             </div>
         
                             <div class="form-group">
-                                <label>Status</label>
+                                <label>Trạng thái đơn hàng</label>
                                 <select class="form-control mdb-select md-form" name="status">
                                     @foreach ($order_status as $key => $value )
                                         <option value="{{ $key }}" {{ $key == $order->status ? 'selected' : '' }} {{ $disable[$key] == true ? 'disabled' : '' }}>{{ $value }}</option>

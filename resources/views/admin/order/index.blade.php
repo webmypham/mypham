@@ -60,7 +60,7 @@
                         <th>No</th>
                         <th>Người đặt</th>
                         <th>Tổng tiền</th>
-                        <th>Ngày order</th>
+                        <th>Ngày đặt</th>
                         <th>Trạng thái</th>
                         <th width="10%" align="center">Chức năng</th>
                     </tr>
@@ -77,7 +77,7 @@
                                 {{ $value->amount }} đ
                             </td>
                             <td>
-                                {{ $value->created_at }}
+                                {{ \Carbon\Carbon::parse($value->created_at)->format('d/m/Y H:i') }}
                             </td>
                             <td width="20%">
                                 <span class="btn {{ 'btn-'.$value->status_class }}">{{ $value->status_text }}</span>
