@@ -64,7 +64,7 @@ class StatisticController extends Controller
             ->whereDate('orders.created_at', '>=', $from_date)
             ->whereDate('orders.created_at', '<=', $to_date)
             ->whereNotIn('orders.status', [1, 11])
-            ->paginate(10);
+            ->get();
         $returnData = DB::table('orders')
             ->select('orders.*', 'users.name as customer', DB::raw('sum(order_details.quantity) as quantity'))
             ->leftJoin('order_details', 'orders.id', 'order_details.id_order')
@@ -73,7 +73,7 @@ class StatisticController extends Controller
             ->whereDate('orders.created_at', '>=', $from_date)
             ->whereDate('orders.created_at', '<=', $to_date)
             ->where('status', 11)
-            ->paginate(10);
+            ->get();
         $cancelData = DB::table('orders')
             ->select('orders.*', 'users.name as customer', DB::raw('sum(order_details.quantity) as quantity'))
             ->leftJoin('order_details', 'orders.id', 'order_details.id_order')
@@ -82,7 +82,7 @@ class StatisticController extends Controller
             ->whereDate('orders.created_at', '>=', $from_date)
             ->whereDate('orders.created_at', '<=', $to_date)
             ->where('status', 1)
-            ->paginate(10);
+            ->get();
         return view('admin.statistic.index', compact('return', 'sale', 'revenues', 'saleData', 'returnData', 'cancel', 'cancelData', 'from_date', 'to_date'));
     }
 

@@ -197,14 +197,16 @@
 
                         <div class="panel-body table-responsive">
                             <!-- Table -->
-                            <table class="table table-striped table-bordered">
-                                <tr>
-                                    <th>Mã đơn hàng</th>
-                                    <th>Ngày tạo đơn hàng</th>
-                                    <th>Khách hàng</th>
-                                    <th>Số lượng</th>
-                                    <th>Doanh số</th>
-                                </tr>
+                            <table class="table table-striped table-bordered data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày tạo đơn hàng</th>
+                                        <th>Khách hàng</th>
+                                        <th>Số lượng</th>
+                                        <th>Doanh số</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
                                 @foreach($saleData as $key=>$value)
                                     <tr>
@@ -219,9 +221,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="panel-footer clearfix">
-                            {{ $saleData->links() }}
-                        </div>
                     </div>
                 </div>
 
@@ -230,14 +229,16 @@
 
                         <div class="panel-body table-responsive">
                             <!-- Table -->
-                            <table class="table table-striped table-bordered">
-                                <tr>
-                                    <th>Mã đơn hàng</th>
-                                    <th>Ngày tạo đơn hàng</th>
-                                    <th>Khách hàng</th>
-                                    <th>Số lượng</th>
-                                    <th>Tiền trả hàng</th>
-                                </tr>
+                            <table class="table table-striped table-bordered data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày tạo đơn hàng</th>
+                                        <th>Khách hàng</th>
+                                        <th>Số lượng</th>
+                                        <th>Tiền trả hàng</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
                                 @foreach($returnData as $key=>$value)
                                     <tr>
@@ -252,9 +253,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="panel-footer clearfix">
-                            {{ $returnData->links() }}
-                        </div>
                     </div>
                 </div>
 
@@ -263,14 +261,16 @@
 
                         <div class="panel-body table-responsive">
                             <!-- Table -->
-                            <table class="table table-striped table-bordered">
-                                <tr>
-                                    <th>Mã đơn hàng</th>
-                                    <th>Ngày tạo đơn hàng</th>
-                                    <th>Khách hàng</th>
-                                    <th>Số lượng</th>
-                                    <th>Tiền trả hàng</th>
-                                </tr>
+                            <table class="table table-striped table-bordered data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày tạo đơn hàng</th>
+                                        <th>Khách hàng</th>
+                                        <th>Số lượng</th>
+                                        <th>Tiền trả hàng</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
                                 @foreach($cancelData as $key=>$value)
                                     <tr>
@@ -284,9 +284,6 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="panel-footer clearfix">
-                            {{ $cancelData->links() }}
                         </div>
                     </div>
                 </div>
@@ -304,34 +301,7 @@
 
         @section('js')
             <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-            <script type="text/javascript"
-                    src="{{ asset('bootstrap-datepicker.min.js') }}"></script>
-            <script type="text/javascript"
-                    src="{{ asset('bootstrap-datepicker.es.min.js') }}"></script>
             <script>
-                $(function () {
-                    $('#datetimepicker1').datepicker({
-                        format: "dd/mm/yyyy",
-                        language: "es",
-                        autoclose: true,
-                        todayHighlight: true
-                    });
-
-                    $('#datetimepicker2').datepicker({
-                        format: "dd/mm/yyyy",
-                        language: "es",
-                        autoclose: true,
-                        todayHighlight: true
-                    });
-                });
-            </script>
-            <script>
-                //  $('#confirmModal').on('show.bs.modal', function (event) {
-                //         var button = $(event.relatedTarget);
-                //         var url = button.data('url');
-                //         var modal = $(this);
-                //         $("#deleteForm").attr("action",url)
-                //     });
                 $(document).ready(function () {
                     $('#input_date_end').attr('min', $('#input_date_start').val());
                     $('#input_date_start').attr('max', $('#input_date_end').val());
@@ -342,6 +312,22 @@
                     $('#input_date_end').on('change', function () {
                         $('#input_date_start').attr('max', $(this).val())
                     })
+                    $('.data-table').dataTable({
+                        "language": {
+                            "lengthMenu": "Hiển thị  _MENU_  dòng / trang",
+                            "info": "Nothing found - sorry",
+                            "info": "Hiển thị trang _PAGE_ of _PAGES_",
+                            "infoEmpty": "No records available",
+                            "paginate": {
+                                "first":      "Trang đầu",
+                                "last":       "Trang cuối",
+                                "next":       "Trang tiếp",
+                                "previous":   "Trang trước"
+                            },
+                            "thousands":      ",",
+                            "search":         "Tìm kiếm:",
+                        }
+                    });
                 })
             </script>
 @stop
