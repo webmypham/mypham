@@ -67,12 +67,17 @@ class HomeController extends Controller
         $news = News::latest('created_at')->limit(2)->get();
         $slides = Slide::orderBy('order', 'ASC')->get();
         $user = Session::get('user_info');
+        if (!$user && !Session::get('unique_key')) {
+            Session::put('unique_key', uniqid());
+        }
         $userId = -1;
         if ($user) {
             $userId = $user->id;
+            $carts = Cart::where('user_id', $userId)->get();
+        } else {
+            $carts = Cart::where('user_id', $userId)->where('unique_key', Session::get('unique_key'))->get();
         }
-        $carts = [];
-        $carts = Cart::where('user_id', $userId)->get();
+
         foreach ($carts as $value) {
             $product = DB::table('products')
                 ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
@@ -117,9 +122,10 @@ class HomeController extends Controller
         $userId = -1;
         if ($user) {
             $userId = $user->id;
+            $carts = Cart::where('user_id', $userId)->get();
+        } else {
+            $carts = Cart::where('user_id', $userId)->where('unique_key', Session::get('unique_key'))->get();
         }
-        $carts = [];
-        $carts = Cart::where('user_id', $userId)->get();
         foreach ($carts as $value) {
             $product = DB::table('products')
                 ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
@@ -178,9 +184,11 @@ class HomeController extends Controller
         $userId = -1;
         if ($user) {
             $userId = $user->id;
+            $carts = Cart::where('user_id', $userId)->get();
+        } else {
+            $carts = Cart::where('user_id', $userId)->where('unique_key', Session::get('unique_key'))->get();
         }
-        $carts = [];
-        $carts = Cart::where('user_id', $userId)->get();
+
         foreach ($carts as $value) {
             $productCart = DB::table('products')
                 ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
@@ -212,8 +220,11 @@ class HomeController extends Controller
         $user = Session::get('user_info');
         $product = Product::find($request->id);
         $userId = -1;
+        $uniqueKey = '';
         if ($user) {
             $userId = $user->id;
+        } else {
+            $uniqueKey = Session::get('unique_key');
         }
         $cart = Cart::where('user_id', $userId)->where('product_id', $request->id)->first();
         if ($product) {
@@ -225,13 +236,14 @@ class HomeController extends Controller
                 $newCart->user_id = $userId;
                 $newCart->product_id = $request->id;
                 $newCart->quantity = $request->quantity;
+                $newCart->unique_key = $uniqueKey;
                 $newCart->save();
             }
         }
         if ($user) {
             $carts = Cart::where('user_id', $user->id)->get();
         } else {
-            $carts = Cart::where('user_id', -1)->get();
+            $carts = Cart::where('user_id', -1)->where('unique_key', $uniqueKey)->get();
         }
 
         $data = [
@@ -250,10 +262,15 @@ class HomeController extends Controller
     public function removeProductFromCart(Request $request) {
         $user = Session::get('user_info');
         $userId = -1;
+        $uniqueKey = Session::get('unique_key');
         if ($user) {
             $userId = $user->id;
+            $cart = Cart::where('user_id', $userId)->where('product_id', $request->id)->first();
+        } else {
+            $cart = Cart::where('user_id', $userId)->where('unique_key', $uniqueKey)->where('product_id', $request->id)->first();
+
         }
-        $cart = Cart::where('user_id', $userId)->where('product_id', $request->id)->first();
+
         $cartId = '';
         if ($cart) {
             $cartId = $cart->id;
@@ -267,12 +284,18 @@ class HomeController extends Controller
     {
         $user = Session::get('user_info');
         $userId = -1;
+        $uniqueKey = Session::get('unique_key');
         if ($user) {
             $userId = $user->id;
         }
         $cartData = $request->cart;
         foreach ($cartData as $value) {
-            $cart = Cart::where('user_id', $userId)->where('product_id', $value['id'])->first();
+            if ($user) {
+                $cart = Cart::where('user_id', $userId)->where('product_id', $value['id'])->first();
+            } else {
+                $cart = Cart::where('user_id', $userId)->where('unique_key', $uniqueKey)->where('product_id', $value['id'])->first();
+            }
+
             if ($cart) {
                 $cart->quantity = $value['quantity'];
                 $cart->save();
@@ -288,12 +311,15 @@ class HomeController extends Controller
             $menu->subCat = Category::getCategoryChild($menu->id);
         }
         $user = Session::get('user_info');
+        $uniqueKey = Session::get('unique_key');
         $userId = -1;
         if ($user) {
             $userId = $user->id;
+            $carts = Cart::where('user_id', $userId)->get();
+        } else {
+            $carts = Cart::where('user_id', $userId)->where('unique_key', $uniqueKey)->get();
         }
-        $carts = [];
-        $carts = Cart::where('user_id', $userId)->get();
+
         foreach ($carts as $value) {
             $product = DB::table('products')
                 ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
@@ -328,6 +354,9 @@ class HomeController extends Controller
             $menu->subCat = Category::getCategoryChild($menu->id);
         }
         $user = Session::get('user_info');
+        if (!$user) {
+            return redirect()->route('cart');
+        }
         $carts = [];
         if ($user) {
             $carts = Cart::where('user_id', $user->id)->get();
@@ -407,7 +436,8 @@ class HomeController extends Controller
             }
             $product->update(['quantity' => $newQuantity]);
         }
-        $user_id = 1;
+        $user_id = -1;
+        $uniqueKey = Session::get('unique_key');
         if (Session::get('user_logged') === true) {
             $user_id = Session::get('user_info')->id;
         }
@@ -435,7 +465,12 @@ class HomeController extends Controller
             $value['id_order'] = $od->id;
             OrderDetail::create($value);
         }
-        Cart::where('user_id', $user->id)->delete();
+        if ($user) {
+            Cart::where('user_id', $user->id)->delete();
+        } else {
+            Cart::where('user_id', $user->id)->where('unique_key', $uniqueKey)->delete();
+        }
+
         $mailData['user'] = $user;
         $mailData['order'] = $od;
         $mailData['details'] = $orderDetail;
@@ -514,29 +549,31 @@ class HomeController extends Controller
         }
         if ($user) {
             $carts = Cart::where('user_id', $userId)->get();
-            foreach ($carts as $value) {
-                $product = DB::table('products')
-                    ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
-                    ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
-                    ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
-                    ->leftJoin('categories', 'categories.id', '=', 'products.id_category')
-                    ->where('products.id', $value->product_id)
-                    ->first();
-                switch ($product->sale_type_id) {
-                    case 1:
-                        $product->sale = $product->sale_value.'%';
-                        $product->sale_price = $product->price - $product->price * $product->sale_value / 100;
-                        break;
-                    case 2:
-                        $product->sale = number_format($product->sale_value, 0).'đ';
-                        $product->sale_price = $product->price - $product->sale_value;
-                        break;
-                    default:
-                        break;
-                }
-                $product->price = $product->sale_price ?? $product->price;
-                $value->product = $product;
+        } else {
+            $carts = Cart::where('user_id', $userId)->where('unique_key', Session::get('unique_key'))->get();
+        }
+        foreach ($carts as $value) {
+            $product = DB::table('products')
+                ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
+                ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
+                ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
+                ->leftJoin('categories', 'categories.id', '=', 'products.id_category')
+                ->where('products.id', $value->product_id)
+                ->first();
+            switch ($product->sale_type_id) {
+                case 1:
+                    $product->sale = $product->sale_value.'%';
+                    $product->sale_price = $product->price - $product->price * $product->sale_value / 100;
+                    break;
+                case 2:
+                    $product->sale = number_format($product->sale_value, 0).'đ';
+                    $product->sale_price = $product->price - $product->sale_value;
+                    break;
+                default:
+                    break;
             }
+            $product->price = $product->sale_price ?? $product->price;
+            $value->product = $product;
         }
         return view('login', compact('carts'));
     }
@@ -579,29 +616,31 @@ class HomeController extends Controller
         }
         if ($user) {
             $carts = Cart::where('user_id', $userId)->get();
-            foreach ($carts as $value) {
-                $product = DB::table('products')
-                    ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
-                    ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
-                    ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
-                    ->leftJoin('categories', 'categories.id', '=', 'products.id_category')
-                    ->where('products.id', $value->product_id)
-                    ->first();
-                switch ($product->sale_type_id) {
-                    case 1:
-                        $product->sale = $product->sale_value.'%';
-                        $product->sale_price = $product->price - $product->price * $product->sale_value / 100;
-                        break;
-                    case 2:
-                        $product->sale = number_format($product->sale_value, 0).'đ';
-                        $product->sale_price = $product->price - $product->sale_value;
-                        break;
-                    default:
-                        break;
-                }
-                $product->price = $product->sale_price ?? $product->price;
-                $value->product = $product;
+        } else {
+            $carts = Cart::where('user_id', $userId)->where('unique_key', Session::get('unique_key'))->get();
+        }
+        foreach ($carts as $value) {
+            $product = DB::table('products')
+                ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
+                ->leftJoin('sale', 'sale.id', '=', 'products.sale_id')
+                ->leftJoin('sale_type', 'sale.sale_type_id', '=', 'sale_type.id')
+                ->leftJoin('categories', 'categories.id', '=', 'products.id_category')
+                ->where('products.id', $value->product_id)
+                ->first();
+            switch ($product->sale_type_id) {
+                case 1:
+                    $product->sale = $product->sale_value.'%';
+                    $product->sale_price = $product->price - $product->price * $product->sale_value / 100;
+                    break;
+                case 2:
+                    $product->sale = number_format($product->sale_value, 0).'đ';
+                    $product->sale_price = $product->price - $product->sale_value;
+                    break;
+                default:
+                    break;
             }
+            $product->price = $product->sale_price ?? $product->price;
+            $value->product = $product;
         }
         return view('register', compact('carts'));
     }
@@ -766,9 +805,11 @@ class HomeController extends Controller
         $userId = -1;
         if ($user) {
             $userId = $user->id;
+            $carts = Cart::where('user_id', $userId)->get();
+        } else {
+            $carts = Cart::where('user_id', $userId)->where('unique_key', Session::get('unique_key'))->get();
         }
-        $carts = [];
-        $carts = Cart::where('user_id', $userId)->get();
+
         foreach ($carts as $value) {
                 $product = DB::table('products')
                     ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
@@ -808,9 +849,11 @@ class HomeController extends Controller
         $userId = -1;
         if ($user) {
             $userId = $user->id;
+            $carts = Cart::where('user_id', $userId)->get();
+        } else {
+            $carts = Cart::where('user_id', $userId)->where('unique_key', Session::get('unique_key'))->get();
         }
-        $carts = [];
-        $carts = Cart::where('user_id', $userId)->get();
+
         foreach ($carts as $value) {
             $product = DB::table('products')
                 ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
@@ -1024,9 +1067,10 @@ class HomeController extends Controller
         $userId = -1;
         if ($user) {
             $userId = $user->id;
+            $carts = Cart::where('user_id', $userId)->get();
+        } else {
+            $carts = Cart::where('user_id', $userId)->where('unique_key', Session::get('unique_key'))->get();
         }
-        $carts = [];
-        $carts = Cart::where('user_id', $userId)->get();
         foreach ($carts as $value) {
             $product = DB::table('products')
                 ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
@@ -1060,9 +1104,11 @@ class HomeController extends Controller
         $userId = -1;
         if ($user) {
             $userId = $user->id;
+            $carts = Cart::where('user_id', $userId)->get();
+        } else {
+            $carts = Cart::where('user_id', $userId)->where('unique_key', Session::get('unique_key'))->get();
         }
-        $carts = [];
-        $carts = Cart::where('user_id', $userId)->get();
+
         foreach ($carts as $value) {
             $product = DB::table('products')
                 ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')
@@ -1133,9 +1179,11 @@ class HomeController extends Controller
         $userId = -1;
         if ($user) {
             $userId = $user->id;
+            $carts = Cart::where('user_id', $userId)->get();
+        } else {
+            $carts = Cart::where('user_id', $userId)->where('unique_key', Session::get('unique_key'))->get();
         }
-        $carts = [];
-        $carts = Cart::where('user_id', $userId)->get();
+
         foreach ($carts as $value) {
             $product = DB::table('products')
                 ->select('products.*', 'sale.value as sale_value', 'sale_type_id', 'categories.name as category_name')

@@ -31,8 +31,9 @@
 
                 <div class="woocommerce-mini-cart__buttons buttons">
                     <a href="{{ route('cart') }}" class="button btn-cart wc-forward">Xem giỏ hàng</a>
-
-                    <a href="{{ route('checkout') }}" class="button btn-cart checkout_cart wc-forward">Thanh toán</a>
+                    @if (Session::get('user_logged') === true)
+                        <a href="{{ route('checkout') }}" class="button btn-cart checkout_cart wc-forward">Thanh toán</a>
+                    @endif
                 </div>
             </div></div>
     </div>

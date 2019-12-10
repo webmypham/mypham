@@ -31,7 +31,7 @@ return [
     |
     */
     // thời gian sống của session là 1200 phút (20h)
-    'lifetime' => env('SESSION_LIFETIME', 1200),
+    'lifetime' => 1 * (60 * 24 * 30),
 
     'expire_on_close' => false,
 

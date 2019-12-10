@@ -17,6 +17,9 @@
                     @endif
                     {{-- <h1>Xác nhận đặt hàng</h1> --}}
 						<div class="inner-main account cart">
+                            @php
+                                $total = 0
+                            @endphp
 							@if (count($carts) > 0)
 							<div class="inner-main cart">
 								<h2>Sản phẩm</h2>
@@ -34,10 +37,6 @@
 											</tr>
 										</thead>
 										<tbody>
-											@php
-											$total = 0
-											@endphp
-												
 											@foreach ($carts as $key => $item)
 											@php
 											$total += $item->product->price * $item->quantity
