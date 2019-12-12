@@ -54,6 +54,9 @@ class SaleController extends Controller
         if (empty($request->name) || empty($request->sale_type_id) || empty($request->value) || empty($request->date_start) || empty($request->date_end)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
         }
+        if ($request->sale_type_id == 1 && strval($request->value) > 100) {
+            return back()->withInput()->with('error', 'Phần trăm giảm giá không được lớn hơn 100');
+        }
         $data = [
             'name' => $request->name,
             'sale_type_id' => $request->sale_type_id,
@@ -111,6 +114,9 @@ class SaleController extends Controller
     {
         if (empty($request->name) || empty($request->sale_type_id) || empty($request->value) || empty($request->date_start) || empty($request->date_end)) {
             return back()->withInput()->with('error', 'Vui lòng điền đầy đủ thông tin');
+        }
+        if ($request->sale_type_id == 1 && strval($request->value) > 100) {
+            return back()->withInput()->with('error', 'Phần trăm giảm giá không được lớn hơn 100');
         }
         $data = [
             'name' => $request->name,

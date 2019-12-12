@@ -42,8 +42,8 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->sale_type_id == 1 ? ($item->value . '%') : ($item->value . 'đ')}}</td>
                             <td><span class="{{ config('const.sale_status_class.'.$item->isActive) }}">{{ config('const.sale_status.'.$item->isActive) }}</span></td>
-                            <td>{{ $item->date_start }}</td>
-                            <td>{{ $item->date_end }}</td>
+                            <td>{{ Carbon\Carbon::parse($item->date_start)->format('d/m/Y') }}</td>
+                            <td>{{ Carbon\Carbon::parse($item->date_end)->format('d/m/Y') }}</td>
                             <td>
                                 <a class="btn btn-small btn-info" href="{{ route('sale.edit', ['sale' => $item->id]) }}"><i class="fa fa-edit"></i></a>
                                 <button class="btn btn-small btn-danger remove" data-postid="{{ $item->id }}" data-toggle="modal" data-target="#confirmModal" data-url="{{ route('sale.destroy', ['sale' => $item->id]) }}"><i class="fa fa-trash"></i></button>
