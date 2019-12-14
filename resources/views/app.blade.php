@@ -15,7 +15,6 @@
         {{-- <link href="{{asset('/css/reset.css')}}" rel="stylesheet"> --}}
         <link href="{{asset('/css/style.css')}}" rel="stylesheet" />
         <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700,700i' rel='stylesheet'/>
-        {{-- <link rel="stylesheet" href="asset/css/style.css"> --}}
         <script src="{{ asset('/js/jquery.min.js') }}" rel="stylesheet"></script>
         <script src="{{ asset('/js/bootstrap.min.js') }}" rel="stylesheet"></script>
         <style>
@@ -23,8 +22,68 @@
         </style>
     </head>
     <body class='cms-index-index cms-home-page' id='cosmetic'>
+    <div id="wrapper" class="hidden-lg">
+        <div class="overlay"></div>
+
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li>
+                    <a href="/">Trang chủ</a>
+                </li>
+                </li>
+                @foreach (get_menu_prent() as $menu)
+                    <li class="dropdown">
+                        <a href="{{ route('category', ['slug' => str_slug(trim($menu->name), '-'), 'id' => $menu->id ]) }}" class="dropdown-toggle" data-toggle="dropdown"> {{ $menu->name }}
+                            @if (count(get_menu_child($menu->id)) > 0)
+                                <span class="caret"></span>
+                            @endif
+
+                        </a>
+                        @if (count(get_menu_child($menu->id)) > 0)
+                            <ul class="dropdown-menu" role="menu">
+                                @foreach (get_menu_child($menu->id) as $menuChilds)
+                                    <li><a href="{{ route('category', ['slug' => str_slug(trim($menuChilds->name), '-'), 'id' => $menuChilds->id ]) }}">{{ $menuChilds->name }}</a></li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </li>
+                @endforeach
+                <li><a href="{{ url('/news') }}">Tin tức</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        Khác
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <!--  Kiểm tra nếu user đã đăng nhập thì hiển menu đơn hàng -->
+                        @if (Session::get('user_logged') === true)
+                            <li><a href="{{ url('/orders') }}">Đơn hàng</a></li>
+                        @endif
+                        <li><a href="{{ route('user.bestseller') }}">Bán chạy </a></li>
+                        <li><a class="dropdown-toggle" href="{{ route('user.guide') }}">Hướng dẫn mua hàng </a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" id="cart-left-btn">Gỏi hàng ({{ count($carts) }})</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+                <span class="hamb-middle"></span>
+                <span class="hamb-bottom"></span>
+            </button>
+
+        </div>
+    </div>
+
         <header>
-            <div class="header-top hidden-xs">
+            <div class="header-top">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
@@ -101,7 +160,7 @@
                 <!-- end container -->
             </div>
             <!-- end top-bar -->
-            <nav class="navbar navbar-default hidden-sm hidden-xs" id="nav" role="navigation">
+            <nav class="navbar navbar-default hidden-sm hidden-xs hidden-md" id="nav" role="navigation">
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12">
@@ -119,7 +178,7 @@
                                                     <!-- Nếu có danh mục con thì hiển icon mũi tên xuống -->
                                                     @if (count(get_menu_child($menu->id)) > 0)
                                                     <i class="fa fa-angle-down"></i>
-                                                    @endif 
+                                                    @endif
                                                 </a>
                                                 <!-- Nếu có danh mục con thì hiển thị danh mục con khi rê chuột vào -->
                                                 @if (count(get_menu_child($menu->id)) > 0)
@@ -162,22 +221,22 @@
                                         </span>
                                         <img id="icon-cart" src="https://1.bp.blogspot.com/-BEJFhm2rQ8o/WPm0OKSRqXI/AAAAAAAAHPQ/CaExJP4W-wYVTHM1iK62SsNka7-1nckawCLcB/s1600/cart.png">
                                     </a>
-                                    {{--<div class="cart-droplist hidden-xs">--}}
-                                        {{--<div class="top-cart-content arrow_box dd-menu" style="display: none;">--}}
-                                            {{--<div class="block-subtitle">--}}
-                                                {{--<i aria-hidden="true" class="fa fa-check"></i>--}}
-                                                {{--<span class="cart-counter-list simpleCart_quantity">--}}
-                                                     {{--<!-- hiển thị số lượng trong giỏ hàng -->--}}
-                                                    {{--@if ($carts)--}}
-                                                    {{--{{ count($carts) }}--}}
-                                                    {{--@endif--}}
-                                                {{--</span> Sản phẩm trong giỏ hàng--}}
-                                            {{--</div>--}}
-                                           {{--<div id="list-cart">--}}
-                                               {{--@include('ajax.list_product_cart')--}}
-                                           {{--</div>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
+                                    <div class="cart-droplist hidden-xs">
+                                        <div class="top-cart-content arrow_box dd-menu" style="display: none;">
+                                            <div class="block-subtitle">
+                                                <i aria-hidden="true" class="fa fa-check"></i>
+                                                <span class="cart-counter-list simpleCart_quantity">
+                                                     <!-- hiển thị số lượng trong giỏ hàng -->
+                                                    @if ($carts)
+                                                    {{ count($carts) }}
+                                                    @endif
+                                                </span> Sản phẩm trong giỏ hàng
+                                            </div>
+                                           <div id="list-cart">
+                                               @include('ajax.list_product_cart')
+                                           </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- end navbar-collapse -->
@@ -188,6 +247,7 @@
                 </div>
                 <!-- end container -->
             </nav>
+
             <!-- end nav -->
         </header>
 
@@ -252,11 +312,50 @@
             (function(e){var t=function(){return!1===e.support.boxModel&&e.support.objectAll&&e.support.leadingWhitespace}();e.jGrowl=function(t,i){0==e("#jGrowl").size()&&e('<div id="jGrowl"></div>').addClass(i&&i.position?i.position:e.jGrowl.defaults.position).appendTo("body"),e("#jGrowl").jGrowl(t,i)},e.fn.jGrowl=function(t,i){if(e.isFunction(this.each)){var o=arguments;return this.each(function(){void 0==e(this).data("jGrowl.instance")&&(e(this).data("jGrowl.instance",e.extend(new e.fn.jGrowl,{notifications:[],element:null,interval:null})),e(this).data("jGrowl.instance").startup(this)),e.isFunction(e(this).data("jGrowl.instance")[t])?e(this).data("jGrowl.instance")[t].apply(e(this).data("jGrowl.instance"),e.makeArray(o).slice(1)):e(this).data("jGrowl.instance").create(t,i)})}},e.extend(e.fn.jGrowl.prototype,{defaults:{pool:0,header:"",group:"",sticky:!1,position:"top-right",glue:"after",theme:"default",themeState:"highlight",corners:"10px",check:250,life:3e3,closeDuration:"normal",openDuration:"normal",easing:"swing",closer:!0,closeTemplate:"<i class='icon-cancel'></i>",closerTemplate:"<div>[ close all ]</div>",log:function(){},beforeOpen:function(){},afterOpen:function(){},open:function(){},beforeClose:function(){},close:function(){},animateOpen:{opacity:"show"},animateClose:{opacity:"hide"}},notifications:[],element:null,interval:null,create:function(t,i){var i=e.extend({},this.defaults,i);i.speed!==void 0&&(i.openDuration=i.speed,i.closeDuration=i.speed),this.notifications.push({message:t,options:i}),i.log.apply(this.element,[this.element,t,i])},render:function(t){var i=this,o=t.message,n=t.options;n.themeState=""==n.themeState?"":"ui-state-"+n.themeState;var t=e("<div/>").addClass("jGrowl-notification "+n.themeState+" ui-corner-all"+(void 0!=n.group&&""!=n.group?" "+n.group:"")).append(e("<div/>").addClass("jGrowl-close").attr("title", "Close").html(n.closeTemplate)).append(e("<div/>").addClass("jGrowl-header").html(n.header)).append(e("<div/>").addClass("jGrowl-message").html(o)).data("jGrowl",n).addClass(n.theme).children("div.jGrowl-close").bind("click.jGrowl",function(){e(this).parent().trigger("jGrowl.beforeClose")}).parent();e(t).bind("mouseover.jGrowl",function(){e("div.jGrowl-notification",i.element).data("jGrowl.pause",!0)}).bind("mouseout.jGrowl",function(){e("div.jGrowl-notification",i.element).data("jGrowl.pause",!1)}).bind("jGrowl.beforeOpen",function(){n.beforeOpen.apply(t,[t,o,n,i.element])!==!1&&e(this).trigger("jGrowl.open")}).bind("jGrowl.open",function(){n.open.apply(t,[t,o,n,i.element])!==!1&&("after"==n.glue?e("div.jGrowl-notification:last",i.element).after(t):e("div.jGrowl-notification:first",i.element).before(t),e(this).animate(n.animateOpen,n.openDuration,n.easing,function(){e.support.opacity===!1&&this.style.removeAttribute("filter"),null!==e(this).data("jGrowl")&&(e(this).data("jGrowl").created=new Date),e(this).trigger("jGrowl.afterOpen")}))}).bind("jGrowl.afterOpen",function(){n.afterOpen.apply(t,[t,o,n,i.element])}).bind("jGrowl.beforeClose",function(){n.beforeClose.apply(t,[t,o,n,i.element])!==!1&&e(this).trigger("jGrowl.close")}).bind("jGrowl.close",function(){e(this).data("jGrowl.pause",!0),e(this).animate(n.animateClose,n.closeDuration,n.easing,function(){e.isFunction(n.close)?n.close.apply(t,[t,o,n,i.element])!==!1&&e(this).remove():e(this).remove()})}).trigger("jGrowl.beforeOpen"),""!=n.corners&&void 0!=e.fn.corner&&e(t).corner(n.corners),e("div.jGrowl-notification:parent",i.element).size()>1&&0==e("div.jGrowl-closer",i.element).size()&&this.defaults.closer!==!1&&e(this.defaults.closerTemplate).addClass("jGrowl-closer "+this.defaults.themeState+" ui-corner-all").addClass(this.defaults.theme).appendTo(i.element).animate(this.defaults.animateOpen,this.defaults.speed,this.defaults.easing).bind("click.jGrowl",function(){e(this).siblings().trigger("jGrowl.beforeClose"),e.isFunction(i.defaults.closer)&&i.defaults.closer.apply(e(this).parent()[0],[e(this).parent()[0]])})},update:function(){e(this.element).find("div.jGrowl-notification:parent").each(function(){void 0!=e(this).data("jGrowl")&&void 0!==e(this).data("jGrowl").created&&e(this).data("jGrowl").created.getTime()+parseInt(e(this).data("jGrowl").life)<(new Date).getTime()&&e(this).data("jGrowl").sticky!==!0&&(void 0==e(this).data("jGrowl.pause")||e(this).data("jGrowl.pause")!==!0)&&e(this).trigger("jGrowl.beforeClose")}),this.notifications.length>0&&(0==this.defaults.pool||e(this.element).find("div.jGrowl-notification:parent").size()<this.defaults.pool)&&this.render(this.notifications.shift()),2>e(this.element).find("div.jGrowl-notification:parent").size()&&e(this.element).find("div.jGrowl-closer").animate(this.defaults.animateClose,this.defaults.speed,this.defaults.easing,function(){e(this).remove()})},startup:function(i){this.element=e(i).addClass("jGrowl").append('<div class="jGrowl-notification"></div>'),this.interval=setInterval(function(){e(i).data("jGrowl.instance").update()},parseInt(this.defaults.check)),t&&e(this.element).addClass("ie6")},shutdown:function(){e(this.element).removeClass("jGrowl").find("div.jGrowl-notification").trigger("jGrowl.close").parent().empty(),clearInterval(this.interval)},close:function(){e(this.element).find("div.jGrowl-notification").each(function(){e(this).trigger("jGrowl.beforeClose")})}}),e.jGrowl.defaults=e.fn.jGrowl.prototype.defaults})(jQuery);
             //]]>
         </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var trigger = $('.hamburger'),
+                    overlay = $('.overlay'),
+                    isClosed = false;
+
+                trigger.click(function () {
+                    hamburger_cross();
+                });
+
+                function hamburger_cross() {
+
+                    if (isClosed == true) {
+                        overlay.hide();
+                        trigger.removeClass('is-open');
+                        trigger.addClass('is-closed');
+                        isClosed = false;
+                    } else {
+                        overlay.show();
+                        trigger.removeClass('is-closed');
+                        trigger.addClass('is-open');
+                        isClosed = true;
+                    }
+                }
+
+                $('[data-toggle="offcanvas"]').click(function () {
+                    $('#wrapper').toggleClass('toggled');
+                });
+                $('#sidebar-wrapper .dropdown').on('mouseenter', function() {
+                    $('#sidebar-wrapper .dropdown').removeClass('open');
+                    $(this).addClass('open');
+                });
+                $('#sidebar-wrapper .dropdown-menu').off('click');
+                $('#sidebar-wrapper .dropdown a').on('click', function() {
+                    console.log($(this).attr('href'));
+                    window.location.href = $(this).attr('href');
+                });
+            });
+        </script>
 
         <script type="text/javascript">
         // Back to top
             $(document).ready(function(e){
-                $('#cart-btn-show').on('click', function () {
+                $('#cart-btn-show, #cart-left-btn').on('click', function () {
                     $('#cart-right').removeClass('hidden');
                 })
                 var t=e("#backtotop");
