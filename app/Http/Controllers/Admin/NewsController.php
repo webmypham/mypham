@@ -60,6 +60,10 @@ class NewsController extends Controller
 
         $image = null;
         if ($file) {
+            $size = $file->getSize() / 1048576;
+            if ($size > 5) {
+                return back()->withInput()->with('error', 'File không được lớn hơn 5MB');
+            }
             $image = $file->store('uploads/product');
         }
         $newProduct['thumbnail'] = $image;
@@ -111,6 +115,10 @@ class NewsController extends Controller
         $file = $request->file('thumbnail');
         $image = null;
         if ($file) {
+            $size = $file->getSize() / 1048576;
+            if ($size > 5) {
+                return back()->withInput()->with('error', 'File không được lớn hơn 5MB');
+            }
             $image = $file->store('uploads/product');
             // Storage
             $oldImage = News::find($id)->thumbnail;

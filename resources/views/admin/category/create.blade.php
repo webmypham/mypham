@@ -12,6 +12,12 @@
     <section class="content">
         <div class="row">
             <!-- general form elements -->
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Thêm danh mục sản phẩm</h3>

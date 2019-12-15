@@ -56,6 +56,10 @@ class SlideController extends Controller
 
         $image = null;
         if ($file) {
+            $size = $file->getSize() / 1048576;
+            if ($size > 5) {
+                return back()->withInput()->with('error', 'File không được lớn hơn 5MB');
+            }
             $image = $file->store('uploads/slides');
         }
         $newSlide['image'] = $image;
@@ -108,6 +112,10 @@ class SlideController extends Controller
         ];
         $image = null;
         if ($file) {
+            $size = $file->getSize() / 1048576;
+            if ($size > 5) {
+                return back()->withInput()->with('error', 'File không được lớn hơn 5MB');
+            }
             $image = $file->store('uploads/slides');
             // Storage
             $oldImage = Slide::find($id)->image;
