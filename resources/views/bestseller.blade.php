@@ -21,7 +21,7 @@
                             <div class="row">
                                 @for ($j = $i; $j < $i + 4; $j++)
                                     @if ($j < count($products))
-                                    <div class="col-md-3 col-sm-6 product-item">
+                                    <div class="col-md-3 col-sm-4 product-item">
                                         <div class="product-box">
                                             <div class="product-image">
                                                 <a href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id ]) }}"><img src="{{ asset('storage/'.$products[$j]->image) }}" alt="{{ $products[$j]->name }}"></a>

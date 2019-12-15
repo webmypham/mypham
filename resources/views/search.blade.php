@@ -8,13 +8,13 @@
                 <div class="col-sm-3 hidden-xs">
                     @include('left_nav')
                 </div>
-                <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="col-md-9 col-sm-9 col-xs-9">
                     {{--<h1 class="heading-title">{{ $category->name }}</h1>--}}
                         @for ($i = 0; $i < count($products); $i+=4)
                             <div class="row">
                                 @for ($j = $i; $j < $i + 4; $j++)
                                     @if ($j < count($products))
-                                    <div class="col-md-3 col-sm-6 product-item">
+                                    <div class="col-md-3 col-sm-4 product-item">
                                         <div class="product-box">
                                             <div class="product-image">
                                                 <a href="{{ route('product', ['slug' => str_slug(trim($products[$j]->name), '-'), 'id' => $products[$j]->id ]) }}"><img src="{{ asset('storage/'.$products[$j]->image) }}" alt="{{ $products[$j]->name }}"></a>

@@ -87,7 +87,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
-                            <p>
+                            <p class="hidden-xs hidden-sm hidden-md">
+                                Tư vấn miễn phí 24/7 - Giao hàng nhanh chóng
+                            </p>
+                            <p class="hidden-lg text-center">
                                 Tư vấn miễn phí 24/7 - Giao hàng nhanh chóng
                             </p>
                         </div>
