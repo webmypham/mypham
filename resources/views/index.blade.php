@@ -69,9 +69,9 @@
                                         <img src="https://1.bp.blogspot.com/-nXc4P-S7mSw/WPm4dr4r8aI/AAAAAAAAHQM/0HyIcXYN0ZAZCAsqPUz_S7PECxxkzwaNQCLcB/s1600/banner-logo1-6.png">
                                     </div>
                                 </div>
-                                <div class="col-md-9 col-sm-12 col-xs-12">
-                                    @for ($i = 0; $i < count($products['products']); $i+=4)
-                                        <div class="row">
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <div class="row">
+                                    @for ($i = 0; $i < count($products['products']); $i++)
                                             @for ($j = $i; $j < $i + 4; $j++)
                                                 @if ($j < count($products['products']))
                                                 <div class="col-md-3 col-sm-4 product-item">
@@ -131,9 +131,9 @@
                                                 </div>
                                                 @endif
                                             @endfor
-                                        </div>
-                                    @endfor
 
+                                    @endfor
+                                    </div>
                                     <div class="view-more">
                                         <a href="{{ route('category', ['slug' => str_slug(trim($products['name']), '-'), 'id' => $key ]) }}"> Xem thêm </a>
                                     </div>

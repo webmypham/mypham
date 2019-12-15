@@ -136,22 +136,22 @@
             <div class="top-bar">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-3 col-sm-4 col-xs-12" id="logo">
+                        <div class="col-md-3 col-sm-4 col-xs-5" id="logo">
                             <div class="navbar-header">
                                 <a class="logo" href="/">
                                     <img alt="cosmetic" src="{{ asset('images/app/logo.png') }}">
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-5 col-sm-4 hidden-xs">
+                        <div class="col-md-5 col-sm-4 col-xs-7">
                             <div class="header-hotline">
                                 <img src="{{ asset('images/app/hotline.png') }}">
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-12 pull-right">
-                            <form action="{{ route('search') }}" class="search-form" id="search_mini_form" method="get">
-                                <input id="search" maxlength="70" name="keyword" placeholder="Từ khóa cần tìm kiếm" type="text" value="{{ $keyword ?? '' }}">
-                                <button type="submit" value="Tìm kiếm">
+                            <form action="{{ route('search') }}" class="search-form" id="search_mini_form" method="get" style="display: inline-flex;">
+                                <input id="search" maxlength="70" class="form-control" style="width: 100% !important;" name="keyword" placeholder="Từ khóa cần tìm kiếm" type="text" value="{{ $keyword ?? '' }}">
+                                <button type="submit" value="Tìm kiếm" style="margin-left: 10px">
                                     Tìm kiếm
                                 </button>
                             </form>
