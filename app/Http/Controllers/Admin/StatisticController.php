@@ -134,21 +134,25 @@ class StatisticController extends Controller
         if ($remainQuantity < 0) $remainQuantity = 0;
 
         $inData = DB::table('receipts')
+            ->select('receipts.*', 'users.name as user_name', 'products.name as product_name')
             ->leftJoin('users', 'receipts.user_id', 'users.id')
+            ->leftJoin('products', 'receipts.product_id', 'products.id')
             ->whereDate('receipts.created_at', '>=', $from_date)
             ->whereDate('receipts.created_at', '<=', $to_date)
             ->where('receipts.type', 'in')
             ->get();
 
         $outData = DB::table('receipts')
+            ->select('receipts.*', 'users.name as user_name', 'products.name as product_name')
             ->leftJoin('users', 'receipts.user_id', 'users.id')
+            ->leftJoin('products', 'receipts.product_id', 'products.id')
             ->whereDate('receipts.created_at', '>=', $from_date)
             ->whereDate('receipts.created_at', '<=', $to_date)
             ->where('receipts.type', 'out')
             ->get();
 
         $saleData = DB::table('orders')
-            ->select('orders.*', 'users.name as customer', DB::raw('sum(order_details.quantity) as quantity'))
+            ->select('orders.*', 'users.name as user_name', DB::raw('sum(order_details.quantity) as quantity'))
             ->leftJoin('order_details', 'orders.id', 'order_details.id_order')
             ->leftJoin('users', 'orders.id_user', 'users.id')
             ->groupBy('order_details.id_order')

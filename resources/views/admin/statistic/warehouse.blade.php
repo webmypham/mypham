@@ -75,7 +75,7 @@
 
     <div class="container-fluid spark-screen">
 
-        <form action="{{ route('admin.statistic') }}">
+        <form action="{{ route('admin.statisticWarehouse') }}">
             <div class="box box-default">
                 <div class="box-header with-border">
                     <h3 class="box-title">Lọc</h3>
@@ -200,11 +200,11 @@
                             <table class="table table-striped table-bordered data-table">
                                 <thead>
                                     <tr>
-                                        <th>Mã đơn hàng</th>
-                                        <th>Ngày tạo đơn hàng</th>
-                                        <th>Khách hàng</th>
+                                        <th>Mã phiếu</th>
+                                        <th>Người tạo</th>
+                                        <th>Sản phẩm</th>
                                         <th>Số lượng</th>
-                                        <th>Doanh số</th>
+                                        <th>Tổng tiền</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -212,10 +212,10 @@
                                     <tr>
                                         <td>{{ $value->id }}
                                         </td>
-                                        <td>{{ date('d/m/Y: H:i', strtotime($value->created_at)) }}</td>
-                                        <td>{{ $value->customer ?? '' }}</td>
+                                        <td>{{ $value->user_name ?? '' }}</td>
+                                        <td>{{ $value->product_name ?? '' }}</td>
                                         <td>{{ number_format($value->quantity, 0) ?? '' }}</td>
-                                        <td>{{ number_format($value->amount, 0) ?? '' }}</td>
+                                        <td>{{ number_format($value->total_amount, 0) ?? '' }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -232,11 +232,11 @@
                             <table class="table table-striped table-bordered data-table">
                                 <thead>
                                     <tr>
-                                        <th>Mã đơn hàng</th>
-                                        <th>Ngày tạo đơn hàng</th>
-                                        <th>Khách hàng</th>
+                                        <th>Mã phiếu</th>
+                                        <th>Người tạo</th>
+                                        <th>Sản phẩm</th>
                                         <th>Số lượng</th>
-                                        <th>Tiền trả hàng</th>
+                                        <th>Tổng tiền</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -244,10 +244,10 @@
                                     <tr>
                                         <td>{{ $value->id }}
                                         </td>
-                                        <td>{{ date('d/m/Y: H:i', strtotime($value->created_at)) }}</td>
-                                        <td>{{ $value->customer ?? '' }}</td>
+                                        <td>{{ $value->user_name ?? '' }}</td>
+                                        <td>{{ $value->product_name ?? '' }}</td>
                                         <td>{{ number_format($value->quantity, 0) ?? '' }}</td>
-                                        <td>{{ number_format($value->amount, 0) ?? '' }}</td>
+                                        <td>{{ number_format($value->total_amount, 0) ?? '' }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -277,7 +277,7 @@
                                         <td>{{ $value->id }}
                                         </td>
                                         <td>{{ date('d/m/Y: H:i', strtotime($value->created_at)) }}</td>
-                                        <td>{{ $value->customer ?? '' }}</td>
+                                        <td>{{ $value->user_name ?? '' }}</td>
                                         <td>{{ number_format($value->quantity, 0) ?? '' }}</td>
                                         <td>{{ number_format($value->amount, 0) ?? '' }}</td>
                                     </tr>
