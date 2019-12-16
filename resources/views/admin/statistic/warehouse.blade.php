@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-    <h1>Thống kê kho</h1>
+    <h1 class="text-center">Thống kê kho</h1>
     {{--@if (\Carbon\Carbon::parse($from_date)->eq(\Carbon\Carbon::parse($to_date)))--}}
         {{--<h1>Thống kê kho ngày {{ \Carbon\Carbon::parse($from_date)->format('d/m/Y') }}</h1>--}}
     {{--@else--}}

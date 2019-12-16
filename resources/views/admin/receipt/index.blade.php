@@ -54,6 +54,72 @@
             </div>
         </form>
 
+    <div class="row">
+
+        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
+
+            <div class="box-part"
+                 style="background-color: #059AE3; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
+
+                <div class="title">
+                    <h4 style="font-size: 30px;">{{ number_format(1000, 0) }}</h4>
+                </div>
+
+                <div class="title">
+                    <h4 style="font-size: 30px;">Tổng số lượng nhập</h4>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
+
+            <div class="box-part"
+                 style="background-color: #8AC24A; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
+
+                <div class="title">
+                    <h4 style="font-size: 30px;">{{ number_format(50, 0) }}</h4>
+                </div>
+
+                <div class="title">
+                    <h4 style="font-size: 30px;">Tổng số lượng xuất</h4>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
+
+            <div class="box-part"
+                 style="background-color: #D32D2F; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
+
+                <div class="title">
+                    <h4 style="font-size: 30px;">{{ number_format(1000 * 150000, 0) }}</h4>
+                </div>
+
+                <div class="title">
+                    <h4 style="font-size: 30px;">Tổng số tiền nhập</h4>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
+
+            <div class="box-part"
+                 style="background-color: #FF8800; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
+
+                <div class="title">
+                    <h4 style="font-size: 30px;">{{ number_format(50 * 150000, 0) }}</h4>
+                </div>
+
+                <div class="title">
+                    <h4 style="font-size: 30px;">Tổng số tiền xuất</h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
         @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>	
