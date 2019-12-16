@@ -229,6 +229,11 @@ return [
             'icon'    => 'fa fa-table ',
             'url'     => 'admin/statistic'
         ],
+        [
+            'text'    => 'Thống kê kho',
+            'icon'    => 'fa fa-table ',
+            'url'     => 'admin/statistic-warehouse'
+        ],
     ],
 
     /*

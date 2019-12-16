@@ -72,30 +72,29 @@
                                 <div class="col-md-9 col-sm-9 col-xs-9">
                                     <div class="row">
                                     @for ($i = 0; $i < count($products['products']); $i++)
-                                            @for ($j = $i; $j < $i + 4; $j++)
-                                                @if ($j < count($products['products']))
+                                                @if ($i < count($products['products']))
                                                 <div class="col-md-3 col-sm-4 product-item">
                                                     <div class="product-box">
                                                         <div class="product-image">
-                                                            <a href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}"><img src="{{ asset('storage/'.$products['products'][$j]->image) }}" alt="{{ $products['products'][$j]->name }}"></a>
-                                                            @if ($products['products'][$j]->sale_value)
-                                                            <div class="sale-label sale-top-right">-{{ $products['products'][$j]->sale }}</div>
+                                                            <a href="{{ route('product', ['slug' => str_slug(trim($products['products'][$i]->name), '-'), 'id' => $products['products'][$i]->id ]) }}"><img src="{{ asset('storage/'.$products['products'][$i]->image) }}" alt="{{ $products['products'][$i]->name }}"></a>
+                                                            @if ($products['products'][$i]->sale_value)
+                                                            <div class="sale-label sale-top-right">-{{ $products['products'][$i]->sale }}</div>
                                                             @endif
                                                         </div>
-                                                        <h4 class="product-name"><a href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}">{{ Str::limit($products['products'][$j]->name, 40) }}</a></h4>
-                                                        @if($products['products'][$j]->status == 1)
-                                                            @if ($products['products'][$j]->sale_value)
+                                                        <h4 class="product-name"><a href="{{ route('product', ['slug' => str_slug(trim($products['products'][$i]->name), '-'), 'id' => $products['products'][$i]->id ]) }}">{{ Str::limit($products['products'][$i]->name, 40) }}</a></h4>
+                                                        @if($products['products'][$i]->status == 1)
+                                                            @if ($products['products'][$i]->sale_value)
                                                                 <div style="height: 35px; overflow: hidden">
                                                                     <div class="product-hover-sale">
                                                                         <div class="product-price">
-                                                                            <span class="old_price">{{ number_format($products['products'][$j]->price, 0) }}₫</span>
-                                                                            <span>{{ number_format($products['products'][$j]->sale_price, 0) }}₫</span>
+                                                                            <span class="old_price">{{ number_format($products['products'][$i]->price, 0) }}₫</span>
+                                                                            <span>{{ number_format($products['products'][$i]->sale_price, 0) }}₫</span>
                                                                         </div>
-                                                                        @if ($products['products'][$j]->quantity > 0)
-                                                                            <a style="display: none" href="javascript:void(0)" onclick="addToCart({{ $products['products'][$j]->id }})" class="product-hover-btn button product_type_simple add_to_cart_button ajax_add_to_cart basel-tooltip"><i class="fa fa-cart-plus"></i>&nbsp;Mua hàng</a>
-                                                                            <!-- <button class="btn btn-success" style="height: 30px; padding-top: 7px !important;" onclick="addToCart({{ $products['products'][$j]->id }})">Mua hàng</button> -->
+                                                                        @if ($products['products'][$i]->quantity > 0)
+                                                                            <a style="display: none" href="javascript:void(0)" onclick="addToCart({{ $products['products'][$i]->id }})" class="product-hover-btn button product_type_simple add_to_cart_button ajax_add_to_cart basel-tooltip"><i class="fa fa-cart-plus"></i>&nbsp;Mua hàng</a>
+                                                                            <!-- <button class="btn btn-success" style="height: 30px; padding-top: 7px !important;" onclick="addToCart({{ $products['products'][$i]->id }})">Mua hàng</button> -->
                                                                         @else
-                                                                            <a style="display: none" href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}" class="product-hover-btn button product_type_simple add_to_cart_button ajax_add_to_cart basel-tooltip"><i class="fa fa-eye"></i>&nbsp;Xem thêm</a>
+                                                                            <a style="display: none" href="{{ route('product', ['slug' => str_slug(trim($products['products'][$i]->name), '-'), 'id' => $products['products'][$i]->id ]) }}" class="product-hover-btn button product_type_simple add_to_cart_button ajax_add_to_cart basel-tooltip"><i class="fa fa-eye"></i>&nbsp;Xem thêm</a>
                                                                         @endif
                                                                     </div>
 
@@ -104,12 +103,12 @@
                                                                 <div style="height: 35px; overflow: hidden">
                                                                     <div class="product-hover">
                                                                         <p class="product-price" style="text-align: center">
-                                                                            <span class="woocommerce-Price-amount product-amount">{{ number_format($products['products'][$j]->price, 0) }}<span class="woocommerce-Price-currencySymbol">₫</span></span>
+                                                                            <span class="woocommerce-Price-amount product-amount">{{ number_format($products['products'][$i]->price, 0) }}<span class="woocommerce-Price-currencySymbol">₫</span></span>
                                                                         </p>
-                                                                        @if ($products['products'][$j]->quantity > 0)
-                                                                            <a style="display: none" href="javascript:void(0)" onclick="addToCart({{ $products['products'][$j]->id }})" class="product-hover-btn button product_type_simple add_to_cart_button ajax_add_to_cart basel-tooltip"><i class="fa fa-cart-plus"></i>&nbsp;Mua hàng</a>
+                                                                        @if ($products['products'][$i]->quantity > 0)
+                                                                            <a style="display: none" href="javascript:void(0)" onclick="addToCart({{ $products['products'][$i]->id }})" class="product-hover-btn button product_type_simple add_to_cart_button ajax_add_to_cart basel-tooltip"><i class="fa fa-cart-plus"></i>&nbsp;Mua hàng</a>
                                                                         @else
-                                                                        <a style="display: none" href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}" class="product-hover-btn button product_type_simple add_to_cart_button ajax_add_to_cart basel-tooltip"><i class="fa fa-eye"></i>&nbsp;Xem thêm</a>
+                                                                        <a style="display: none" href="{{ route('product', ['slug' => str_slug(trim($products['products'][$i]->name), '-'), 'id' => $products['products'][$i]->id ]) }}" class="product-hover-btn button product_type_simple add_to_cart_button ajax_add_to_cart basel-tooltip"><i class="fa fa-eye"></i>&nbsp;Xem thêm</a>
                                                                         @endif
                                                                     </div>
 
@@ -122,7 +121,7 @@
                                                                     <p class="product-price" style="text-align: center">
                                                                         <span class="product-price" style="color: #3c2665">Sắp ra mắt</span>
                                                                     </p>
-                                                                    <a href="{{ route('product', ['slug' => str_slug(trim($products['products'][$j]->name), '-'), 'id' => $products['products'][$j]->id ]) }}"" class="product-hover-btn button product_type_simple add_to_cart_button ajax_add_to_cart basel-tooltip"><i class="fa fa-eye"></i>&nbsp;Xem thêm</a>
+                                                                    <a href="{{ route('product', ['slug' => str_slug(trim($products['products'][$i]->name), '-'), 'id' => $products['products'][$i]->id ]) }}"" class="product-hover-btn button product_type_simple add_to_cart_button ajax_add_to_cart basel-tooltip"><i class="fa fa-eye"></i>&nbsp;Xem thêm</a>
                                                                 </div>
 
                                                             </div>
@@ -130,8 +129,6 @@
                                                     </div>
                                                 </div>
                                                 @endif
-                                            @endfor
-
                                     @endfor
                                     </div>
                                     <div class="view-more">

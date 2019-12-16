@@ -8,7 +8,7 @@
                 <div class="col-sm-3 hidden-xs">
                     @include('left_nav')
                 </div>
-                <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="col-md-9 col-sm-9 col-xs-9">
                     <div class="spacing">
                         <ul class="breadcrumb" style="margin-top: 0">
                             <li><a href="{{ url('/') }}">Trang chủ</a></li>
