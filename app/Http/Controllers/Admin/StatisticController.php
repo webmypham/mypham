@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Receipt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
@@ -116,33 +117,33 @@ class StatisticController extends Controller
         }
 
         $inQuantity = DB::table('receipts')
-            ->whereDate('created_at', '>=', $from_date)
-            ->whereDate('created_at', '<=', $to_date)
+//            ->whereDate('created_at', '>=', $from_date)
+//            ->whereDate('created_at', '<=', $to_date)
             ->where('type', 'in');
 
         $outQuantity = DB::table('receipts')
-            ->whereDate('created_at', '>=', $from_date)
-            ->whereDate('created_at', '<=', $to_date)
+//            ->whereDate('created_at', '>=', $from_date)
+//            ->whereDate('created_at', '<=', $to_date)
             ->where('type', 'out');
 
-        $saleQuantity = DB::table('order_details')
-            ->whereDate('order_details.created_at', '>=', $from_date)
-            ->whereDate('order_details.created_at', '<=', $to_date);
+        $saleQuantity = DB::table('order_details');
+//            ->whereDate('order_details.created_at', '>=', $from_date)
+//            ->whereDate('order_details.created_at', '<=', $to_date);
 
         $inData = DB::table('receipts')
             ->select('receipts.*', 'users.name as user_name', 'products.name as product_name')
             ->leftJoin('users', 'receipts.user_id', 'users.id')
             ->leftJoin('products', 'receipts.product_id', 'products.id')
-            ->whereDate('receipts.created_at', '>=', $from_date)
-            ->whereDate('receipts.created_at', '<=', $to_date)
+//            ->whereDate('receipts.created_at', '>=', $from_date)
+//            ->whereDate('receipts.created_at', '<=', $to_date)
             ->where('receipts.type', 'in');
 
         $outData = DB::table('receipts')
             ->select('receipts.*', 'users.name as user_name', 'products.name as product_name')
             ->leftJoin('users', 'receipts.user_id', 'users.id')
             ->leftJoin('products', 'receipts.product_id', 'products.id')
-            ->whereDate('receipts.created_at', '>=', $from_date)
-            ->whereDate('receipts.created_at', '<=', $to_date)
+//            ->whereDate('receipts.created_at', '>=', $from_date)
+//            ->whereDate('receipts.created_at', '<=', $to_date)
             ->where('receipts.type', 'out');
 
         $saleData = DB::table('orders')
@@ -150,8 +151,8 @@ class StatisticController extends Controller
             ->leftJoin('order_details', 'orders.id', 'order_details.id_order')
             ->leftJoin('users', 'orders.id_user', 'users.id')
             ->groupBy('order_details.id_order')
-            ->whereDate('orders.created_at', '>=', $from_date)
-            ->whereDate('orders.created_at', '<=', $to_date)
+//            ->whereDate('orders.created_at', '>=', $from_date)
+//            ->whereDate('orders.created_at', '<=', $to_date)
             ->whereNotIn('orders.status', [1, 11]);
 
         if (!empty($product_id)) {
@@ -175,6 +176,13 @@ class StatisticController extends Controller
         if ($remainQuantity < 0) $remainQuantity = 0;
 
         $products = Product::all();
+
+        foreach ($products as $key => $value) {
+            $value->in = Receipt::where('product_id', $value->id)->where('type', 'in')->sum('quantity');
+            $value->out = Receipt::where('product_id', $value->id)->where('type', 'out')->sum('quantity');
+            $value->sale_quantity = DB::table('order_details')->where('id_product', $value->id)->sum('quantity');
+        }
+
 
         return view('admin.statistic.warehouse', compact('inQuantity', 'outQuantity', 'saleQuantity', 'inData', 'outData', 'saleData', 'remainQuantity', 'products', 'product_id', 'from_date', 'to_date'));
     }

@@ -4,11 +4,12 @@
 
 @section('content_header')
 
-    @if (\Carbon\Carbon::parse($from_date)->eq(\Carbon\Carbon::parse($to_date)))
-        <h1>Thống kê kho ngày {{ \Carbon\Carbon::parse($from_date)->format('d/m/Y') }}</h1>
-    @else
-        <h1>Thống kê kho từ ngày {{ \Carbon\Carbon::parse($from_date)->format('d/m/Y') }} đến ngày {{ \Carbon\Carbon::parse($to_date)->format('d/m/Y') }}</h1>
-    @endif
+    <h1>Thống kê kho</h1>
+    {{--@if (\Carbon\Carbon::parse($from_date)->eq(\Carbon\Carbon::parse($to_date)))--}}
+        {{--<h1>Thống kê kho ngày {{ \Carbon\Carbon::parse($from_date)->format('d/m/Y') }}</h1>--}}
+    {{--@else--}}
+        {{--<h1>Thống kê kho từ ngày {{ \Carbon\Carbon::parse($from_date)->format('d/m/Y') }} đến ngày {{ \Carbon\Carbon::parse($to_date)->format('d/m/Y') }}</h1>--}}
+    {{--@endif--}}
 
 
 @stop
@@ -77,29 +78,19 @@
 
         <form action="{{ route('admin.statisticWarehouse') }}">
             <div class="box box-default">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Lọc</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i>
-                        </button>
-                    </div>
-                </div>
                 <!-- /.box-header -->
                 <div class="box-body" style="">
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label>Từ ngày</label>
-                            <input id="input_date_start" class="form-control" type="date" dateFormat="d/M/y" name="from_date" value="{{ $from_date }}">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Đến ngày</label>
-                            <input id="input_date_end" class="form-control" type="date" name="to_date" value="{{ $to_date }}">
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <div class="row form-group col-md-6">
+                    {{--<div class="row">--}}
+                        {{--<div class="form-group col-md-6">--}}
+                            {{--<label>Từ ngày</label>--}}
+                            {{--<input id="input_date_start" class="form-control" type="date" dateFormat="d/M/y" name="from_date" value="{{ $from_date }}">--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group col-md-6">--}}
+                            {{--<label>Đến ngày</label>--}}
+                            {{--<input id="input_date_end" class="form-control" type="date" name="to_date" value="{{ $to_date }}">--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    <div class="row form-group col-md-12">
                         <label>Sản phẩm</label>
                         <select class="form-control" style="width: 100%;" name="product_id">
                             <option value="">Chọn</option>
@@ -111,93 +102,95 @@
                     <!-- /.row -->
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer" style="">
-                    <button type="submit" class="btn btn-primary" id="js-search-button">Thống kê</button>
+                <div class="box-footer " style="">
+                    <div class="row form-group col-md-12">
+                    <button type="submit" class="btn btn-primary pull-right" id="js-search-button">Lọc</button>
+                    </div>
                 </div>
             </div>
         </form>
 
-        <div class="row">
+        {{--<div class="row">--}}
 
-            <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
+            {{--<div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">--}}
 
-                <div class="box-part"
-                     style="background-color: #059AE3; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
+                {{--<div class="box-part"--}}
+                     {{--style="background-color: #059AE3; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">--}}
 
-                    <div class="title">
-                        <h4 style="font-size: 30px;">{{ number_format($inQuantity, 0) }}</h4>
-                    </div>
+                    {{--<div class="title">--}}
+                        {{--<h4 style="font-size: 30px;">{{ number_format($inQuantity, 0) }}</h4>--}}
+                    {{--</div>--}}
 
-                    <div class="title">
-                        <h4 style="font-size: 30px;">Số lượng nhập</h4>
-                    </div>
+                    {{--<div class="title">--}}
+                        {{--<h4 style="font-size: 30px;">Số lượng nhập</h4>--}}
+                    {{--</div>--}}
 
-                </div>
-            </div>
+                {{--</div>--}}
+            {{--</div>--}}
 
-            <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
+            {{--<div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">--}}
 
-                <div class="box-part"
-                     style="background-color: #8AC24A; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
+                {{--<div class="box-part"--}}
+                     {{--style="background-color: #8AC24A; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">--}}
 
-                    <div class="title">
-                        <h4 style="font-size: 30px;">{{ number_format($outQuantity, 0) }}</h4>
-                    </div>
+                    {{--<div class="title">--}}
+                        {{--<h4 style="font-size: 30px;">{{ number_format($outQuantity, 0) }}</h4>--}}
+                    {{--</div>--}}
 
-                    <div class="title">
-                        <h4 style="font-size: 30px;">Số lượng xuất</h4>
-                    </div>
+                    {{--<div class="title">--}}
+                        {{--<h4 style="font-size: 30px;">Số lượng xuất</h4>--}}
+                    {{--</div>--}}
 
-                </div>
-            </div>
+                {{--</div>--}}
+            {{--</div>--}}
 
-            <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
+            {{--<div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">--}}
 
-                <div class="box-part"
-                     style="background-color: #D32D2F; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
+                {{--<div class="box-part"--}}
+                     {{--style="background-color: #D32D2F; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">--}}
 
-                    <div class="title">
-                        <h4 style="font-size: 30px;">{{ number_format($saleQuantity, 0) }}</h4>
-                    </div>
+                    {{--<div class="title">--}}
+                        {{--<h4 style="font-size: 30px;">{{ number_format($saleQuantity, 0) }}</h4>--}}
+                    {{--</div>--}}
 
-                    <div class="title">
-                        <h4 style="font-size: 30px;">Số lượng bán</h4>
-                    </div>
+                    {{--<div class="title">--}}
+                        {{--<h4 style="font-size: 30px;">Số lượng bán</h4>--}}
+                    {{--</div>--}}
 
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
+                {{--</div>--}}
+            {{--</div>--}}
+            {{--<div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">--}}
 
-                <div class="box-part"
-                     style="background-color: #FF8800; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
+                {{--<div class="box-part"--}}
+                     {{--style="background-color: #FF8800; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">--}}
 
-                    <div class="title">
-                        <h4 style="font-size: 30px;">{{ number_format($remainQuantity, 0) }}</h4>
-                    </div>
+                    {{--<div class="title">--}}
+                        {{--<h4 style="font-size: 30px;">{{ number_format($remainQuantity, 0) }}</h4>--}}
+                    {{--</div>--}}
 
-                    <div class="title">
-                        <h4 style="font-size: 30px;">Số lượng còn lại</h4>
-                    </div>
+                    {{--<div class="title">--}}
+                        {{--<h4 style="font-size: 30px;">Số lượng còn lại</h4>--}}
+                    {{--</div>--}}
 
-                </div>
-            </div>
-        </div>
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
         <div class="nav-tabs-custom" style="margin-top: 20px">
             <ul class="nav nav-tabs tb">
                 <li class="active">
-                    <a href="#header" data-toggle="tab">Phiếu nhập
+                    <a href="#header" data-toggle="tab">Danh sách sản phẩm
                     </a>
                 </li>
 
-                <li>
-                    <a href="#shipping" data-toggle="tab">Phiếu xuất
-                    </a>
-                </li>
-                <li>
-                    <a href="#cancel" data-toggle="tab">Đơn hàng đã bán
-                    </a>
-                </li>
+                {{--<li>--}}
+                    {{--<a href="#shipping" data-toggle="tab">Phiếu xuất--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li>--}}
+                    {{--<a href="#cancel" data-toggle="tab">Đơn hàng đã bán--}}
+                    {{--</a>--}}
+                {{--</li>--}}
             </ul>
             <div class="tab-content" style="min-height: 758px">
 
@@ -209,22 +202,28 @@
                             <table class="table table-striped table-bordered data-table">
                                 <thead>
                                     <tr>
-                                        <th>Mã phiếu</th>
-                                        <th>Người tạo</th>
-                                        <th>Sản phẩm</th>
-                                        <th>Số lượng</th>
-                                        <th>Tổng tiền</th>
+                                        <th>Mã SP</th>
+                                        <th>Tên SP</th>
+                                        <th>Danh mục</th>
+                                        <th>Số lượng nhập</th>
+                                        <th>Số lượng xuất</th>
+                                        <th>Số lượng bán</th>
+                                        <th>Tổng còn trong kho</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($inData as $key=>$value)
+                                @foreach($products as $key=>$value)
                                     <tr>
-                                        <td>{{ $value->id }}
+                                        <td>{{ $value->sku }}
                                         </td>
-                                        <td>{{ $value->user_name ?? '' }}</td>
-                                        <td>{{ $value->product_name ?? '' }}</td>
-                                        <td>{{ number_format($value->quantity, 0) ?? '' }}</td>
-                                        <td>{{ number_format($value->total_amount, 0) ?? '' }}</td>
+                                        <td>{{ $value->name }}</td>
+                                        <td>{{ $value->category->name ?? '' }}</td>
+                                        <td>{{ $value->in }}</td>
+                                        <td>{{ $value->out }}</td>
+                                        <td>{{ $value->sale_quantity }}</td>
+                                        <td>{{ $value->quantity }}</td>
+                                        {{--<td>{{ number_format($value->quantity, 0) ?? '' }}</td>--}}
+                                        {{--<td>{{ number_format($value->total_amount, 0) ?? '' }}</td>--}}
                                     </tr>
                                 @endforeach
                                 </tbody>
