@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Models\Product;
 
 class StatisticController extends Controller
 {
@@ -105,6 +106,7 @@ class StatisticController extends Controller
         $now = Carbon::now();
         $from_date = $request->from_date;
         $to_date = $request->to_date;
+        $product_id = $request->product_id;
 
         if (empty($from_date)) {
             $from_date = $now->format('Y-m-d');
@@ -116,22 +118,16 @@ class StatisticController extends Controller
         $inQuantity = DB::table('receipts')
             ->whereDate('created_at', '>=', $from_date)
             ->whereDate('created_at', '<=', $to_date)
-            ->where('type', 'in')
-            ->sum('quantity');
+            ->where('type', 'in');
 
         $outQuantity = DB::table('receipts')
             ->whereDate('created_at', '>=', $from_date)
             ->whereDate('created_at', '<=', $to_date)
-            ->where('type', 'out')
-            ->sum('quantity');
+            ->where('type', 'out');
 
         $saleQuantity = DB::table('order_details')
             ->whereDate('order_details.created_at', '>=', $from_date)
-            ->whereDate('order_details.created_at', '<=', $to_date)
-            ->sum('quantity');
-
-        $remainQuantity = $inQuantity - $outQuantity - $saleQuantity;
-        if ($remainQuantity < 0) $remainQuantity = 0;
+            ->whereDate('order_details.created_at', '<=', $to_date);
 
         $inData = DB::table('receipts')
             ->select('receipts.*', 'users.name as user_name', 'products.name as product_name')
@@ -139,8 +135,7 @@ class StatisticController extends Controller
             ->leftJoin('products', 'receipts.product_id', 'products.id')
             ->whereDate('receipts.created_at', '>=', $from_date)
             ->whereDate('receipts.created_at', '<=', $to_date)
-            ->where('receipts.type', 'in')
-            ->get();
+            ->where('receipts.type', 'in');
 
         $outData = DB::table('receipts')
             ->select('receipts.*', 'users.name as user_name', 'products.name as product_name')
@@ -148,8 +143,7 @@ class StatisticController extends Controller
             ->leftJoin('products', 'receipts.product_id', 'products.id')
             ->whereDate('receipts.created_at', '>=', $from_date)
             ->whereDate('receipts.created_at', '<=', $to_date)
-            ->where('receipts.type', 'out')
-            ->get();
+            ->where('receipts.type', 'out');
 
         $saleData = DB::table('orders')
             ->select('orders.*', 'users.name as user_name', DB::raw('sum(order_details.quantity) as quantity'))
@@ -158,10 +152,31 @@ class StatisticController extends Controller
             ->groupBy('order_details.id_order')
             ->whereDate('orders.created_at', '>=', $from_date)
             ->whereDate('orders.created_at', '<=', $to_date)
-            ->whereNotIn('orders.status', [1, 11])
-            ->get();
+            ->whereNotIn('orders.status', [1, 11]);
 
-        return view('admin.statistic.warehouse', compact('inQuantity', 'outQuantity', 'saleQuantity', 'inData', 'outData', 'saleData', 'remainQuantity', 'from_date', 'to_date'));
+        if (!empty($product_id)) {
+            $inQuantity = $inQuantity->where('product_id', $product_id);
+            $outQuantity = $outQuantity->where('product_id', $product_id);
+            $saleQuantity = $saleQuantity->where('id_product', $product_id);
+            $inData = $inData->where('receipts.product_id', $product_id);
+            $outData = $outData->where('receipts.product_id', $product_id);
+            $saleData = $saleData->where('order_details.id_product', $product_id);
+        }
+
+        $inQuantity = $inQuantity->sum('quantity');
+        $outQuantity = $outQuantity->sum('quantity');
+        $saleQuantity = $saleQuantity->sum('quantity');
+
+        $inData = $inData->get();
+        $outData = $outData->get();
+        $saleData = $saleData->get();
+
+        $remainQuantity = $inQuantity - $outQuantity - $saleQuantity;
+        if ($remainQuantity < 0) $remainQuantity = 0;
+
+        $products = Product::all();
+
+        return view('admin.statistic.warehouse', compact('inQuantity', 'outQuantity', 'saleQuantity', 'inData', 'outData', 'saleData', 'remainQuantity', 'products', 'product_id', 'from_date', 'to_date'));
     }
 
 }

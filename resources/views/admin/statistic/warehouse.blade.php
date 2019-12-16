@@ -99,6 +99,15 @@
                         </div>
                         <!-- /.col -->
                     </div>
+                    <div class="row form-group col-md-6">
+                        <label>Sản phẩm</label>
+                        <select class="form-control" style="width: 100%;" name="product_id">
+                            <option value="">Chọn</option>
+                            @foreach ($products as $product)
+                                <option value="{{ $product->id }}" {{ isset($product_id) &&  $product_id == $product->id ? "selected" : '' }}>{{ $product->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <!-- /.row -->
                 </div>
                 <!-- /.box-body -->
