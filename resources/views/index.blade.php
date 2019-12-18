@@ -69,7 +69,7 @@
                                         <img src="https://1.bp.blogspot.com/-nXc4P-S7mSw/WPm4dr4r8aI/AAAAAAAAHQM/0HyIcXYN0ZAZCAsqPUz_S7PECxxkzwaNQCLcB/s1600/banner-logo1-6.png">
                                     </div>
                                 </div>
-                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                <div class="col-md-9 col-sm-12 col-xs-12">
                                     <div class="row">
                                     @for ($i = 0; $i < count($products['products']); $i++)
                                                 @if ($i < count($products['products']))
