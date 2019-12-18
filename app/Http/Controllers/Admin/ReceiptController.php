@@ -21,9 +21,26 @@ class ReceiptController extends Controller
     public function index(Request $request)
     {
         $searchData = $request->all();
+        $type = $request->type;
         $receipts = Receipt::getReceipt($searchData);
+
+        $in = Receipt::where('type', 'in');
+        if (!empty($request->product_id)) {
+           $in = $in->where('product_id', $request->product_id);
+        }
+
+        $out = Receipt::where('type', 'out');
+        if (!empty($request->product_id)) {
+            $out = $out->where('product_id', $request->product_id);
+        }
+
+        $inQuantity = $in->sum('quantity');
+        $outQuantity = $out->sum('quantity');
+        $inAmount = $in->sum('total_amount');
+        $outAmount = $out->sum('total_amount');
+
         $products = Product::all();
-        return view('admin.receipt.index', compact('receipts', 'searchData', 'products'));
+        return view('admin.receipt.index', compact('receipts', 'searchData', 'products', 'inQuantity', 'outQuantity', 'inAmount', 'outAmount', 'type'));
     }
 
     /**

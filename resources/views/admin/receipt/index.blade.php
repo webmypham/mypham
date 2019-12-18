@@ -38,8 +38,8 @@
                             <label>Loại phiếu</label>
                             <select class="form-control" style="width: 100%;" name="type">
                                 <option value="">Chọn</option>
-                                <option value="in">Phiếu nhập</option>
-                                <option value="out">Phiếu xuất</option>
+                                <option value="in" {{ $type == 'in' ? 'selected' : ''}}>Phiếu nhập</option>
+                                <option value="out" {{ $type == 'out' ? 'selected' : ''}}>Phiếu xuất</option>
                             </select>
                         </div>
                         <!-- /.form-group -->
@@ -62,7 +62,7 @@
                  style="background-color: #059AE3; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">{{ number_format(1000, 0) }}</h4>
+                    <h4 style="font-size: 30px;">{{ number_format($inQuantity, 0) }}</h4>
                 </div>
 
                 <div class="title">
@@ -78,7 +78,7 @@
                  style="background-color: #8AC24A; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">{{ number_format(50, 0) }}</h4>
+                    <h4 style="font-size: 30px;">{{ number_format($outQuantity, 0) }}</h4>
                 </div>
 
                 <div class="title">
@@ -94,7 +94,7 @@
                  style="background-color: #D32D2F; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">{{ number_format(1000 * 150000, 0) }}</h4>
+                    <h4 style="font-size: 30px;">{{ number_format($inAmount, 0) }}</h4>
                 </div>
 
                 <div class="title">
@@ -109,7 +109,7 @@
                  style="background-color: #FF8800; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">{{ number_format(50 * 150000, 0) }}</h4>
+                    <h4 style="font-size: 30px;">{{ number_format($outAmount, 0) }}</h4>
                 </div>
 
                 <div class="title">
@@ -153,7 +153,7 @@
                             <td>{{ $value->user_name ?? '' }}</td>
                             <td>{{ $value->product_name ?? '' }}</td>
                             <td>{{ $value->quantity }}</td>
-                            <td>{{ $value->total_amount }} đ</td>
+                            <td>{{ number_format($value->total_amount, 0) }} đ</td>
                             <td>{{ $value->supplier }}</td>
 
                             <td>{{ date('d/m/Y: H:i', strtotime($value->created_at)) }}</td>
