@@ -116,11 +116,11 @@
                      style="background-color: #059AE3; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                     <div class="title">
-                        <h4 style="font-size: 30px;">{{ number_format($revenues, 0) }}</h4>
+                        <h4 style="font-size: 26px;">{{ number_format($revenues, 0) }}</h4>
                     </div>
 
                     <div class="title">
-                        <h4 style="font-size: 30px;">Doanh số</h4>
+                        <h4 style="font-size: 26px;">Doanh số</h4>
                     </div>
 
                 </div>
@@ -132,11 +132,11 @@
                      style="background-color: #8AC24A; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                     <div class="title">
-                        <h4 style="font-size: 30px;">{{ number_format($sale, 0) }}</h4>
+                        <h4 style="font-size: 26px;">{{ number_format($sale, 0) }}</h4>
                     </div>
 
                     <div class="title">
-                        <h4 style="font-size: 30px;">Số đơn hàng</h4>
+                        <h4 style="font-size: 26px;">Số đơn hàng</h4>
                     </div>
 
                 </div>
@@ -148,11 +148,11 @@
                      style="background-color: #D32D2F; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                     <div class="title">
-                        <h4 style="font-size: 30px;">{{ number_format($return, 0) }}</h4>
+                        <h4 style="font-size: 26px;">{{ number_format($return, 0) }}</h4>
                     </div>
 
                     <div class="title">
-                        <h4 style="font-size: 30px;">Trả hàng</h4>
+                        <h4 style="font-size: 26px;">Trả hàng</h4>
                     </div>
 
                 </div>
@@ -163,11 +163,11 @@
                      style="background-color: #FF8800; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                     <div class="title">
-                        <h4 style="font-size: 30px;">{{ number_format($cancel, 0) }}</h4>
+                        <h4 style="font-size: 26px;">{{ number_format($cancel, 0) }}</h4>
                     </div>
 
                     <div class="title">
-                        <h4 style="font-size: 30px;">Hủy</h4>
+                        <h4 style="font-size: 26px;">Hủy</h4>
                     </div>
 
                 </div>
