@@ -401,11 +401,14 @@
                     success: function(data) {
                         console.log('data', data);
                         $('#list-cart').html(data);
+                        $('#cart-right').html(data.cart_right);
                         $.ajax({
                             url: "{{ route('cartCount') }}",
                             success: function( response ) {
                                 console.log(response);
                                 $('#cart-count').text(response);
+                                $('#cart-sub-count').text(response);
+
                                 $('#message-success').removeClass('hidden');
                                 setTimeout(function () {
                                     $('#message-success').addClass('hidden');

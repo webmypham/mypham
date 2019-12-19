@@ -228,7 +228,7 @@
                                         <div class="top-cart-content arrow_box dd-menu" style="display: none;">
                                             <div class="block-subtitle">
                                                 <i aria-hidden="true" class="fa fa-check"></i>
-                                                <span class="cart-counter-list simpleCart_quantity">
+                                                <span class="cart-counter-list simpleCart_quantity" id="cart-sub-count">
                                                      <!-- hiển thị số lượng trong giỏ hàng -->
                                                     @if ($carts)
                                                     {{ count($carts) }}

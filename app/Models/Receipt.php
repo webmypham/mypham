@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Config;
 use DB;
+use Illuminate\Support\Carbon;
 
 class Receipt extends Model
 {
@@ -29,10 +30,21 @@ class Receipt extends Model
     }
 
     public static function getReceipt($searchData) {
+        $month = $searchData['month'] ?? '';
+        $year = $searchData['year'] ?? '';
+        $now = Carbon::now();
+        if (empty($month)) {
+            $month = $now->month;
+        }
+        if (empty($year)) {
+            $year = $now->year;
+        }
         $query = DB::table('receipts')
             ->select('receipts.*', 'products.name as product_name', 'users.name as user_name')
             ->leftJoin('products', 'products.id', '=','receipts.product_id')
             ->leftJoin('users', 'users.id', '=','receipts.user_id')
+            ->whereMonth('receipts.created_at', $month)
+            ->whereYear('receipts.created_at', $year)
             ->orderBy('receipts.created_at', 'DESC');
         if (isset($searchData['product_id'])) {
             $query->where('receipts.product_id', '=', $searchData['product_id']);

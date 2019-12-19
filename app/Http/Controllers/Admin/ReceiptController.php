@@ -23,13 +23,22 @@ class ReceiptController extends Controller
         $searchData = $request->all();
         $type = $request->type;
         $receipts = Receipt::getReceipt($searchData);
+        $month = $request->month;
+        $year = $request->year;
+        $now = Carbon::now();
+        if (empty($month)) {
+            $month = $now->month;
+        }
+        if (empty($year)) {
+            $year = $now->year;
+        }
 
-        $in = Receipt::where('type', 'in');
+        $in = Receipt::where('type', 'in')->whereMonth('created_at', $month)->whereYear('created_at', $year);
         if (!empty($request->product_id)) {
            $in = $in->where('product_id', $request->product_id);
         }
 
-        $out = Receipt::where('type', 'out');
+        $out = Receipt::where('type', 'out')->whereMonth('created_at', $month)->whereYear('created_at', $year);
         if (!empty($request->product_id)) {
             $out = $out->where('product_id', $request->product_id);
         }
@@ -40,7 +49,7 @@ class ReceiptController extends Controller
         $outAmount = $out->sum('total_amount');
 
         $products = Product::all();
-        return view('admin.receipt.index', compact('receipts', 'searchData', 'products', 'inQuantity', 'outQuantity', 'inAmount', 'outAmount', 'type'));
+        return view('admin.receipt.index', compact('receipts', 'searchData', 'products', 'inQuantity', 'outQuantity', 'inAmount', 'outAmount', 'type', 'month', 'year'));
     }
 
     /**

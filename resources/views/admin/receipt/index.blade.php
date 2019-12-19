@@ -23,7 +23,7 @@
                 <div class="box-body" style="">
                     <div class="row">
                         <!-- /.form-group -->
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>Sản phẩm</label>
                             <select class="form-control" style="width: 100%;" name="product_id">
                                 <option value="">Chọn</option>
@@ -34,7 +34,7 @@
                         </div>
                         <!-- /.form-group -->
                         <!-- /.form-group -->
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>Loại phiếu</label>
                             <select class="form-control" style="width: 100%;" name="type">
                                 <option value="">Chọn</option>
@@ -42,6 +42,43 @@
                                 <option value="out" {{ $type == 'out' ? 'selected' : ''}}>Phiếu xuất</option>
                             </select>
                         </div>
+
+                        <div class="form-group col-md-4 input-group">
+                            <label>Chọn tháng</label>
+                            <div class="row">
+                                <div class="col-md-6" style="padding-right: 5px">
+                                    <select class="form-control" style="width: 100%;" name="month" id="month_picker">
+                                        <option value="">Chọn tháng</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5"  style="padding-left: 5px">
+                                    <select class="form-control" style="width: 100%;" name="year" id="year_picker">
+                                        <option value="">Chọn năm</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
                         <!-- /.form-group -->
                     <!-- /.col -->
                     </div>
@@ -62,11 +99,11 @@
                  style="background-color: #059AE3; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">{{ number_format($inQuantity, 0) }}</h4>
+                    <h4 style="font-size: 26px;">{{ number_format($inQuantity, 0) }}</h4>
                 </div>
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">Tổng số lượng nhập</h4>
+                    <h4 style="font-size: 26px">Số lượng nhập</h4>
                 </div>
 
             </div>
@@ -78,11 +115,11 @@
                  style="background-color: #8AC24A; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">{{ number_format($outQuantity, 0) }}</h4>
+                    <h4 style="font-size: 26px">{{ number_format($outQuantity, 0) }}</h4>
                 </div>
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">Tổng số lượng xuất</h4>
+                    <h4 style="font-size: 26px">Số lượng xuất</h4>
                 </div>
 
             </div>
@@ -94,11 +131,11 @@
                  style="background-color: #D32D2F; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">{{ number_format($inAmount, 0) }}</h4>
+                    <h4 style="font-size: 26px">{{ number_format($inAmount, 0) }}</h4>
                 </div>
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">Tổng số tiền nhập</h4>
+                    <h4 style="font-size: 26px">Số tiền nhập</h4>
                 </div>
 
             </div>
@@ -109,11 +146,11 @@
                  style="background-color: #FF8800; height: 150px; color: #fff; padding-top: 20px; padding-left: 20px">
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">{{ number_format($outAmount, 0) }}</h4>
+                    <h4 style="font-size: 26px">{{ number_format($outAmount, 0) }}</h4>
                 </div>
 
                 <div class="title">
-                    <h4 style="font-size: 30px;">Tổng số tiền xuất</h4>
+                    <h4 style="font-size: 26px">Số tiền xuất</h4>
                 </div>
 
             </div>
@@ -203,7 +240,6 @@
 @section('css')
 
     <link rel="stylesheet" href="/css/admin_custom.css">
-
 @stop
 
 @section('js')
@@ -214,5 +250,10 @@
             var modal = $(this);
             $("#deleteForm").attr("action",url)
         });
+     $(document).ready(function () {
+         var d = new Date();
+         $('#month_picker').val({{ $month }});
+         $('#year_picker').val({{ $year }});
+     })
     </script>
 @stop
