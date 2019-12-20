@@ -205,10 +205,11 @@
                                         <th>Mã SP</th>
                                         <th>Tên SP</th>
                                         <th>Danh mục</th>
-                                        <th>Số lượng nhập</th>
-                                        <th>Số lượng xuất</th>
-                                        <th>Số lượng bán</th>
-                                        <th>Tổng còn trong kho</th>
+                                        <th>Tổng nhập</th>
+                                        <th>Tổng xuất</th>
+                                        <th>Tổng bán</th>
+                                        <th>Tổng trả</th>
+                                        <th>Tổng kho</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -218,12 +219,11 @@
                                         </td>
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->category->name ?? '' }}</td>
-                                        <td>{{ $value->in }}</td>
-                                        <td>{{ $value->out }}</td>
-                                        <td>{{ $value->sale_quantity }}</td>
+                                        <td>{{ number_format($value->in) }}</td>
+                                        <td>{{ number_format($value->out) }}</td>
+                                        <td>{{ number_format($value->sale_quantity) }}</td>
+                                        <td>{{ number_format($value->return_quantity) }}</td>
                                         <td>{{ $value->quantity }}</td>
-                                        {{--<td>{{ number_format($value->quantity, 0) ?? '' }}</td>--}}
-                                        {{--<td>{{ number_format($value->total_amount, 0) ?? '' }}</td>--}}
                                     </tr>
                                 @endforeach
                                 </tbody>

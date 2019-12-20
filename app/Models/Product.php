@@ -12,7 +12,7 @@ class Product extends Model
     protected $table = 'products';
     protected $perPage = 20;
     protected $dates = ['created_at', 'created_at'];
-    protected $fillable = ['sku', 'name', 'id_category', 'description', 'price', 'detail', 'image', 'quantity', 'sale_id', 'input_price', 'status'];
+    protected $fillable = ['sku', 'name', 'id_category', 'description', 'price', 'detail', 'image', 'quantity', 'sale_id', 'input_price', 'status', 'return_quantity'];
 
     public static function getProducts($searchData) {
         $query = DB::table('products')

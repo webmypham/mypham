@@ -172,17 +172,24 @@ class OrderController extends Controller
             ];
 
             if (strval($request->status) == 11 || strval($request->status) == 1) {
-
                 foreach ($orderDetails as $key => $detail) {
                     $quantity = $detail->quantity;
                     $product = Product::where('id', $detail->id_product)->first();
                     if ($product) {
                         $productQuantity = $product->quantity;
+                        $productReturnQuantity = $product->return_quantity;
                         $newQuantity = $productQuantity + $quantity;
-                        $product->update(['quantity' => $newQuantity]);
+                        if (strval($request->status) == 11) {
+                            $product->update(['quantity' => $newQuantity, 'return_quantity' => ($quantity + $productReturnQuantity)]);
+                        } else {
+                            $product->update(['quantity' => $newQuantity]);
+                        }
+
                     }
 
                 }
+
+
             }
             Order::where('id', $id)->update($data);
             $order->status = $request->status;
