@@ -180,7 +180,22 @@ class StatisticController extends Controller
         foreach ($products as $key => $value) {
             $value->in = Receipt::where('product_id', $value->id)->where('type', 'in')->sum('quantity');
             $value->out = Receipt::where('product_id', $value->id)->where('type', 'out')->sum('quantity');
-            $value->sale_quantity = DB::table('order_details')->where('id_product', $value->id)->sum('quantity');
+//            $value->sale_quantity = DB::table('order_details')->where('id_product', $value->id)
+//                ->leftJoin('orders', 'order_details.id_order', 'orders.id')
+//                ->whereNotIn('orders.status', [1, 11])
+//                ->sum('order_details.quantity');
+            $sales = DB::table('orders')
+                ->select('orders.*', DB::raw('order_details.quantity'))
+                ->leftJoin('order_details', 'orders.id', 'order_details.id_order')
+                ->groupBy('order_details.id_order')
+                ->whereNotIn('orders.status', [1])
+//                ->sum('order_details.quantity');
+                ->get();
+            $quantity = 0;
+            foreach ($sales as $sale) {
+                $quantity += $sale->quantity;
+            }
+            $value->sale_quantity = $quantity;
         }
 
 
