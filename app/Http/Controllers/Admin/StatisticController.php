@@ -189,6 +189,7 @@ class StatisticController extends Controller
                 ->leftJoin('order_details', 'orders.id', 'order_details.id_order')
                 ->groupBy('order_details.id_order')
                 ->whereNotIn('orders.status', [1])
+                ->where('order_details.id_product', $value->id)
 //                ->sum('order_details.quantity');
                 ->get();
             $quantity = 0;
